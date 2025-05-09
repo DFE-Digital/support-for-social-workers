@@ -1,0 +1,35 @@
+name: Create Release New
+permissions:
+  contents: read
+on:
+  push:
+    branches:
+      - release-testing-branch
+      - prerelease-testing-branch
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment: dev
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: "npm"
+
+      - name: Install semantic-release
+        run: npm install --global semantic-release@23 @semantic-release/git @semantic-release/github
+
+      - name: Run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT }}
+        run: npx semantic-release --debug
