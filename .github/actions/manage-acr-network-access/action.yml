@@ -38,7 +38,7 @@ runs:
           --name ${{ inputs.acr-name }} \
           --public-network-enabled false > /dev/null
 
-    - name: Sleep 40s
+    - name: Sleep 60s
       shell: bash
       run: |
-        sleep 40
+        sleep 60
