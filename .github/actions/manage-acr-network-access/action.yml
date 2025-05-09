@@ -1,0 +1,44 @@
+name: Manage ACR Network Access
+description: Manages network access to the Azure Container Registry
+inputs:
+  acr-name:
+    description: "Azure Container Registry Name"
+    required: true
+  resource-group-name:
+    description: "Resource Group Name for the ACR"
+    required: true
+  github-runner-ip:
+    description: "IP address of the current GitHub runner"
+    required: true
+  enable-network-access:
+    description: "Enable or disable network access"
+    required: true
+runs:
+  using: "composite"
+  steps:
+    - name: Enable Public Network Access to ACR
+      if: ${{ inputs.enable-network-access == 'true' }}
+      shell: bash
+      run: |
+        az acr update \
+          --resource-group ${{ inputs.resource-group-name }} \
+          --name ${{ inputs.acr-name }} \
+          --public-network-enabled true \
+          --default-action Allow > /dev/null
+
+    - name: Disable Public Network Access
+      if: ${{ inputs.enable-network-access == 'false' }}
+      shell: bash
+      run: |
+        if [ $? -ne 0 ]; then
+          echo "Disabling public network access due to workflow failure or cancellation."
+        fi
+        az acr update \
+          --resource-group ${{ inputs.resource-group-name }} \
+          --name ${{ inputs.acr-name }} \
+          --public-network-enabled false > /dev/null
+
+    - name: Sleep 40s
+      shell: bash
+      run: |
+        sleep 40
