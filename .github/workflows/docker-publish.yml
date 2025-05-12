@@ -55,7 +55,7 @@ jobs:
         with:
           context: Childrens-Social-Care-CPD
           push: true
-          tags: ${{ secrets.IMAGE_NAME }}
+          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
           build-args: |
             VCSREF=${{ github.sha }}
             VCSTAG=${{ env.RELEASE_TAG }}
@@ -70,7 +70,7 @@ jobs:
 
       - name: Sign Docker Image
         if: false
-        run: cosign sign --yes ${{ secrets.REGISTRY_NAME }}/${{ secrets.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
+        run: cosign sign --yes ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
         env:
           COSIGN_EXPERIMENTAL: "true"
 
