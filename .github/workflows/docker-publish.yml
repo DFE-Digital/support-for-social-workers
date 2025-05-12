@@ -25,6 +25,11 @@ jobs:
       - name: Set GitHub Runner IP
         run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
 
+      - name: Load Environment Vars
+        run: |
+          echo "REGISTRY=${{ vars.REGISTRY }}" >> $GITHUB_ENV
+          echo "IMAGE_NAME=${{ vars.IMAGE_NAME }}" >> $GITHUB_ENV
+
       - name: Azure CLI Login
         uses: azure/login@v2.2.0
         with:
