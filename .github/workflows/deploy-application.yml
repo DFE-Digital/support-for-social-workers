@@ -104,7 +104,7 @@ jobs:
     #     cache-to: type=gha,mode=max
 
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ${{ env.IMAGE_NAME }}
