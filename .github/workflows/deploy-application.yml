@@ -25,11 +25,10 @@ jobs:
         echo "REGISTRY=${{ vars.REGISTRY }}" >> $GITHUB_ENV
         echo "IMAGE_NAME=${{ vars.IMAGE_NAME }}" >> $GITHUB_ENV
 
-    # - name: Set SHA and Release Tag
-    #   run: |
-    #     echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-    #     echo "RELEASE_TAG=$(git describe --tags --always)" >> $GITHUB_ENV
-    #     echo "IMAGE_TAGS=${{ secrets.IMAGE_NAME }}" >> $GITHUB_ENV
+    - name: Set SHA and Release Tag
+      run: |
+        echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+        echo "RELEASE_TAG=$(git describe --tags --always)" >> $GITHUB_ENV
 
     - name: Azure CLI Login
       uses: azure/login@v2.2.0
@@ -79,36 +78,36 @@ jobs:
       with:
         driver: docker-container
 
-    # - name: Build and push Docker image
-    #   id: build-and-push
-    #   uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
-    #   with:
-    #     context: Childrens-Social-Care-CPD
-    #     push: ${{ github.event_name != 'pull_request' }}
-    #     tags: ${{ secrets.IMAGE_NAME }}
-    #     build-args: |
-    #       VCSREF=${{ env.sha_short }}
-    #       VCSTAG=${{ env.RELEASE_TAG }}
-    #     cache-from: type=gha
-    #     cache-to: type=gha,mode=max
-
-    - name: Build and Push Docker Image
-      uses: docker/build-push-action@v6
+    - name: Build and push Docker image
+      id: build-and-push
+      uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
       with:
         context: Childrens-Social-Care-CPD
         push: ${{ github.event_name != 'pull_request' }}
         tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
         build-args: |
-          VCSREF=${{ github.sha }}
+          VCSREF=${{ env.sha_short }}
           VCSTAG=${{ env.RELEASE_TAG }}
         cache-from: type=gha
         cache-to: type=gha,mode=max
+
+    # - name: Build and Push Docker Image
+    #   uses: docker/build-push-action@v6
+    #   with:
+    #     context: Childrens-Social-Care-CPD
+    #     push: ${{ github.event_name != 'pull_request' }}
+    #     tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
+    #     build-args: |
+    #       VCSREF=${{ github.sha }}
+    #       VCSTAG=${{ env.RELEASE_TAG }}
+    #     cache-from: type=gha
+    #     cache-to: type=gha,mode=max
 
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
-        images: ${{ env.IMAGE_TAGS }}
+        images: ${{ env.IMAGE_NAME }}
 
     - name: Sleep 60s
       shell: bash
