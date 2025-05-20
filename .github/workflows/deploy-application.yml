@@ -73,7 +73,7 @@ jobs:
       uses: azure/CLI@v1
       with: 
         inlineScript: |
-          az resource update --resource-group "${{ env.PROJECT_CODE }}${{ env.INSTANCE }}-rg-${{ env.PROJECT_NAME }}-app" \
+          az resource update --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
           --name "app-${{ env.PROJECT_NAME }}-${{ env.INSTANCE }}" --resource-type "Microsoft.Web/sites" \
           --set properties.vnetImagePullEnabled=true > /dev/null
 
