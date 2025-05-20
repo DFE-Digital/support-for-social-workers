@@ -70,9 +70,8 @@ jobs:
           --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
 
     - name: Set vnetImagePullEnabled for App Service
-      uses: azure/CLI@v1
-      with: 
-        inlineScript: |
+      shell: bash
+      run: |        
           az resource update --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
           --name "app-${{ env.PROJECT_NAME }}-${{ env.INSTANCE }}" --resource-type "Microsoft.Web/sites" \
           --set properties.vnetImagePullEnabled=true > /dev/null
