@@ -93,23 +93,11 @@ jobs:
         cache-from: type=gha
         cache-to: type=gha,mode=max
 
-    # - name: Build and Push Docker Image
-    #   uses: docker/build-push-action@v6
-    #   with:
-    #     context: Childrens-Social-Care-CPD
-    #     push: ${{ github.event_name != 'pull_request' }}
-    #     tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
-    #     build-args: |
-    #       VCSREF=${{ github.sha }}
-    #       VCSTAG=${{ env.RELEASE_TAG }}
-    #     cache-from: type=gha
-    #     cache-to: type=gha,mode=max
-
-    # - name: Deploy to Azure Web App
-    #   uses: azure/webapps-deploy@v2
-    #   with:
-    #     app-name: ${{ secrets.APP_SERVICE_NAME }}
-    #     images: ${{ env.IMAGE_NAME }}
+    - name: Deploy to Azure Web App
+      uses: azure/webapps-deploy@v2
+      with:
+        app-name: ${{ secrets.APP_SERVICE_NAME }}
+        images: ${{ env.IMAGE_NAME }}
   
     # - name: Disable Network Access for ACR
     #   uses: ./.github/actions/manage-acr-network-access
