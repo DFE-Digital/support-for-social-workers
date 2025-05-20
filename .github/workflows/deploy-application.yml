@@ -1,8 +1,8 @@
 name: Deploy Application
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '30 7 * * 1-5'
+  # schedule:
+  #   - cron: '30 7 * * 1-5'
 permissions:
     id-token: write
     contents: read
@@ -103,16 +103,21 @@ jobs:
     #     cache-from: type=gha
     #     cache-to: type=gha,mode=max
 
+    - name: Sleep 60s
+      shell: bash
+      run: |
+        sleep 60
+
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
       with:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ${{ env.IMAGE_NAME }}
 
-    - name: Sleep 60s
+    - name: Sleep 120s
       shell: bash
       run: |
-        sleep 60
+        sleep 120
   
     - name: Disable Network Access for ACR
       uses: ./.github/actions/manage-acr-network-access
