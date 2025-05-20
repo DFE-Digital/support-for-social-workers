@@ -84,7 +84,9 @@ jobs:
       with:
         context: Childrens-Social-Care-CPD
         push: ${{ github.event_name != 'pull_request' }}
-        tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
+        tags: |
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
+          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
         build-args: |
           VCSREF=${{ github.sha }}
           VCSTAG=${{ env.RELEASE_TAG }}
