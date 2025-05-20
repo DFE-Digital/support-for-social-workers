@@ -103,11 +103,11 @@ jobs:
     #     cache-from: type=gha
     #     cache-to: type=gha,mode=max
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ secrets.APP_SERVICE_NAME }}
-        images: ${{ env.IMAGE_NAME }}
+    # - name: Deploy to Azure Web App
+    #   uses: azure/webapps-deploy@v2
+    #   with:
+    #     app-name: ${{ secrets.APP_SERVICE_NAME }}
+    #     images: ${{ env.IMAGE_NAME }}
   
     # - name: Disable Network Access for ACR
     #   uses: ./.github/actions/manage-acr-network-access
