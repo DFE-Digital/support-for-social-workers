@@ -69,6 +69,14 @@ jobs:
           --source-address-prefix "${{ env.GITHUB_RUNNER_IP }}" \
           --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
 
+    - name: Set vnetImagePullEnabled for App Service
+      uses: azure/CLI@v1
+      with: 
+        inlineScript: |
+          az resource update --resource-group "${{ env.PROJECT_CODE }}${{ env.INSTANCE }}-rg-${{ env.PROJECT_NAME }}-app" \
+          --name "app-${{ env.PROJECT_NAME }}-${{ env.INSTANCE }}" --resource-type "Microsoft.Web/sites" \
+          --set properties.vnetImagePullEnabled=true > /dev/null
+
     - name: Log in to ACR
       run: |
         az acr login --name ${{ secrets.REGISTRY_NAME }}
