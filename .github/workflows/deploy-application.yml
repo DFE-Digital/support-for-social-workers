@@ -73,6 +73,29 @@ jobs:
       run: |
         az acr login --name ${{ secrets.REGISTRY_NAME }}
 
+    - name: Remove 'latest' tag from ACR
+      shell: bash
+      run: |
+        az acr login --name ${{ secrets.REGISTRY_NAME }}
+        # Find the digest of the 'latest' image
+        DIGEST=$(az acr repository show-manifests \
+          --name ${{ secrets.REGISTRY_NAME }} \
+          --repository myapp \
+          --query "[?tags[?@=='latest']].digest" \
+          --output tsv)
+        # Untag 'latest' if it exists
+        if [ -n "$DIGEST" ]; then
+          echo "Removing 'latest' tag from digest $DIGEST"
+          az acr repository untag \
+            --name ${{ secrets.REGISTRY_NAME }} \
+            --image ${{ env.IMAGE_NAME }}@${DIGEST}
+        else
+          echo "No 'latest' tag found"
+        fi
+
+
+
+
     - name: Set up Docker Buildx
       uses: docker/setup-buildx-action@v3
       with:
@@ -99,15 +122,15 @@ jobs:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ${{ env.IMAGE_NAME }}
   
-    - name: Restart App Service
-      shell: bash
-      run: |
-        az webapp restart --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
+    # - name: Restart App Service
+    #   shell: bash
+    #   run: |
+    #     az webapp restart --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
 
-    - name: Sleep 10m
+    - name: Sleep 3m
       shell: bash
       run: |
-        sleep 600
+        sleep 180
 
     - name: Disable Network Access for ACR
       uses: ./.github/actions/manage-acr-network-access
