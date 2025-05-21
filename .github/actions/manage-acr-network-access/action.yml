@@ -37,8 +37,3 @@ runs:
           --resource-group ${{ inputs.resource-group-name }} \
           --name ${{ inputs.acr-name }} \
           --public-network-enabled false > /dev/null
-
-    - name: Sleep 60s
-      shell: bash
-      run: |
-        sleep 60
