@@ -99,6 +99,11 @@ jobs:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ${{ env.IMAGE_NAME }}
   
+    - name: Restart App Service
+      shell: bash
+      run: |
+        az webapp restart --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
+
     # - name: Sleep 5m
     #   shell: bash
     #   run: |
