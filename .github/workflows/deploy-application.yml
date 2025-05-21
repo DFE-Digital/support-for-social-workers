@@ -104,10 +104,10 @@ jobs:
       run: |
         az webapp restart --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
 
-    # - name: Sleep 5m
-    #   shell: bash
-    #   run: |
-    #     sleep 300
+    - name: Sleep 10m
+      shell: bash
+      run: |
+        sleep 600
 
     - name: Disable Network Access for ACR
       uses: ./.github/actions/manage-acr-network-access
