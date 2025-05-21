@@ -80,7 +80,7 @@ jobs:
         # Find the digest of the 'latest' image
         DIGEST=$(az acr repository show-manifests \
           --name ${{ secrets.REGISTRY_NAME }} \
-          --repository myapp \
+          --repository ${{ env.IMAGE_NAME }} \
           --query "[?tags[?@=='latest']].digest" \
           --output tsv)
         # Untag 'latest' if it exists
