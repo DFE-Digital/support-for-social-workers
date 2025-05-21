@@ -88,7 +88,7 @@ jobs:
           echo "Removing 'latest' tag from digest $DIGEST"
           az acr repository untag \
             --name ${{ secrets.REGISTRY_NAME }} \
-            --image ${{ env.IMAGE_NAME }}@${DIGEST}
+            --image ${{ env.IMAGE_NAME }}:latest@${DIGEST}
         else
           echo "No 'latest' tag found"
         fi
