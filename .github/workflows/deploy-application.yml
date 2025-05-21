@@ -100,22 +100,22 @@ jobs:
         images: ${{ env.IMAGE_NAME }}
   
 
-    - name: Enable Continuous Deployment
-      shell: bash    
-      run: |
-        echo "Enabling Continuous Deployment..."
-        az webapp deployment container config --enable-cd true --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
+    # - name: Enable Continuous Deployment
+    #   shell: bash    
+    #   run: |
+    #     echo "Enabling Continuous Deployment..."
+    #     az webapp deployment container config --enable-cd true --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
 
-    - name: Sleep 1m
-      shell: bash
-      run: |
-        sleep 60
+    # - name: Sleep 1m
+    #   shell: bash
+    #   run: |
+    #     sleep 60
 
-    - name: Disable Continuous Deployment
-      shell: bash    
-      run: |        
-        echo "Disabling Continuous Deployment..."
-        az webapp deployment container config --enable-cd false --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}        
+    # - name: Disable Continuous Deployment
+    #   shell: bash    
+    #   run: |        
+    #     echo "Disabling Continuous Deployment..."
+    #     az webapp deployment container config --enable-cd false --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}        
 
     # - name: Restart App Service
     #   shell: bash
