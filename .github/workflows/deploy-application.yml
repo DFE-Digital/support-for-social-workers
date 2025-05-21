@@ -37,13 +37,13 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    # - name: Enable Network Access for ACR
-    #   uses: ./.github/actions/manage-acr-network-access
-    #   with:
-    #     acr-name: "${{ secrets.REGISTRY_NAME }}"
-    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-    #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-    #     enable-network-access: true
+    - name: Enable Network Access for ACR
+      uses: ./.github/actions/manage-acr-network-access
+      with:
+        acr-name: "${{ secrets.REGISTRY_NAME }}"
+        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+        enable-network-access: true
 
     - name: Enable Network Access for App Service
       uses: ./.github/actions/manage-app-service-network-access
@@ -99,18 +99,18 @@ jobs:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ${{ env.IMAGE_NAME }}
   
-    # - name: Sleep 5m
-    #   shell: bash
-    #   run: |
-    #     sleep 300
+    - name: Sleep 5m
+      shell: bash
+      run: |
+        sleep 300
 
-    # - name: Disable Network Access for ACR
-    #   uses: ./.github/actions/manage-acr-network-access
-    #   with:
-    #     acr-name: "${{ secrets.REGISTRY_NAME }}"
-    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-    #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-    #     enable-network-access: false
+    - name: Disable Network Access for ACR
+      uses: ./.github/actions/manage-acr-network-access
+      with:
+        acr-name: "${{ secrets.REGISTRY_NAME }}"
+        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+        enable-network-access: false
 
     - name: Remove Inbound NSG Rule for App Service
       shell: bash
