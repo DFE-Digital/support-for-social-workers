@@ -137,7 +137,7 @@ jobs:
         az webapp config container set \
           --name ${{ secrets.APP_SERVICE_NAME }} \
           --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }} \
-          --docker-custom-image-name myregistry.azurecr.io/myapp:latest
+          --docker-custom-image-name ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
     - name: Disable Network Access for ACR
       uses: ./.github/actions/manage-acr-network-access
