@@ -42,7 +42,6 @@ jobs:
       with:
         acr-name: "${{ secrets.REGISTRY_NAME }}"
         resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
         enable-network-access: true
 
     - name: Enable Network Access for App Service
@@ -78,10 +77,10 @@ jobs:
       with:
         driver: docker-container
 
-    - name: Sleep 3m
+    - name: Sleep 1m
       shell: bash
       run: |
-        sleep 180
+        sleep 60
 
     - name: Build and push Docker image
       id: build-and-push
@@ -127,10 +126,18 @@ jobs:
     #   run: |
     #     az webapp restart --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
 
-    - name: Sleep 3m
+    - name: Sleep 2m
       shell: bash
       run: |
-        sleep 180
+        sleep 120
+
+    - name: az webapp config container set
+      shell: bash
+      run: |
+        az webapp config container set \
+          --name ${{ secrets.APP_SERVICE_NAME }} \
+          --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }} \
+          --docker-custom-image-name myregistry.azurecr.io/myapp:latest
 
     - name: Disable Network Access for ACR
       uses: ./.github/actions/manage-acr-network-access

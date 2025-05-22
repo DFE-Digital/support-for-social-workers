@@ -7,9 +7,6 @@ inputs:
   resource-group-name:
     description: "Resource Group Name for the ACR"
     required: true
-  github-runner-ip:
-    description: "IP address of the current GitHub runner"
-    required: true
   enable-network-access:
     description: "Enable or disable network access"
     required: true
