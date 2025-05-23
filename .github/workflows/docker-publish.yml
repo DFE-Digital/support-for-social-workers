@@ -31,7 +31,7 @@ jobs:
           echo "IMAGE_NAME=${{ vars.IMAGE_NAME }}" >> $GITHUB_ENV
 
       - name: Azure CLI Login
-        uses: azure/login@v2.2.0
+        uses: azure/login@v2.3.0
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
