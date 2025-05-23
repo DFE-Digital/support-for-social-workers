@@ -77,11 +77,6 @@ jobs:
       with:
         driver: docker-container
 
-    - name: Sleep 1m
-      shell: bash
-      run: |
-        sleep 60
-
     - name: Build and push Docker image
       id: build-and-push
       uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
@@ -126,18 +121,18 @@ jobs:
     #   run: |
     #     az webapp restart --name ${{ secrets.APP_SERVICE_NAME }} --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }}
 
-    - name: Sleep 2m
-      shell: bash
-      run: |
-        sleep 120
+    # - name: Sleep 2m
+    #   shell: bash
+    #   run: |
+    #     sleep 120
 
-    - name: az webapp config container set
-      shell: bash
-      run: |
-        az webapp config container set \
-          --name ${{ secrets.APP_SERVICE_NAME }} \
-          --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }} \
-          --docker-custom-image-name ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+    # - name: az webapp config container set
+    #   shell: bash
+    #   run: |
+    #     az webapp config container set \
+    #       --name ${{ secrets.APP_SERVICE_NAME }} \
+    #       --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }} \
+    #       --docker-custom-image-name ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
     - name: Disable Network Access for ACR
       uses: ./.github/actions/manage-acr-network-access
