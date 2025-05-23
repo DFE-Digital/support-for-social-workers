@@ -134,13 +134,13 @@ jobs:
     #       --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }} \
     #       --docker-custom-image-name ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
-    - name: Disable Network Access for ACR
-      uses: ./.github/actions/manage-acr-network-access
-      with:
-        acr-name: "${{ secrets.REGISTRY_NAME }}"
-        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-        enable-network-access: false
+    # - name: Disable Network Access for ACR
+    #   uses: ./.github/actions/manage-acr-network-access
+    #   with:
+    #     acr-name: "${{ secrets.REGISTRY_NAME }}"
+    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+    #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+    #     enable-network-access: false
 
     - name: Remove Inbound NSG Rule for App Service
       shell: bash
