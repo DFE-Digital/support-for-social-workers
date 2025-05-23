@@ -17,25 +17,25 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
 
-    - name: Set GitHub Runner IP
-      run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
+    # - name: Set GitHub Runner IP
+    #   run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
 
-    - name: Load Environment Vars
-      run: |
-        echo "REGISTRY=${{ vars.REGISTRY }}" >> $GITHUB_ENV
-        echo "IMAGE_NAME=${{ vars.IMAGE_NAME }}" >> $GITHUB_ENV
+    # - name: Load Environment Vars
+    #   run: |
+    #     echo "REGISTRY=${{ vars.REGISTRY }}" >> $GITHUB_ENV
+    #     echo "IMAGE_NAME=${{ vars.IMAGE_NAME }}" >> $GITHUB_ENV
 
-    - name: Set SHA and Release Tag
-      run: |
-        echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
-        echo "RELEASE_TAG=$(git describe --tags --always)" >> $GITHUB_ENV
+    # - name: Set SHA and Release Tag
+    #   run: |
+    #     echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+    #     echo "RELEASE_TAG=$(git describe --tags --always)" >> $GITHUB_ENV
 
-    - name: Azure CLI Login
-      uses: azure/login@v2.2.0
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    # - name: Azure CLI Login
+    #   uses: azure/login@v2.2.0
+    #   with:
+    #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+    #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+    #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
     # - name: Enable Network Access for ACR
     #   uses: ./.github/actions/manage-acr-network-access
@@ -44,59 +44,75 @@ jobs:
     #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
     #     enable-network-access: true
 
-    - name: Enable Network Access for App Service
-      uses: ./.github/actions/manage-app-service-network-access
+    # - name: Enable Network Access for App Service
+    #   uses: ./.github/actions/manage-app-service-network-access
+    #   with:
+    #     app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
+    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+    #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+    #     enable-network-access: true
+
+    # - name: Add Inbound NSG Rule for App Service
+    #   shell: bash
+    #   run: |
+    #     az network nsg rule create \
+    #       --nsg-name "${{ secrets.NSG_NAME }}" \
+    #       --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
+    #       --name "Allow-GitHub-Runner-IP" \
+    #       --priority 100 \
+    #       --direction Inbound \
+    #       --access Allow \
+    #       --protocol Tcp \
+    #       --source-port-range "*" \
+    #       --destination-port-ranges 80 443 \
+    #       --source-address-prefix "${{ env.GITHUB_RUNNER_IP }}" \
+    #       --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
+
+    # - name: Log in to ACR
+    #   run: |
+    #     az acr login --name ${{ secrets.REGISTRY_NAME }}
+
+    # - name: Set up Docker Buildx
+    #   uses: docker/setup-buildx-action@v3
+    #   with:
+    #     driver: docker-container
+
+
+
+
+
+
+
+    # - name: Build and push Docker image
+    #   id: build-and-push
+    #   uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
+    #   with:
+    #     context: Childrens-Social-Care-CPD
+    #     push: ${{ github.event_name != 'pull_request' }}
+    #     tags: |
+    #       ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
+    #       ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+    #     build-args: |
+    #       VCSREF=${{ github.sha }}
+    #       VCSTAG=${{ env.RELEASE_TAG }}
+    #     cache-from: type=gha
+    #     cache-to: type=gha,mode=max
+
+
+
+    - name: Build and push docker image
+      uses: DFE-Digital/github-actions/build-docker-image@master
       with:
-        app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
-        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-        enable-network-access: true
-
-    - name: Add Inbound NSG Rule for App Service
-      shell: bash
-      run: |
-        az network nsg rule create \
-          --nsg-name "${{ secrets.NSG_NAME }}" \
-          --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
-          --name "Allow-GitHub-Runner-IP" \
-          --priority 100 \
-          --direction Inbound \
-          --access Allow \
-          --protocol Tcp \
-          --source-port-range "*" \
-          --destination-port-ranges 80 443 \
-          --source-address-prefix "${{ env.GITHUB_RUNNER_IP }}" \
-          --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
-
-    - name: Log in to ACR
-      run: |
-        az acr login --name ${{ secrets.REGISTRY_NAME }}
-
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v3
-      with:
-        driver: docker-container
-
-    - name: Build and push Docker image
-      id: build-and-push
-      uses: docker/build-push-action@471d1dc4e07e5cdedd4c2171150001c434f0b7a4
-      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
         context: Childrens-Social-Care-CPD
-        push: ${{ github.event_name != 'pull_request' }}
-        tags: |
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
-          ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
-        build-args: |
-          VCSREF=${{ github.sha }}
-          VCSTAG=${{ env.RELEASE_TAG }}
-        cache-from: type=gha
-        cache-to: type=gha,mode=max
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: ${{ secrets.APP_SERVICE_NAME }}
-        images: ${{ env.IMAGE_NAME }}
+
+
+    # - name: Deploy to Azure Web App
+    #   uses: azure/webapps-deploy@v2
+    #   with:
+    #     app-name: ${{ secrets.APP_SERVICE_NAME }}
+    #     images: ${{ env.IMAGE_NAME }}
   
 
     # - name: Enable Continuous Deployment
@@ -142,19 +158,19 @@ jobs:
     #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
     #     enable-network-access: false
 
-    - name: Remove Inbound NSG Rule for App Service
-      shell: bash
-      run: |
-        az network nsg rule delete \
-          --nsg-name "${{ secrets.NSG_NAME }}" \
-          --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
-          --name "Allow-GitHub-Runner-IP"
+    # - name: Remove Inbound NSG Rule for App Service
+    #   shell: bash
+    #   run: |
+    #     az network nsg rule delete \
+    #       --nsg-name "${{ secrets.NSG_NAME }}" \
+    #       --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
+    #       --name "Allow-GitHub-Runner-IP"
       
-    - name: Disable Network Access for App Service
-      uses: ./.github/actions/manage-app-service-network-access
-      with:
-        app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
-        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-        enable-network-access: false
+    # - name: Disable Network Access for App Service
+    #   uses: ./.github/actions/manage-app-service-network-access
+    #   with:
+    #     app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
+    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+    #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+    #     enable-network-access: false
   
