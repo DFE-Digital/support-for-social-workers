@@ -37,12 +37,12 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Enable Network Access for ACR
-      uses: ./.github/actions/manage-acr-network-access
-      with:
-        acr-name: "${{ secrets.REGISTRY_NAME }}"
-        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-        enable-network-access: true
+    # - name: Enable Network Access for ACR
+    #   uses: ./.github/actions/manage-acr-network-access
+    #   with:
+    #     acr-name: "${{ secrets.REGISTRY_NAME }}"
+    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+    #     enable-network-access: true
 
     - name: Enable Network Access for App Service
       uses: ./.github/actions/manage-app-service-network-access
