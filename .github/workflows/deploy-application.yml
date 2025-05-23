@@ -105,6 +105,7 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         context: Childrens-Social-Care-CPD
+        dockerfile-path: Childrens-Social-Care-CPD/Dockerfile
 
 
 
