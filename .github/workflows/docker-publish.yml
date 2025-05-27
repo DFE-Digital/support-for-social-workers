@@ -25,10 +25,10 @@ jobs:
       - name: Set GitHub Runner IP
         run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
 
-      - name: Load Environment Vars
-        run: |
-          echo "REGISTRY=${{ vars.REGISTRY }}" >> $GITHUB_ENV
-          echo "IMAGE_NAME=${{ vars.IMAGE_NAME }}" >> $GITHUB_ENV
+      # - name: Load Environment Vars
+      #   run: |
+      #     echo "REGISTRY=${{ vars.REGISTRY }}" >> $GITHUB_ENV
+      #     echo "IMAGE_NAME=${{ vars.IMAGE_NAME }}" >> $GITHUB_ENV
 
       - name: Azure CLI Login
         uses: azure/login@v2.2.0
@@ -37,30 +37,39 @@ jobs:
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Enable Network Access for ACR
-        uses: ./.github/actions/manage-acr-network-access
-        with:
-          acr-name: "${{ secrets.REGISTRY_NAME }}"
-          resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-          github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-          enable-network-access: true
+      # - name: Enable Network Access for ACR
+      #   uses: ./.github/actions/manage-acr-network-access
+      #   with:
+      #     acr-name: "${{ secrets.REGISTRY_NAME }}"
+      #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+      #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+      #     enable-network-access: true
 
-      - name: Log in to ACR
-        run: |
-          az acr login --name ${{ secrets.REGISTRY_NAME }}
+      # - name: Log in to ACR
+      #   run: |
+      #     az acr login --name ${{ secrets.REGISTRY_NAME }}
 
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      # - name: Setup Docker Buildx
+      #   uses: docker/setup-buildx-action@v3
+      #   with:
+      #     install: true
+      #     version: latest
+
+      - name: Log into registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@v3.4.0
         with:
-          install: true
-          version: latest
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and Push Docker Image
         uses: docker/build-push-action@v6
         with:
           context: Childrens-Social-Care-CPD
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
+          tags: ghcr.io/dfe-digital/support-for-social-workers:${{ env.RELEASE_TAG }}          
+          # tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.RELEASE_TAG }}
           build-args: |
             VCSREF=${{ github.sha }}
             VCSTAG=${{ env.RELEASE_TAG }}
@@ -79,10 +88,10 @@ jobs:
         env:
           COSIGN_EXPERIMENTAL: "true"
 
-      - name: Disable Network Access for ACR
-        uses: ./.github/actions/manage-acr-network-access
-        with:
-          acr-name: "${{ secrets.REGISTRY_NAME }}"
-          resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-          github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-          enable-network-access: false
+      # - name: Disable Network Access for ACR
+      #   uses: ./.github/actions/manage-acr-network-access
+      #   with:
+      #     acr-name: "${{ secrets.REGISTRY_NAME }}"
+      #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+      #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+      #     enable-network-access: false
