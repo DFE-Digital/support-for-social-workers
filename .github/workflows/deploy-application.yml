@@ -17,8 +17,6 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-      with:
-        ref: ${{ github.event.release.tag_name }}
 
     - name: Set GitHub Runner IP
       run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
@@ -67,9 +65,7 @@ jobs:
       with:
         context: Childrens-Social-Care-CPD
         push: true
-        tags: |
-          ghcr.io/dfe-digital/support-for-social-workers:${{ env.RELEASE_TAG }}
-          ghcr.io/dfe-digital/support-for-social-workers:latest
+        tags: ghcr.io/dfe-digital/support-for-social-workers:latest
         
     - name: Deploy to Azure Web App
       uses: azure/webapps-deploy@v2
