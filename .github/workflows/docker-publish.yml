@@ -49,11 +49,11 @@ jobs:
       #   run: |
       #     az acr login --name ${{ secrets.REGISTRY_NAME }}
 
-      # - name: Setup Docker Buildx
-      #   uses: docker/setup-buildx-action@v3
-      #   with:
-      #     install: true
-      #     version: latest
+      - name: Setup Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          install: true
+          version: latest
 
       - name: Log into registry
         if: github.event_name != 'pull_request'
