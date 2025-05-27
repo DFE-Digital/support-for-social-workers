@@ -124,7 +124,8 @@ jobs:
       with:
         context: Childrens-Social-Care-CPD
         push: true
-        tags: ghcr.io/${{ github.repository_owner }}/support-for-social-workers:latest
+        tags: support-for-social-workers:latest        
+        # tags: ghcr.io/${{ github.repository_owner }}/support-for-social-workers:latest
 
     # - name: Deploy to Azure Web App
     #   uses: azure/webapps-deploy@v2
