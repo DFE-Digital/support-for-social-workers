@@ -45,29 +45,29 @@ jobs:
     #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
     #     enable-network-access: true
 
-    # - name: Enable Network Access for App Service
-    #   uses: ./.github/actions/manage-app-service-network-access
-    #   with:
-    #     app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
-    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-    #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-    #     enable-network-access: true
+    - name: Enable Network Access for App Service
+      uses: ./.github/actions/manage-app-service-network-access
+      with:
+        app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
+        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+        enable-network-access: true
 
-    # - name: Add Inbound NSG Rule for App Service
-    #   shell: bash
-    #   run: |
-    #     az network nsg rule create \
-    #       --nsg-name "${{ secrets.NSG_NAME }}" \
-    #       --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
-    #       --name "Allow-GitHub-Runner-IP" \
-    #       --priority 100 \
-    #       --direction Inbound \
-    #       --access Allow \
-    #       --protocol Tcp \
-    #       --source-port-range "*" \
-    #       --destination-port-ranges 80 443 \
-    #       --source-address-prefix "${{ env.GITHUB_RUNNER_IP }}" \
-    #       --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
+    - name: Add Inbound NSG Rule for App Service
+      shell: bash
+      run: |
+        az network nsg rule create \
+          --nsg-name "${{ secrets.NSG_NAME }}" \
+          --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
+          --name "Allow-GitHub-Runner-IP" \
+          --priority 100 \
+          --direction Inbound \
+          --access Allow \
+          --protocol Tcp \
+          --source-port-range "*" \
+          --destination-port-ranges 80 443 \
+          --source-address-prefix "${{ env.GITHUB_RUNNER_IP }}" \
+          --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
 
     # - name: Log in to ACR
     #   run: |
@@ -191,19 +191,19 @@ jobs:
     #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
     #     enable-network-access: false
 
-    # - name: Remove Inbound NSG Rule for App Service
-    #   shell: bash
-    #   run: |
-    #     az network nsg rule delete \
-    #       --nsg-name "${{ secrets.NSG_NAME }}" \
-    #       --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
-    #       --name "Allow-GitHub-Runner-IP"
+    - name: Remove Inbound NSG Rule for App Service
+      shell: bash
+      run: |
+        az network nsg rule delete \
+          --nsg-name "${{ secrets.NSG_NAME }}" \
+          --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
+          --name "Allow-GitHub-Runner-IP"
       
-    # - name: Disable Network Access for App Service
-    #   uses: ./.github/actions/manage-app-service-network-access
-    #   with:
-    #     app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
-    #     resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-    #     github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-    #     enable-network-access: false
+    - name: Disable Network Access for App Service
+      uses: ./.github/actions/manage-app-service-network-access
+      with:
+        app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
+        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+        enable-network-access: false
   
