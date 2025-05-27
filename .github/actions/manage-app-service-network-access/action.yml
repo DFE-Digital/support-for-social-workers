@@ -55,8 +55,3 @@ runs:
           --resource-group ${{ inputs.resource-group-name }} \
           --name ${{ inputs.app-service-name }} \
           --set publicNetworkAccess=Disabled > /dev/null
-
-    - name: Sleep 40s
-      shell: bash
-      run: |
-        sleep 40
