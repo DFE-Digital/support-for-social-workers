@@ -1,8 +1,8 @@
 name: Deploy Application
 on:
   workflow_dispatch:
-  # schedule:
-  #   - cron: '30 7 * * 1-5'
+  schedule:
+    - cron: '30 7 * * 1-5'
 permissions:
     id-token: write
     contents: read
