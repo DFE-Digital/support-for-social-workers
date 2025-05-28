@@ -26,7 +26,7 @@ jobs:
         run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
 
       - name: Azure CLI Login
-        uses: azure/login@v2.2.0
+        uses: azure/login@v2.3.0
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
