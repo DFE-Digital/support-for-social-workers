@@ -1,6 +1,11 @@
 name: Deploy Application
 on:
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Docker image tag to deploy'
+        required: true
+        default: 'latest'
   schedule:
     - cron: '30 7 * * 1-5'
 permissions:
@@ -68,7 +73,7 @@ jobs:
         tags: ghcr.io/dfe-digital/support-for-social-workers:latest
         
     - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
+      uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ghcr.io/dfe-digital/support-for-social-workers:${{ inputs.tag }}
