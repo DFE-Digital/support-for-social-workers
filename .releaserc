@@ -1,5 +1,5 @@
 {
-  "branches": ["release-testing-branch", { "name": "prerelease-testing-branch", "prerelease": true }],
+  "branches": ["release-testing", { "name": "prerelease-testing", "prerelease": true }],
   "dryRun": false,
   "ci": true,
   "plugins": [
