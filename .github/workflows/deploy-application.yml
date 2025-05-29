@@ -76,7 +76,7 @@ jobs:
       uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
-        images: ghcr.io/dfe-digital/support-for-social-workers:${{ inputs.tag }}
+        images: ghcr.io/dfe-digital/support-for-social-workers:${{ inputs.tag || 'latest' }}
 
     - name: Remove Inbound NSG Rule for App Service
       shell: bash
