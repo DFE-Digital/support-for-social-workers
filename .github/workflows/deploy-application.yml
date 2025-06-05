@@ -2,6 +2,15 @@ name: Deploy Application
 on:
   workflow_dispatch:
     inputs:
+      environment:
+        description: 'Deployment Environment'
+        required: true
+        default: dev
+        type: choice
+        options:
+          - dev
+          - test
+          - pre-prod      
       tag:
         description: 'Docker image tag to deploy'
         required: true
@@ -17,7 +26,7 @@ permissions:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    environment: dev
+    environment: "${{ inputs.environment || 'dev' }}"
 
     steps:
     - name: Checkout code
