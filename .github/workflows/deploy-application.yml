@@ -23,8 +23,11 @@ permissions:
     pull-requests: write
     packages: write
 
+run-name: "Deploy app: ${{ inputs.environment || 'dev' }}"
+
 jobs:
   build-and-deploy:
+    name: "Deploy app: ${{ inputs.environment || 'dev' }}"    
     runs-on: ubuntu-latest
     environment: "${{ inputs.environment || 'dev' }}"
 
