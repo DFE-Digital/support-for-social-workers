@@ -11,7 +11,7 @@ on:
         options:
           - dev
           - test
-          - Pre-Prod
+          - pre-production
 jobs:
   build-test-scan:
     name: Build image and regression test

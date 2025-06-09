@@ -10,7 +10,7 @@ on:
         options:
           - dev
           - test
-          - pre-prod      
+          - pre-production      
       tag:
         description: 'Docker image tag to deploy'
         required: true
