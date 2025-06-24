@@ -11,7 +11,7 @@ on:
         options:
           - dev
           - test
-          - pre-prod
+          - pre-production
 
 jobs:
   test:
