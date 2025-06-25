@@ -85,6 +85,15 @@ jobs:
       with:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ghcr.io/dfe-digital/support-for-social-workers:${{ inputs.tag || 'latest' }}
+        slot-name: 'staging'
+
+    - name: Swap slot to Production
+      run: |
+        az webapp deployment slot swap \
+          -name ${{ secrets.APP_SERVICE_NAME }} \        
+          --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }} \
+          --slot staging \
+          --target-slot production
 
     - name: Remove Inbound NSG Rule for App Service
       shell: bash
