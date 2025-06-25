@@ -90,8 +90,8 @@ jobs:
     - name: Swap slot to Production
       run: |
         az webapp deployment slot swap \
-          -name ${{ secrets.APP_SERVICE_NAME }} \        
-          --resource-group ${{ secrets.APP_RESOURCE_GROUP_NAME }} \
+          -name "${{ secrets.APP_SERVICE_NAME }}" \        
+          --resource-group "${{ secrets.APP_RESOURCE_GROUP_NAME }}" \
           --slot staging \
           --target-slot production
 
