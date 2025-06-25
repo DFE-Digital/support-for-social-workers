@@ -92,7 +92,7 @@ jobs:
         az webapp deployment slot swap \
           -name "${{ secrets.APP_SERVICE_NAME }}" \        
           --resource-group "${{ secrets.APP_RESOURCE_GROUP_NAME }}" \
-          --slot "${{ secrets.APP_SERVICE_NAME }}-staging" \
+          --slot staging \
           --target-slot production
 
     - name: Remove Inbound NSG Rule for App Service
