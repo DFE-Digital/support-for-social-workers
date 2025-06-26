@@ -5,6 +5,9 @@ on:
   pull_request:
     branches: [ "main", "staging" ]
 
+permissions:
+  contents: read
+
 jobs:
   build-test-scan:
     name: Build image and regression test
