@@ -80,11 +80,23 @@ jobs:
         push: true
         tags: ghcr.io/dfe-digital/support-for-social-workers:latest
         
-    - name: Deploy to Azure Web App
+    - name: Deploy to Azure Web App staging slot
       uses: azure/webapps-deploy@v3
       with:
         app-name: ${{ secrets.APP_SERVICE_NAME }}
         images: ghcr.io/dfe-digital/support-for-social-workers:${{ inputs.tag || 'latest' }}
+        slot-name: 'staging'
+
+    # - name: Swap slot to Production
+    #   run: |
+    #     az webapp deployment slot swap \
+    #       --name "${{ secrets.APP_SERVICE_NAME }}" \        
+    #       --resource-group "${{ secrets.APP_RESOURCE_GROUP_NAME }}" \
+    #       --slot staging \
+    #       --target-slot production
+
+    - name: Swap slot to Production
+      run: az webapp deployment slot swap --name "${{ secrets.APP_SERVICE_NAME }}" --resource-group "${{ secrets.APP_RESOURCE_GROUP_NAME }}" --slot staging --target-slot production
 
     - name: Remove Inbound NSG Rule for App Service
       shell: bash
