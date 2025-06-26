@@ -10,6 +10,7 @@ jobs:
   build-test-scan:
     name: Build image and integration test
     runs-on: ubuntu-latest
+    environment: dev
     env:
       CPD_GOOGLEANALYTICSTAG: ${{secrets.TF_VAR_CPD_GOOGLEANALYTICSTAG}}
       CPD_SPACE_ID: ${{secrets.CONTENTFUL_SPACE_ID}}
