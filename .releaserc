@@ -1,5 +1,5 @@
 {
-  "branches": ["main", { "name": "next", "prerelease": true }],
+  "branches": ["main", { "name": "staging", "prerelease": true }],
   "dryRun": false,
   "ci": true,
   "plugins": [

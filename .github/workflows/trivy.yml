@@ -2,9 +2,9 @@ name: Trivy Vulnerability Scan
 
 on:
   push:
-    branches: [next, main]
+    branches: [staging, main]
   pull_request:
-    branches: [next, main]
+    branches: [staging, main]
   schedule:
     - cron: '0 0 * * *'
   workflow_dispatch:
