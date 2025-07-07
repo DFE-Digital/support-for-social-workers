@@ -1,0 +1,44 @@
+name: Run accessibility tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ["main", "staging"]
+
+jobs:
+  run-accessibility-tests:
+    runs-on: ubuntu-latest
+    environment: dev
+    env:
+      CPD_GOOGLEANALYTICSTAG: ${{secrets.TF_VAR_CPD_GOOGLEANALYTICSTAG}}
+      CPD_SPACE_ID: ${{secrets.CONTENTFUL_SPACE_ID}}
+      CPD_PREVIEW_KEY: ${{secrets.CONTENTFUL_PREVIEW_KEY}}
+      CPD_DELIVERY_KEY: ${{secrets.CONTENTFUL_DELIVERY_KEY}}
+      CPD_CLARITY: ${{secrets.TF_VAR_CPD_CLARITY}}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build the Docker App Image
+        run: cd Childrens-Social-Care-CPD; docker build . --file Dockerfile --tag childrens-social-care-cpd:latest
+
+      - name: Install Docker Compose
+        uses: ndeloof/install-compose-action@v0.0.1
+        with:
+          version: latest
+          legacy: true # install in PATH as `docker-compose`
+
+      - name: Verify Docker Compose installation
+        run: docker-compose --version
+
+      - name: Run the app in a container
+        run: docker-compose up
+
+      - name: Run Pa11y accessibility tests
+        run: |
+          npx pa11y-ci \
+            --sitemap "http://localhost:5001/sitemap.xml" \
+            --sitemap-find "https://www.support-for-social-workers.education.gov.uk" \
+            --sitemap-replace "http://localhost:5001" || (docker logs my-app-container && exit 1)
+
+      - name: Run cleanup
+        run: docker-compose down --volumes
