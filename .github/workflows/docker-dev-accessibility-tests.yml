@@ -31,7 +31,7 @@ jobs:
         run: docker-compose --version
 
       - name: Run the app in a container
-        run: docker-compose up
+        run: docker-compose up --build -d
 
       - name: Run Pa11y accessibility tests
         run: |
