@@ -13,6 +13,7 @@ runs:
     - name: Run Pa11y
       shell: bash
       run: npm install -g pa11y-ci && \
+        pa11y-ci \
         --config .pa11yci-ubuntu.js \
         --sitemap "http://localhost:5001/sitemap.xml" \
         --sitemap-find "https://www.support-for-social-workers.education.gov.uk" \
