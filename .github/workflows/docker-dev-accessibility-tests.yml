@@ -10,11 +10,10 @@ jobs:
     runs-on: ubuntu-latest
     environment: dev
     env:
-      CPD_GOOGLEANALYTICSTAG: ${{secrets.TF_VAR_CPD_GOOGLEANALYTICSTAG}}
       CPD_SPACE_ID: ${{secrets.CONTENTFUL_SPACE_ID}}
       CPD_PREVIEW_KEY: ${{secrets.CONTENTFUL_PREVIEW_KEY}}
       CPD_DELIVERY_KEY: ${{secrets.CONTENTFUL_DELIVERY_KEY}}
-      CPD_CLARITY: ${{secrets.TF_VAR_CPD_CLARITY}}
+
     steps:
       - uses: actions/checkout@v4
 
@@ -33,8 +32,14 @@ jobs:
       - name: Run the app in a container
         run: docker-compose up --build -d
 
+      - name: Get the web container ID
+        id: get_id
+        run: echo "CONTAINER_ID=$(docker-compose ps -q web)" >> $GITHUB_OUTPUT
+
       - name: Run Pa11y accessibility tests
         uses: ./.github/actions/run-accessibilities-tests
+        with:
+          container-id: ${{ steps.get_id.outputs.CONTAINER_ID }}
 
       - name: Run cleanup
         run: docker-compose down --volumes
