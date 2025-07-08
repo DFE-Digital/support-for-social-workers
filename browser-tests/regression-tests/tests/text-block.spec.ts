@@ -16,7 +16,7 @@ test.describe('Text Block', () => {
     });
 
     test('Text has correct styles', async ({ page }) => {
-        let text = page.getByText('This is an example of a text block with \'Display Title\': Yes and Title Level: 2.');
+        let text = page.getByText('This is an example of a text block with \'Display Title\': Yes and Title Level: 3.');
         await expect(text).toBeVisible();
         await expect(text).toHaveClass('govuk-body-m');
         await expect(text).toHaveCSS('margin-bottom', '20px');
