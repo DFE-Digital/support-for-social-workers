@@ -34,11 +34,7 @@ jobs:
         run: docker-compose up --build -d
 
       - name: Run Pa11y accessibility tests
-        run: |
-          npx pa11y-ci \
-            --sitemap "http://localhost:5001/sitemap.xml" \
-            --sitemap-find "https://www.support-for-social-workers.education.gov.uk" \
-            --sitemap-replace "http://localhost:5001" || (docker logs my-app-container && exit 1)
+        uses: ./.github/actions/run-accessibilities-tests
 
       - name: Run cleanup
         run: docker-compose down --volumes
