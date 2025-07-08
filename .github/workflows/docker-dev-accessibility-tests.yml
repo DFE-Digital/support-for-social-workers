@@ -41,6 +41,9 @@ jobs:
       - name: Verify NPM version
         run: npm version
 
+      - name: Verify NPX verssion
+        run: npx -v
+
       - name: Run the app in a container
         run: docker-compose up --build -d
 
