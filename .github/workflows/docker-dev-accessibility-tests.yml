@@ -32,9 +32,9 @@ jobs:
       - name: Run the app in a container
         run: docker-compose up --build -d
 
-      - name: Get the web container ID
+      - name: Get the container ID
         id: get_id
-        run: echo "CONTAINER_ID=$(docker-compose ps -q web)" >> $GITHUB_OUTPUT
+        run: echo "CONTAINER_ID=$(docker-compose ps -q webapp)" >> $GITHUB_OUTPUT
 
       - name: Run Pa11y accessibility tests
         uses: ./.github/actions/run-accessibilities-tests
