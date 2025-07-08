@@ -13,6 +13,7 @@ jobs:
       CPD_SPACE_ID: ${{secrets.CONTENTFUL_SPACE_ID}}
       CPD_PREVIEW_KEY: ${{secrets.CONTENTFUL_PREVIEW_KEY}}
       CPD_DELIVERY_KEY: ${{secrets.CONTENTFUL_DELIVERY_KEY}}
+      CPD_CONTENTFUL_ENVIRONMENT: dev
 
     steps:
       - uses: actions/checkout@v4
