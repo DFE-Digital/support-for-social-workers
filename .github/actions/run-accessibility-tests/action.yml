@@ -12,7 +12,7 @@ runs:
   steps:
     - name: Run Pa11y
       shell: bash
-      run: npm install -g pa11y-ci && \
+      run: |
         npx pa11y-ci \
         --config .pa11yci-ubuntu.js \
         --sitemap "http://localhost:5001/sitemap.xml" \
