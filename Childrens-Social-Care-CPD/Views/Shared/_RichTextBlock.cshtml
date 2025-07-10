@@ -8,11 +8,31 @@
     {
         if (Model.DisplayTitle)
         {
-            var level = Model.TitleLevel > 0
-                ? Model.TitleLevel
-                : 2;
+            string level = "";
+            string cssClass = "";
+
+            switch (Model.TitleLevel)
+            {
+                case 0:
+                case 2:
+                default:
+                    level = "2";
+                    cssClass = "govuk-heading-m";
+                break;
+
+                case 1:
+                    level = "1";
+                    cssClass = "govuk-heading-l";
+                break;
+
+                case 3:
+                    level = "3";
+                    cssClass = "govuk-heading-s";
+                break;
+            }
 
             var tagBuilder = new TagBuilder($"h{level}");
+            tagBuilder.AddCssClass(cssClass);
             tagBuilder.InnerHtml.Append(Model.Title);
 
             @tagBuilder
@@ -31,5 +51,6 @@
 }
 else
 {
+    RenderTitle();
     <partial name="_RichText" model="Model.Document" />
 }
