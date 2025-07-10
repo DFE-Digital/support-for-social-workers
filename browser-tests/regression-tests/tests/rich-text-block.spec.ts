@@ -94,7 +94,15 @@ test.describe('Rich Text Block', () => {
     });
 
     test('Content separator formatting', async ({ page }) => {
+        let separator = await page
+            .locator('hr:below(:text("embedded content separator"))')
+            .locator('nth=0');
 
+        await expect(separator).toBeVisible();
+        await expect(separator).toHaveClass('govuk-section-break govuk-section-break--m govuk-section-break--visible');
+        await expect(separator).toHaveCSS('border-bottom', '1px solid rgb(177, 180, 182)');
+        await expect(separator).toHaveCSS('margin-bottom', '20px');
+        await expect(separator).toHaveCSS('margin-top', '20px');
     });
 
     test('H1 text formatting', async ({ page }) => {
@@ -131,5 +139,110 @@ test.describe('Rich Text Block', () => {
         await expect(h3Text).toHaveCSS('font-size', '24px');
         await expect(h3Text).toHaveCSS('line-height', '31.9999px');
         await expect(h3Text).toHaveCSS('margin-bottom', '24px');
+    });
+
+    test('Link text formatting', async ({ page }) => {
+        let linkText = await page
+            .locator('a')
+            .filter({ hasText: "this"});
+
+        await expect(linkText).toBeVisible();
+        await expect(linkText).toHaveClass('govuk-link');
+        await expect(linkText).toHaveCSS('font-weight', '400');
+        await expect(linkText).toHaveCSS('font-size', '19px');
+        await expect(linkText).toHaveCSS('line-height', '25px');
+        await expect(linkText).toHaveCSS('color', 'rgb(29, 112, 184)');
+        await expect(linkText).toHaveCSS('text-decoration', 'underline 1px solid rgb(29, 112, 184)');
+    });
+
+    test('Block quote text formatting', async ({ page }) => {
+        let blockQuoteText = await page.getByText(/^Block quotes$/);
+        let blockQuoteContainer = page.locator('div.govuk-inset-text').filter({ has: blockQuoteText });
+
+        await expect(blockQuoteContainer).toBeVisible();
+        await expect(blockQuoteContainer).toHaveClass('govuk-inset-text');
+        await expect(blockQuoteContainer).toHaveCSS('border-left', '10px solid rgb(52, 124, 169)');
+        await expect(blockQuoteContainer).toHaveCSS('margin-bottom', '30px');
+        await expect(blockQuoteContainer).toHaveCSS('margin-top', '30px');
+        await expect(blockQuoteContainer).toHaveCSS('padding', '15px');
+
+        await expect(blockQuoteText).toBeVisible();
+        await expect(blockQuoteText).toHaveClass('govuk-body-m');
+        await expect(blockQuoteText).toHaveCSS('font-weight', '400');
+        await expect(blockQuoteText).toHaveCSS('font-size', '19px');
+        await expect(blockQuoteText).toHaveCSS('line-height', '25px');
+    });
+
+    test('Numbered list text formatting', async ({ page }) => {
+        let numberedListContainer = await page.locator('ol');
+        let numberedListItems = await numberedListContainer.locator('li');
+
+        await expect(numberedListContainer).toBeVisible();
+        await expect(numberedListContainer).toHaveClass('govuk-list govuk-list--number');
+        await expect(numberedListContainer).toHaveCSS('margin-bottom', '20px');
+        await expect(numberedListContainer).toHaveCSS('padding-left', '20px');
+        await expect(numberedListContainer).toHaveCSS('list-style-type', 'decimal');
+
+        await expect(numberedListItems).toHaveCount(2);
+        await expect(numberedListItems.locator("nth=0")).toHaveText('Dog');
+        await expect(numberedListItems.locator("nth=0")).toHaveCSS('font-weight', '400');
+        await expect(numberedListItems.locator("nth=0")).toHaveCSS('font-size', '19px');
+        await expect(numberedListItems.locator("nth=0")).toHaveCSS('line-height', '25px');
+
+        await expect(numberedListItems.locator("nth=1")).toHaveText('Cat');
+        await expect(numberedListItems.locator("nth=1")).toHaveCSS('font-weight', '400');
+        await expect(numberedListItems.locator("nth=1")).toHaveCSS('font-size', '19px');
+        await expect(numberedListItems.locator("nth=1")).toHaveCSS('line-height', '25px');
+    });
+
+    test('Table formatting', async ({ page }) => {
+        let table = page.locator('table');
+        let tableHeaderRow = table.locator('thead');
+        let tableHeaderElements = tableHeaderRow.locator('th');
+        let tableBody = table.locator('tbody').locator('nth=0');
+        let tableBodyElements = tableBody.locator('td');
+        let tableCell = tableBodyElements.locator('nth=0');
+        let tableCellText = tableCell.locator('p');
+
+
+        await expect(table).toBeVisible();
+        await expect(table).toHaveClass('govuk-table');
+        await expect(table).toHaveCSS('border-collapse', 'collapse');
+
+        await expect(tableHeaderRow).toBeVisible();
+        await expect(tableHeaderRow).toHaveCount(1);
+        await expect(tableHeaderRow).toHaveClass('govuk-table__head');
+
+        await expect(tableHeaderElements).toHaveCount(2);
+        await expect(tableHeaderElements.locator('nth=0')).toBeVisible();
+        await expect(tableHeaderElements.locator('nth=0')).toHaveClass('govuk-table__header');
+        await expect(tableHeaderElements.locator('nth=0')).toHaveCSS('font-weight', '700');
+        await expect(tableHeaderElements.locator('nth=0')).toHaveCSS('padding', '10px 20px 10px 0px');
+        await expect(tableHeaderElements.locator('nth=0')).toHaveCSS('border-bottom', '1px solid rgb(177, 180, 182)');
+        await expect(tableHeaderElements.locator('nth=0')).toHaveCSS('text-align', 'left');
+        await expect(tableHeaderElements.locator('nth=0')).toHaveCSS('vertical-align', 'top');
+
+        await expect(tableBody).toBeVisible();
+        await expect(tableBody).toHaveClass('govuk-table__body');
+
+        await expect(tableBodyElements).toHaveCount(2);
+
+        await expect(tableCell).toHaveClass('govuk-table__cell');
+        await expect(tableCell).toHaveCSS('border-bottom', '1px solid rgb(177, 180, 182)');
+        await expect(tableCell).toHaveCSS('padding', '10px 20px 10px 0px');
+        await expect(tableCell).toHaveCSS('text-align', 'left');
+        await expect(tableCell).toHaveCSS('vertical-align', 'top');
+
+        await expect(tableCellText).toBeVisible();
+        await expect(tableCellText).toHaveClass('govuk-body-m');
+        await expect(tableCellText).toHaveCSS('font-size', '19px');
+        await expect(tableCellText).toHaveCSS('font-weight', '400');
+        await expect(tableCellText).toHaveCSS('line-height', '25px');
+        await expect(tableCellText).toHaveCSS('margin-bottom', '20px');
+    });
+
+    test('Embedded image formatting', async ({ page }) => {
+        let image = page.getByAltText('A white goose with a slice of pizza in its mouth.');
+        await expect(image).toBeVisible();
     });
 });
