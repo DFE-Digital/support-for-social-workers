@@ -15,8 +15,8 @@ on:
         description: 'Docker image tag to deploy'
         required: true
         default: 'latest'
-  schedule:
-    - cron: '30 7 * * 1-5'
+  # schedule:
+  #   - cron: '30 7 * * 1-5'
 permissions:
     id-token: write
     contents: read
