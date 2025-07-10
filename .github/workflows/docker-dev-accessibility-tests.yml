@@ -1,0 +1,62 @@
+name: Run accessibility tests
+permissions:
+  contents: read
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches: ["main", "staging"]
+
+jobs:
+  run-accessibility-tests:
+    runs-on: ubuntu-24.04
+    environment: dev
+    env:
+      CPD_SPACE_ID: ${{secrets.CONTENTFUL_SPACE_ID}}
+      CPD_PREVIEW_KEY: ${{secrets.CONTENTFUL_PREVIEW_KEY}}
+      CPD_DELIVERY_KEY: ${{secrets.CONTENTFUL_DELIVERY_KEY}}
+      CPD_CONTENTFUL_ENVIRONMENT: dev
+
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+
+      - name: Build the Docker App Image
+        run: cd Childrens-Social-Care-CPD; docker build . --file Dockerfile --tag childrens-social-care-cpd:latest
+
+      - name: Install Docker Compose
+        uses: ndeloof/install-compose-action@4a33bc31f327b8231c4f343f6fba704fedc0fa23 # v0.0.1
+        with:
+          version: latest
+          legacy: true # install in PATH as `docker-compose`
+
+      - name: Verify Docker Compose installation
+        run: docker-compose --version
+
+      - name: Set up Node.js
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
+        with:
+          node-version: "latest"
+
+      - name: Install latest NPM version
+        run: npm install -g npm@latest
+
+      - name: Verify NPM version
+        run: npm version
+
+      - name: Verify NPX verssion
+        run: npx -v
+
+      - name: Run the app in a container
+        run: docker-compose up --build -d
+
+      - name: Get the container ID
+        id: get_id
+        run: echo "CONTAINER_ID=$(docker-compose ps -q webapp)" >> $GITHUB_OUTPUT
+
+      - name: Run Pa11y accessibility tests
+        uses: ./.github/actions/run-accessibility-tests
+        with:
+          container-id: ${{ steps.get_id.outputs.CONTAINER_ID }}
+
+      - name: Run cleanup
+        run: docker-compose down --volumes

@@ -1,0 +1,21 @@
+name: Run accessibility tests
+description: run Pa11y-ci
+
+inputs:
+  container-id:
+    required: true
+    type: string
+
+runs:
+  using: composite
+
+  steps:
+    - name: Run Pa11y
+      shell: bash
+      run: |
+        npx pa11y-ci \
+        --config .pa11yci-ubuntu.js \
+        --sitemap "http://localhost:5001/sitemap.xml" \
+        --sitemap-find "https://www.support-for-social-workers.education.gov.uk" \
+        --sitemap-replace "http://localhost:5001" || (docker logs ${{ inputs.container-id }} && exit 1)
+      working-directory: ./browser-tests/accessibility-tests/
