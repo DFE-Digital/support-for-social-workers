@@ -58,5 +58,28 @@ jobs:
         with:
           container-id: ${{ steps.get_id.outputs.CONTAINER_ID }}
 
+      - name: Upload Pa11y report
+        uses: actions/upload-artifact@v4
+        with:
+          name: pa11y-report
+          path: browser-tests/accessibility-tests/pa11y-report.html
+
+      - name: Download Pa11y report
+        uses: actions/download-artifact@v4
+        with:
+          name: pa11y-report
+          path: ./pa11y-report
+
+      - name: Output Pa11y report to GitHub Step Summary
+        if: always()
+        run: |
+          echo "📋 Pa11y Accessibility Report" >> $GITHUB_STEP_SUMMARY
+          if [ -f ./pa11y-report/pa11y-report.html ]; then
+            echo "✅ Report generated:" >> $GITHUB_STEP_SUMMARY
+            echo '[Download Pa11y Report](./pa11y-report/pa11y-report.html)' >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ Pa11y report not found." >> $GITHUB_STEP_SUMMARY
+          fi
+
       - name: Run cleanup
         run: docker-compose down --volumes
