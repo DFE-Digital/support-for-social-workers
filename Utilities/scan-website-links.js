@@ -134,8 +134,8 @@ const delay = ms => new Promise(res => setTimeout(res, ms));
 const checkLink = async (link) => {
     var responseStatus;
     try {
-        // wait five seconds - we don't want to flood servers with loads of requests
-        await delay (5000);
+        // wait thirty seconds - we don't want to flood servers with loads of requests
+        await delay (30000);
     
         const response = await axios.get(link, {
             headers: {
