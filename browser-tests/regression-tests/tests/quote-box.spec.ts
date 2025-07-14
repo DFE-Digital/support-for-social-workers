@@ -119,7 +119,6 @@ test.describe('Quote box', () => {
             .locator('nth=3')
             .locator('blockquote');
 
-        let quoteBoxText = quoteBox.getByText('there is no attribution');
         let quoteBoxAttributionContainer = quoteBox.locator('div');
 
         await expect(quoteBoxAttributionContainer).toHaveCount(0);
