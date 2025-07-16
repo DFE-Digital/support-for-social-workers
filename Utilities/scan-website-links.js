@@ -89,7 +89,9 @@ const scanPage = async (url, parent='') => {
         await delay(5000);
 
         // request the target website
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+            "User-Agent": "SfSW Link Checker"
+        });
         const $ = cheerio.load(response.data);
         const links = $('a[href]');
 
