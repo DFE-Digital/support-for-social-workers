@@ -137,12 +137,19 @@ const checkLink = async (link) => {
         // wait 10 seconds - we don't want to flood servers with loads of requests
         await delay (10000);
     
-        const response = await axios.get(link, {
-            headers: {
+        let headers = {
               "Accept": "*/*, application/json, text/plain",
               "Referer": "https://www.support-for-social-workers.education.gov.uk",
               "Referrer-Policy": "strict-origin-when-cross-origin"
-            }});
+            };
+
+        if (link.includes('support-for-social-workers.education.gov.uk')) {
+            headers['User-Agent'] = 'SfSW Link Checker';
+        }
+
+        const response = await axios.get(link, {
+            headers: headers
+        });
 
         responseStatus = response.status;
     }
