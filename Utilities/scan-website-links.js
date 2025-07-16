@@ -130,7 +130,9 @@ const scanPage = async (url, parent='') => {
         }
 
     } catch (error) {
-        addBrokenLink(url, parent, 'internal');
+        if (error.response && error.response.status && error.response.status == 404) {
+            addBrokenLink(url, parent, 'internal');
+        }
     }
 };
 
