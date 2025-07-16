@@ -80,9 +80,14 @@ const addBrokenLink = (url, pages, type) => {
     }
 };
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 const scanPage = async (url, parent='') => {
 
     try {
+        // pause 5 seconds between page requests 
+        await delay(5000);
+
         // request the target website
         const response = await axios.get(url);
         const $ = cheerio.load(response.data);
@@ -128,8 +133,6 @@ const scanPage = async (url, parent='') => {
         addBrokenLink(url, parent, 'internal');
     }
 };
-
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const checkLink = async (link) => {
     var responseStatus;
