@@ -4,7 +4,7 @@
 
 @model Accordion
 
-<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-@Model.Name.Replace(' ', '-')">
+<div class="govuk-accordion" data-module="govuk-accordion" id="accordion-@Model.Name.Replace(' ', '-')" data-testid="accordion">
     @foreach (var link in Model.Sections)
     {
         await Html.RenderContentfulPartialAsync(link );

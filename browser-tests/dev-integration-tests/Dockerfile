@@ -7,5 +7,3 @@ COPY ./package*.json /app/
 COPY ./playwright.config.ts /app/
 
 RUN npm ci
-
-USER pwuser
