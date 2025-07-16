@@ -8,14 +8,13 @@ on:
 jobs:
   generate-sitemap:
     runs-on: ubuntu-latest
-    environment: prod
 
     env:
-      DELIVERY_KEY: ${{ secrets.TF_VAR_CPD_DELIVERY_KEY }}
-      SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
+      DELIVERY_KEY: ${{ secrets.CONTENTFUL_CONTENT_DELIVERY_KEY }}
+      SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
       CONTENTFUL_ENVIRONMENT: master
-      WEBSITE_ROOT: ${{ vars.CPD_WEBSITE_ROOT }}
-      SITEMAP_FILE_PATH: ${{ github.workspace }}/${{ vars.CPD_SITEMAP_FILE_PATH }}
+      WEBSITE_ROOT: ${{ vars.APP_WEBSITE_ROOT }}
+      SITEMAP_FILE_PATH: ${{ github.workspace }}/${{ vars.APP_SITEMAP_FILE_PATH }}
 
     steps:
       - uses: actions/checkout@v4
