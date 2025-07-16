@@ -148,8 +148,14 @@ const checkLink = async (link) => {
               "Referrer-Policy": "strict-origin-when-cross-origin"
             };
 
-        if (link.includes('support-for-social-workers.education.gov.uk')) {
-            headers['User-Agent'] = 'SfSW Link Checker';
+        try {
+            const parsedUrl = new URL(link);
+            if (parsedUrl.host === 'support-for-social-workers.education.gov.uk' || 
+                parsedUrl.host.endsWith('.support-for-social-workers.education.gov.uk')) {
+                headers['User-Agent'] = 'SfSW Link Checker';
+            }
+        } catch (e) {
+            // If the URL is invalid, we skip adding special headers.
         }
 
         const response = await axios.get(link, {
