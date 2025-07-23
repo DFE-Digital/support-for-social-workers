@@ -48,7 +48,7 @@
     @if (ViewBag.ContextModel.UseContainers ?? true)
     {
         <div class="govuk-width-container dfe-width-container infobox-width-container">
-            <div class="@css govuk-grid-column-three-quarters">
+            <div class="@css govuk-grid-column-three-quarters" data-testid="infobox">
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-one-quarter">
                         @Html.Raw(@svg)
@@ -64,7 +64,7 @@
     else
     {
         <div class="govuk-grid-row">
-            <div class="@css">
+            <div class="@css" data-testid="infobox">
                 <div class="govuk-grid-row">
                     <div class="govuk-grid-column-one-quarter">
                         @Html.Raw(@svg)
