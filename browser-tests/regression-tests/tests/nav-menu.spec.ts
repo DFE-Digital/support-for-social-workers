@@ -35,7 +35,7 @@ test.describe('Navigation Menu with Header', () => {
 
     test('Nav items', async ({ page }) => {
 
-        await expect(elements['nav-link-containers']).toHaveCount(18);
+        await expect(elements['nav-link-containers']).toHaveCount(19);
 
         // an inactive (not current page) nav item
         await expect(elements['inactive-nav-element-container']).toHaveCSS('border-left', '4px solid rgb(177, 180, 182)');
