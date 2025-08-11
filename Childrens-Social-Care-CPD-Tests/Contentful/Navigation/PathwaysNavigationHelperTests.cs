@@ -143,6 +143,29 @@ public class PathwaysNavigationHelperTests
         sut.Next.Name.Should().Be("Start pathway");
     }
 
+    [Test]
+    public void Page_Of_Type_Pathways_Overview_Page_Should_Have_Correct_Breadcrumb_Location()
+    {
+        // setup
+        var page = new Content()
+        {
+            PageType = PageType.PathwaysOverviewPage,
+        };
+
+        var pathwaysIndexPage = new Content()
+        {
+            Id = "pathways_index",
+            ContentTitle = "PATHWAYS INDEX"
+        };
+
+        // act
+        var sut = new PathwaysNavigationHelper(page, pathwaysIndexPage);
+
+        // assert
+        sut.BreadcrumbText.Name.Should().Be("Back to PATHWAYS INDEX");
+        sut.BreadcrumbText.Url.Should().Be("/pathways_index");
+    }
+
     #endregion
 
     #region Contents Page
@@ -260,6 +283,31 @@ public class PathwaysNavigationHelperTests
         // assert
         sut.Previous.Url.Should().Be("/START_PAGE_ID");
         sut.Previous.Name.Should().Be("Back to START_PAGE_BREADCRUMB_TEXT");
+    }
+
+    [Test]
+    public void Page_Of_Type_Pathways_Contents_Page_Should_Have_Correct_Breadcrumb_Location()
+    {
+        var page = new Content
+        {
+            PageType = PageType.PathwaysContentsPage,
+            Id = "PAGE_ID",
+            PathwaysModule = new PathwaysModule
+            {
+                OverviewPage = new Content
+                {
+                    Id = "START_PAGE_ID",
+                    ContentTitle = "START_PAGE_CONTENT_TITLE"
+                }
+            }
+        };
+
+        // act
+        var sut = new PathwaysNavigationHelper(page);
+
+        // assert
+        sut.BreadcrumbText.Name.Should().Be("Back to START_PAGE_CONTENT_TITLE");
+        sut.BreadcrumbText.Url.Should().Be("/START_PAGE_ID");
     }
 
     #endregion

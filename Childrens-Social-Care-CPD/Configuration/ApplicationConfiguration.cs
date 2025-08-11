@@ -16,6 +16,7 @@ public class ApplicationConfiguration(IConfiguration configuration) : IApplicati
     public int FeaturePollingInterval => int.TryParse(configuration["CPD_FEATURE_POLLING_INTERVAL"], out var result) ? result : 0;
     public string GitHash => configuration["VCS-REF"];
     public string GoogleTagManagerKey => configuration["CPD_GOOGLEANALYTICSTAG"];
+    public string PathwaysIndexPage => "pathways-social-work-leadership-modules/available-pathways";
     public string SearchApiKey => configuration["CPD_SEARCH_CLIENT_API_KEY"];
     public string SearchEndpoint => configuration["CPD_SEARCH_ENDPOINT"];
     public string SearchIndexName => configuration["CPD_SEARCH_INDEX_NAME"];

@@ -18,7 +18,7 @@
                     ? Model.PathwaysModule.OverviewPage
                     : Model.PathwaysModule.ContentsPage;
 
-                string linkText = navigationPage.BreadcrumbText ?? navigationPage.Title;
+                string linkText = navigationPage.BreadcrumbText ?? navigationPage.ContentTitle;
 
                 <li class="govuk-breadcrumbs__list-item">
                     &lt;
@@ -31,8 +31,8 @@
             case PageType.PathwaysOverviewPage:
                 <li class="govuk-breadcrumbs__list-item">
                     &lt;
-                    <a class="govuk-breadcrumbs__link" href="@contextModel.NavigationHelper.AvailablePathwaysPage.Url">
-                        Back to Available pathways
+                    <a class="govuk-breadcrumbs__link" href="@contextModel.NavigationHelper.BreadcrumbText.Url">
+                        @contextModel.NavigationHelper.BreadcrumbText.Name
                     </a>
                 </li>
             break;
@@ -40,8 +40,8 @@
             case PageType.PathwaysContentsPage:
                 <li class="govuk-breadcrumbs__list-item">
                     &lt;
-                    <a class="govuk-breadcrumbs__link" href="@contextModel.NavigationHelper.Previous.Url">
-                        @contextModel.NavigationHelper.Previous.Name
+                    <a class="govuk-breadcrumbs__link" href="@contextModel.NavigationHelper.BreadcrumbText.Url">
+                        @contextModel.NavigationHelper.BreadcrumbText.Name
                     </a>
                 </li>
             break;

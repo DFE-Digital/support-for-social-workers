@@ -1,4 +1,5 @@
 ﻿using Childrens_Social_Care_CPD;
+using Childrens_Social_Care_CPD.Configuration;
 using Childrens_Social_Care_CPD.Contentful;
 using Childrens_Social_Care_CPD.Contentful.Models;
 using Childrens_Social_Care_CPD.Controllers;
@@ -23,6 +24,7 @@ public class ContentControllerBreadcrumbTests
     private HttpContext _httpContext;
     private HttpRequest _httpRequest;
     private ICpdContentfulClient _contentfulClient;
+    private IApplicationConfiguration _applicationConfiguration;
 
     private void SetContent(List<KeyValuePair<string, Content>> content)
     {
@@ -69,6 +71,7 @@ public class ContentControllerBreadcrumbTests
     [SetUp]
     public void SetUp()
     {
+        _applicationConfiguration = Substitute.For<IApplicationConfiguration>();
         _cookies = Substitute.For<IRequestCookieCollection>();
         _httpContext = Substitute.For<HttpContext>();
         _httpRequest = Substitute.For<HttpRequest>();
@@ -81,7 +84,7 @@ public class ContentControllerBreadcrumbTests
 
         _contentfulClient = Substitute.For<ICpdContentfulClient>();
 
-        _contentController = new ContentController(_contentfulClient)
+        _contentController = new ContentController(_contentfulClient, _applicationConfiguration)
         {
             ControllerContext = controllerContext,
             TempData = Substitute.For<ITempDataDictionary>()
