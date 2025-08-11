@@ -11,18 +11,28 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/career-stages/practitioner</loc>
-    <lastmod>2025-07-08T16:13:24.203Z</lastmod>
+    <loc>https://www.support-for-social-workers.education.gov.uk/career-stages</loc>
+    <lastmod>2025-06-18T15:56:51.763Z</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/career-stages/experienced-practitioner</loc>
-    <lastmod>2025-07-08T16:13:24.240Z</lastmod>
+    <loc>https://www.support-for-social-workers.education.gov.uk/career-stages/practitioner</loc>
+    <lastmod>2025-07-08T16:13:24.203Z</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/senior-practitioner</loc>
-    <lastmod>2025-07-31T09:15:37.722Z</lastmod>
+    <loc>https://www.support-for-social-workers.education.gov.uk/asye</loc>
+    <lastmod>2025-06-19T15:33:07.470Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.support-for-social-workers.education.gov.uk/develop-social-work-practice</loc>
+    <lastmod>2025-07-02T15:24:18.618Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/newly-qualified-social-worker</loc>
+    <lastmod>2025-07-31T09:15:37.565Z</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -51,6 +61,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/social-worker</loc>
+    <lastmod>2025-07-31T09:15:38.107Z</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/senior-practitioner</loc>
+    <lastmod>2025-07-31T09:15:37.722Z</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/team-manager</loc>
     <lastmod>2025-07-31T09:15:37.066Z</lastmod>
     <priority>0.7</priority>
@@ -59,6 +79,11 @@
     <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/service-manager</loc>
     <lastmod>2025-07-31T09:15:37.533Z</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.support-for-social-workers.education.gov.uk/career-stages/experienced-practitioner</loc>
+    <lastmod>2025-07-08T16:13:24.240Z</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/practice-supervisor</loc>
@@ -72,7 +97,7 @@
   </url>
   <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/practice-development-manager</loc>
-    <lastmod>2025-07-31T09:15:36.959Z</lastmod>
+    <lastmod>2025-08-07T15:35:38.652Z</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -123,26 +148,6 @@
   <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/new-directors-programme</loc>
     <lastmod>2025-06-19T15:33:07.577Z</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/asye</loc>
-    <lastmod>2025-06-19T15:33:07.470Z</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/develop-social-work-practice</loc>
-    <lastmod>2025-07-02T15:24:18.618Z</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/newly-qualified-social-worker</loc>
-    <lastmod>2025-07-31T09:15:37.565Z</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/explore-roles/social-worker</loc>
-    <lastmod>2025-07-31T09:15:38.107Z</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -543,11 +548,6 @@
   <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/become-a-social-worker/ways-to-qualify-as-a-social-worker</loc>
     <lastmod>2025-07-31T09:19:21.282Z</lastmod>
-    <priority>1.0</priority>
-  </url>
-  <url>
-    <loc>https://www.support-for-social-workers.education.gov.uk/career-stages</loc>
-    <lastmod>2025-06-18T15:56:51.763Z</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
