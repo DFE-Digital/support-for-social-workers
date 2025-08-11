@@ -119,13 +119,13 @@
     bool fileIsOds = FileIsODS(Model.Asset.File.FileName, Model.Asset.File.ContentType);
 }
 
-<section class="gem-c-attachment govuk-!-margin-bottom-6" data-module="ga4-link-tracker" data-ga4-link-tracker-module-started="true">
-    <div class="gem-c-attachment__thumbnail govuk-!-display-none-print">
+<section class="gem-c-attachment govuk-!-margin-bottom-6" data-module="ga4-link-tracker" data-ga4-link-tracker-module-started="true" data-testid="asset-download">
+    <div class="gem-c-attachment__thumbnail govuk-!-display-none-print" data-testid="asset-download-icon-container">
         <a class="govuk-link" target="_self" tabindex="-1" aria-hidden="true" data-ga4-link="{&quot;event_name&quot;:&quot;file_download&quot;,&quot;type&quot;:&quot;attachment&quot;}" href="@Model.Asset.File.Url">
             @Html.Raw(@FileTypeIconSVG(@Model.Asset.File.FileName, @Model.Asset.File.ContentType))
         </a>
     </div>
-    <div class="gem-c-attachment__details">
+    <div class="gem-c-attachment__details" data-testid="asset-download-details-container">
         <h3 class="gem-c-attachment__title">
             <a class="govuk-link gem-c-attachment__link" target="_self" data-ga4-link="{&quot;event_name&quot;:&quot;file_download&quot;,&quot;type&quot;:&quot;attachment&quot;}" href="@Model.Asset.File.Url">
                 @Model.LinkText
