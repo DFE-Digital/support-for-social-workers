@@ -79,7 +79,7 @@ test.describe('Navigation Menu without Header', () => {
         elements['nav-link-containers'] = elements['container'].locator('li');
         elements['inactive-nav-element-container'] = elements['nav-link-containers'].locator('nth=0');
         elements['inactive-nav-element'] = elements['inactive-nav-element-container'].locator('a');
-        elements['active-nav-element-container'] = elements['nav-link-containers'].locator('nth=2');
+        elements['active-nav-element-container'] = elements['nav-link-containers'].locator('nth=3');
         elements['active-nav-element'] = elements['active-nav-element-container'].locator('a');
     });
 
@@ -100,7 +100,7 @@ test.describe('Navigation Menu without Header', () => {
 
     test('Nav items', async ({ page }) => {
 
-        await expect(elements['nav-link-containers']).toHaveCount(16);
+        await expect(elements['nav-link-containers']).toHaveCount(19);
 
         // an inactive (not current page) nav item
         await expect(elements['inactive-nav-element-container']).toHaveCSS('border-left', '4px solid rgb(177, 180, 182)');
