@@ -1,4 +1,5 @@
-﻿using Childrens_Social_Care_CPD.Contentful;
+﻿using Childrens_Social_Care_CPD.Configuration;
+using Childrens_Social_Care_CPD.Contentful;
 using Childrens_Social_Care_CPD.Contentful.Models;
 using Childrens_Social_Care_CPD.Contentful.Navigation;
 using Childrens_Social_Care_CPD.Models;
@@ -7,7 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Childrens_Social_Care_CPD.Controllers;
 
-public class ContentController(ICpdContentfulClient cpdClient) : Controller
+public class ContentController(ICpdContentfulClient cpdClient, IApplicationConfiguration applicationConfiguration) : Controller
 {
     private async Task<Content> FetchPageContentAsync(string contentId, CancellationToken cancellationToken)
     {
@@ -106,6 +107,10 @@ public class ContentController(ICpdContentfulClient cpdClient) : Controller
         pagesVisited.Add(pageName);
         HttpContext.Session.Set("pagesVisited", pagesVisited);
 
+        var pathwaysIndex = content.IsPathwaysPage
+            ? await FetchPageContentAsync(applicationConfiguration.PathwaysIndexPage, cancellationToken)
+            : null;
+
         var contextModel = new ContextModel(
             Id: content.Id,
             Title: content.Title,
@@ -120,7 +125,7 @@ public class ContentController(ICpdContentfulClient cpdClient) : Controller
                 FirstPublishedAt: content.Sys?.CreatedAt,
                 LastPublishedAt: content.Sys?.UpdatedAt
             ),
-            NavigationHelper: content.IsPathwaysPage ? new PathwaysNavigationHelper(content) : null,
+            NavigationHelper: content.IsPathwaysPage ? new PathwaysNavigationHelper(content, pathwaysIndex) : null,
             PageHasBanner: content.ShowContentHeader || content.Id == "home");
 
         ViewData["ContextModel"] = contextModel;

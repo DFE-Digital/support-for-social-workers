@@ -1,4 +1,5 @@
-﻿using Childrens_Social_Care_CPD.Contentful;
+﻿using Childrens_Social_Care_CPD.Configuration;
+using Childrens_Social_Care_CPD.Contentful;
 using Childrens_Social_Care_CPD.Contentful.Models;
 using Childrens_Social_Care_CPD.Controllers;
 using Childrens_Social_Care_CPD.Models;
@@ -21,6 +22,7 @@ public class ContentControllerTests
     private HttpContext _httpContext;
     private HttpRequest _httpRequest;
     private ICpdContentfulClient _contentfulClient;
+    private IApplicationConfiguration _applicationConfiguration;
 
     private void SetContent(Content content)
     {
@@ -38,6 +40,7 @@ public class ContentControllerTests
     [SetUp]
     public void SetUp()
     {
+        _applicationConfiguration = Substitute.For<IApplicationConfiguration>();
         _cookies = Substitute.For<IRequestCookieCollection>();
         _httpContext = Substitute.For<HttpContext>();
         _httpRequest = Substitute.For<HttpRequest>();
@@ -49,7 +52,7 @@ public class ContentControllerTests
 
         _contentfulClient = Substitute.For<ICpdContentfulClient>();
 
-        _contentController = new ContentController(_contentfulClient)
+        _contentController = new ContentController(_contentfulClient, _applicationConfiguration)
         {
             ControllerContext = controllerContext,
             TempData = Substitute.For<ITempDataDictionary>()

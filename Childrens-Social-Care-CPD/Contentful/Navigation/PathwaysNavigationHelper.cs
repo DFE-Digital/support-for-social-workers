@@ -12,6 +12,7 @@ public class PathwaysNavigationHelper : INavigationHelper
         Url = "/pathways-social-work-leadership-modules/available-pathways"
     };
     private LocationInfo _currentLocation;
+    private NavigationLocation _breadcrumbText;
 
 
     // properties
@@ -47,7 +48,15 @@ public class PathwaysNavigationHelper : INavigationHelper
         }
     }
 
-    public PathwaysNavigationHelper(Content page)
+    public NavigationLocation BreadcrumbText
+    {
+        get
+        {
+            return _breadcrumbText;
+        }
+    }
+
+    public PathwaysNavigationHelper(Content page, Content pathwaysIndex = null)
     {
         switch (page.PageType)
         {
@@ -69,6 +78,13 @@ public class PathwaysNavigationHelper : INavigationHelper
                         ? "Start module"
                         : "Start pathway"
                 };
+
+                this._breadcrumbText = new NavigationLocation
+                {
+                    Url = "/" + pathwaysIndex?.Id,
+                    Name = "Back to " + pathwaysIndex?.ContentTitle
+                };
+
                 break;
 
             case PageType.PathwaysContentsPage:
@@ -83,6 +99,13 @@ public class PathwaysNavigationHelper : INavigationHelper
                     Url = "/" + page.PathwaysModule?.OverviewPage?.Id,
                     Name = "Back to " + page.PathwaysModule?.OverviewPage?.BreadcrumbText
                 };
+
+                this._breadcrumbText = new NavigationLocation
+                {
+                    Url = "/" + page.PathwaysModule?.OverviewPage?.Id,
+                    Name = "Back to " + page.PathwaysModule?.OverviewPage?.ContentTitle
+                };
+
                 break;
 
             case PageType.PathwaysTrainingContent:
