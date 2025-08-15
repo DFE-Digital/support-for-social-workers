@@ -5,7 +5,7 @@
 @model LinkListCard
 @inject IRenderer<ContentLink> _contentLinkRenderer
 
-<div>
+<div data-testid="link-list-card">
     <govuk-heading level="2" display-size="3">
         @Model.Title
     </govuk-heading>
