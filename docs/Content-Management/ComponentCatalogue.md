@@ -94,7 +94,7 @@ N/A
 Info Box
 </td>
 <td>
-A text box with a light blue shaded background and an 'i' information icon in the top left corner. It is used to draw attention to a particular piece of text.
+A text box to draw attention to a particular piece of text. Options include: blue 'i' icon, green 'i' icon, green 'brain' icon.
 </td>
 <td>
 <img src="Component-Images\info-box.png">
@@ -217,6 +217,36 @@ Allows users to view more detailed information if they need it, as per the GDS c
 </td>
 <td>
 <img src="Component-Images\details.png">
+</td>
+<td>
+N/A
+</td>
+</tr>
+
+<tr>
+<td>
+Credit Block
+</td>
+<td>
+Allows users to view a citation for the resource, including additional contribtors where relevant.
+</td>
+<td>
+<img src="Component-Images\credit-block.png">
+</td>
+<td>
+N/A
+</td>
+</tr>
+
+<tr>
+<td>
+Quote Box
+</td>
+<td>
+Highlights a quote in a box with a border and a large quote icon. Attribution can be rendered left, centre or right. 
+</td>
+<td>
+<img src="Component-Images\quote-box.png">
 </td>
 <td>
 N/A

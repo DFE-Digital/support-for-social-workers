@@ -80,11 +80,18 @@ const addBrokenLink = (url, pages, type) => {
     }
 };
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
 const scanPage = async (url, parent='') => {
 
     try {
+        // pause 5 seconds between page requests 
+        await delay(5000);
+
         // request the target website
-        const response = await axios.get(url);
+        const response = await axios.get(url, {
+            "User-Agent": "SfSW Link Checker"
+        });
         const $ = cheerio.load(response.data);
         const links = $('a[href]');
 
@@ -125,24 +132,37 @@ const scanPage = async (url, parent='') => {
         }
 
     } catch (error) {
-        addBrokenLink(url, parent, 'internal');
+        if (error.response && error.response.status && error.response.status == 404) {
+            addBrokenLink(url, parent, 'internal');
+        }
     }
 };
-
-const delay = ms => new Promise(res => setTimeout(res, ms));
 
 const checkLink = async (link) => {
     var responseStatus;
     try {
-        // wait five seconds - we don't want to flood servers with loads of requests
-        await delay (5000);
+        // wait 10 seconds - we don't want to flood servers with loads of requests
+        await delay (10000);
     
-        const response = await axios.get(link, {
-            headers: {
+        let headers = {
               "Accept": "*/*, application/json, text/plain",
               "Referer": "https://www.support-for-social-workers.education.gov.uk",
               "Referrer-Policy": "strict-origin-when-cross-origin"
-            }});
+            };
+
+        try {
+            const parsedUrl = new URL(link);
+            if (parsedUrl.host === 'support-for-social-workers.education.gov.uk' || 
+                parsedUrl.host.endsWith('.support-for-social-workers.education.gov.uk')) {
+                headers['User-Agent'] = 'SfSW Link Checker';
+            }
+        } catch (e) {
+            // If the URL is invalid, we skip adding special headers.
+        }
+
+        const response = await axios.get(link, {
+            headers: headers
+        });
 
         responseStatus = response.status;
     }

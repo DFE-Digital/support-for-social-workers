@@ -6,4 +6,5 @@ public interface INavigationHelper
     public NavigationLocation Previous { get; }
     public NavigationLocation AvailablePathwaysPage { get; }
     public LocationInfo CurrentLocation { get; }
+    public NavigationLocation BreadcrumbText { get; }
 }
