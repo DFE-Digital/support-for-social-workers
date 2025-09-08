@@ -14,7 +14,7 @@ test.describe('Rich Text Block', () => {
 
     test('Padding and Margins', async ({ page }) => {
         await expect(elements["header"]).toBeVisible();
-        await expect(elements["header"]).toHaveCSS('padding-top', '10px');
+        await expect(elements["header"]).toHaveCSS('padding-top', '20px');
         await expect(elements["header"]).toHaveCSS('margin-bottom', '24px');
 
         await expect(elements["text"]).toBeVisible();
@@ -22,10 +22,10 @@ test.describe('Rich Text Block', () => {
     });
 
     test('Title formatting', async ({ page }) => {
-        await expect(elements["header"]).toHaveClass('govuk-heading-m');
-        await expect(elements["header"]).toHaveCSS('font-size', '24px');
+        await expect(elements["header"]).toHaveClass('govuk-heading-l');
+        await expect(elements["header"]).toHaveCSS('font-size', '32px');
         await expect(elements["header"]).toHaveCSS('font-weight', '700');
-        await expect(elements["header"]).toHaveCSS('line-height', '31.9999px');
+        await expect(elements["header"]).toHaveCSS('line-height', '42.6666px');
     });
     
     test('Normal text formatting', async ({ page }) => {
