@@ -29,7 +29,16 @@ internal class HeadingRendererBase(IRenderer<Text> textRenderer, IRenderer<Hyper
                         }
                         break;
                     }
-                case Text text: h.InnerHtml.AppendHtml(textRenderer.Render(text)); break;
+                case Text text:
+                    h.InnerHtml.AppendHtml(textRenderer.Render(text));
+                    switch (tag)
+                    {
+                        case "h1": h.AddCssClass("govuk-heading-xl"); break;
+                        case "h2": h.AddCssClass("govuk-heading-l"); break;
+                        case "h3": h.AddCssClass("govuk-heading-m"); break;
+                        case "h4": h.AddCssClass("govuk-heading-s"); break;
+                    }
+                break;
                 case Hyperlink hyperlink: h.InnerHtml.AppendHtml(hyperlinkRenderer.Render(hyperlink)); break;
             }
         }
