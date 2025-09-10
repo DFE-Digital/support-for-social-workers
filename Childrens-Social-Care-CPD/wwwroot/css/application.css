@@ -10281,6 +10281,16 @@ DFE banner
   overflow: hidden;
 }
 
+/* Banner Image Container mobile view */
+@media (max-width: 40.0625em) {
+  .dfe-o-banner__image-container-with-sidenav, .dfe-o-banner__image-container-with-no-sidenav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
 /* Image Styles */
 .dfe-o-banner__image-container-with-no-sidenav img, .dfe-o-banner__image-container-with-sidenav img {
   width: 100%;
@@ -10314,7 +10324,7 @@ DFE banner
     width: 100%;
     flex-direction: column-reverse;
   }
-  .dfe-o-banner__content-container, .dfe-o-banner__image-container {
+  .dfe-o-banner__content-container {
     width: 100%;
   }
   .dfe-o-banner .dfe-a-image {
