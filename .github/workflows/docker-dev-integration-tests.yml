@@ -18,7 +18,7 @@ jobs:
       CPD_DELIVERY_KEY: ${{secrets.CONTENTFUL_DELIVERY_KEY}}
       CPD_CLARITY: ${{secrets.TF_VAR_CPD_CLARITY}}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Build the Docker App Image
         run: cd Childrens-Social-Care-CPD; docker build . --file Dockerfile --tag childrens-social-care-cpd:latest
