@@ -18,7 +18,7 @@ env:
 
 jobs:
   build:
-    name: 'Docker Publish'
+    name: "Docker Publish"
     runs-on: ubuntu-latest
     environment: Dev
     permissions:
@@ -31,7 +31,7 @@ jobs:
     steps:
       # Checkout the release tag version
       - name: Checkout repository ${{ env.RELEASE_TAG }}
-        uses: actions/checkout@v4
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
         with:
           ref: ${{ env.RELEASE_TAG }}
 
@@ -41,9 +41,9 @@ jobs:
 
       # Need to lower case the image name for the docker tags when publishing
       - name: Downcase IMAGE_NAME variable
-        run:  echo "IMAGE_NAME_LOWER=${IMAGE_NAME,,}" >> $GITHUB_ENV
-      
-      # Sort out the image tags 
+        run: echo "IMAGE_NAME_LOWER=${IMAGE_NAME,,}" >> $GITHUB_ENV
+
+      # Sort out the image tags
       - name: Set initial tag
         run: echo "IMAGE_TAGS=${{ env.REGISTRY }}/${{ env.IMAGE_NAME_LOWER }}:${{ env.RELEASE_TAG }}" >> $GITHUB_ENV
 
@@ -99,7 +99,7 @@ jobs:
       # transparency data even for private images, pass --force to cosign below.
       # https://github.com/sigstore/cosign
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v3.2.0
+        uses: sigstore/cosign-installer@1fc5bd396d372bee37d608f955b336615edf79c8 # v3.2.0
       - name: Check install!
         run: cosign version
       - name: Sign the published Docker image

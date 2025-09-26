@@ -4,7 +4,7 @@ name: Run integration tests
 on:
   workflow_dispatch:
   pull_request:
-    branches: [ "main", "staging" ]
+    branches: ["main", "staging"]
 
 jobs:
   build-test-scan:
@@ -24,29 +24,29 @@ jobs:
         run: cd Childrens-Social-Care-CPD; docker build . --file Dockerfile --tag childrens-social-care-cpd:latest
 
       - name: Install Docker Compose
-        uses: ndeloof/install-compose-action@v0.0.1
+        uses: ndeloof/install-compose-action@4a33bc31f327b8231c4f343f6fba704fedc0fa23 # v0.0.1
         with:
           version: latest
-          legacy: true  # install in PATH as `docker-compose`
+          legacy: true # install in PATH as `docker-compose`
 
       - name: Verify Docker Compose installation
         run: docker-compose --version
-        
+
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: 'latest'
-      
+          node-version: "latest"
+
       - name: Install latest NPM version
         run: npm install -g npm@latest
-      
+
       - name: Verify NPM version
         run: npm version
 
       - name: Run the dev integration tests
         run: cd browser-tests/dev-integration-tests; docker-compose up --exit-code-from dev-integration-tests
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         name: Playwright report
         if: always()
         with:
@@ -54,7 +54,7 @@ jobs:
           retention-days: 7
           path: |
             ${{ github.workspace }}/browser-tests/dev-integration-tests/playwright-report
-      
+
       - name: Run Tidy up
         if: always()
-        run: cd browser-tests/dev-integration-tests; docker-compose down --volumes      
+        run: cd browser-tests/dev-integration-tests; docker-compose down --volumes
