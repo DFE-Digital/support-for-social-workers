@@ -21,3 +21,7 @@
 <div class="dfe-width-container">
     @RenderBody()
 </div>
+
+@section BackToTop {
+    @await RenderSectionAsync("BackToTop", required: false)
+}
