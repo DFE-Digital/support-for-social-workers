@@ -3,106 +3,105 @@ on:
   workflow_dispatch:
     inputs:
       environment:
-        description: 'Deploy application:'
+        description: "Deploy application:"
         required: true
         default: dev
         type: choice
         options:
           - dev
           - test
-          - pre-production      
+          - pre-production
       tag:
-        description: 'Docker image tag to deploy'
+        description: "Docker image tag to deploy"
         required: true
-        default: 'latest'
+        default: "latest"
   # schedule:
   #   - cron: '30 7 * * 1-5'
 permissions:
-    id-token: write
-    contents: read
-    pull-requests: write
-    packages: write
+  id-token: write
+  contents: read
+  pull-requests: write
+  packages: write
 
 run-name: "Deploy app: ${{ inputs.environment || 'dev' }}"
 
 jobs:
   build-and-deploy:
-    name: "Deploy app: ${{ inputs.environment || 'dev' }}"    
+    name: "Deploy app: ${{ inputs.environment || 'dev' }}"
     runs-on: ubuntu-latest
     environment: "${{ inputs.environment || 'dev' }}"
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@08eba0b27e820071cde6df949e0beb9ba4906955 # v4.3.0
 
-    - name: Set GitHub Runner IP
-      run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
+      - name: Set GitHub Runner IP
+        run: echo "GITHUB_RUNNER_IP=$(curl -s ifconfig.me)" >> $GITHUB_ENV
 
-    - name: Azure CLI Login
-      uses: azure/login@v2.2.0
-      with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+      - name: Azure CLI Login
+        uses: azure/login@a457da9ea143d694b1b9c7c869ebb04ebe844ef5 # v2.3.0
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Enable Network Access for App Service
-      uses: ./.github/actions/manage-app-service-network-access
-      with:
-        app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
-        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-        enable-network-access: true
+      - name: Enable Network Access for App Service
+        uses: ./.github/actions/manage-app-service-network-access
+        with:
+          app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
+          resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+          github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+          enable-network-access: true
 
-    - name: Add Inbound NSG Rule for App Service
-      shell: bash
-      run: |
-        az network nsg rule create \
-          --nsg-name "${{ secrets.NSG_NAME }}" \
-          --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
-          --name "Allow-GitHub-Runner-IP" \
-          --priority 100 \
-          --direction Inbound \
-          --access Allow \
-          --protocol Tcp \
-          --source-port-range "*" \
-          --destination-port-ranges 80 443 \
-          --source-address-prefix "${{ env.GITHUB_RUNNER_IP }}" \
-          --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
+      - name: Add Inbound NSG Rule for App Service
+        shell: bash
+        run: |
+          az network nsg rule create \
+            --nsg-name "${{ secrets.NSG_NAME }}" \
+            --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
+            --name "Allow-GitHub-Runner-IP" \
+            --priority 100 \
+            --direction Inbound \
+            --access Allow \
+            --protocol Tcp \
+            --source-port-range "*" \
+            --destination-port-ranges 80 443 \
+            --source-address-prefix "${{ env.GITHUB_RUNNER_IP }}" \
+            --destination-address-prefix "${{ secrets.SUBNET_PREFIX }}"
 
-    - name: Log into registry
-      if: github.event_name != 'pull_request'
-      uses: docker/login-action@v3.4.0
-      with:
-        registry: ghcr.io
-        username: ${{ github.repository_owner }}
-        password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Log into registry
+        if: github.event_name != 'pull_request'
+        uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 v3.5.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
-    - name: Build and push Docker image to GHCR
-      uses: docker/build-push-action@v6
-      with:
-        context: Childrens-Social-Care-CPD
-        push: true
-        tags: ghcr.io/dfe-digital/support-for-social-workers:latest
-        
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v3
-      with:
-        app-name: ${{ secrets.APP_SERVICE_NAME }}
-        images: ghcr.io/dfe-digital/support-for-social-workers:${{ inputs.tag || 'latest' }}
+      - name: Build and push Docker image to GHCR
+        uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
+        with:
+          context: Childrens-Social-Care-CPD
+          push: true
+          tags: ghcr.io/dfe-digital/support-for-social-workers:latest
 
-    - name: Remove Inbound NSG Rule for App Service
-      shell: bash
-      run: |
-        az network nsg rule delete \
-          --nsg-name "${{ secrets.NSG_NAME }}" \
-          --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
-          --name "Allow-GitHub-Runner-IP"
-      
-    - name: Disable Network Access for App Service
-      uses: ./.github/actions/manage-app-service-network-access
-      with:
-        app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
-        resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
-        github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
-        enable-network-access: false
-  
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@657f0700ea5214d56a0400d8ac5e8023c963d25d # v3.0.6
+        with:
+          app-name: ${{ secrets.APP_SERVICE_NAME }}
+          images: ghcr.io/dfe-digital/support-for-social-workers:${{ inputs.tag || 'latest' }}
+
+      - name: Remove Inbound NSG Rule for App Service
+        shell: bash
+        run: |
+          az network nsg rule delete \
+            --nsg-name "${{ secrets.NSG_NAME }}" \
+            --resource-group "${{ secrets.INFRA_RESOURCE_GROUP_NAME }}" \
+            --name "Allow-GitHub-Runner-IP"
+
+      - name: Disable Network Access for App Service
+        uses: ./.github/actions/manage-app-service-network-access
+        with:
+          app-service-name: "${{ secrets.APP_SERVICE_NAME }}"
+          resource-group-name: "${{ secrets.APP_RESOURCE_GROUP_NAME }}"
+          github-runner-ip: ${{ env.GITHUB_RUNNER_IP }}
+          enable-network-access: false
