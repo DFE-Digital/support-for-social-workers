@@ -100,15 +100,13 @@ ContentsListWithBody.prototype.updatePosition = function () {
 };
 
 ContentsListWithBody.prototype.stickToWindow = function () {
-  this.stickyElement.classList.add(
-    "gem-c-contents-list-with-body__sticky-element--stuck-to-window"
-  );
+  this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+  this.stickyElement.classList.add("govuk-width-container");
 };
 
 ContentsListWithBody.prototype.stickToParent = function () {
-  this.stickyElement.classList.remove(
-    "gem-c-contents-list-with-body__sticky-element--stuck-to-window"
-  );
+  this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+  this.stickyElement.classList.remove("govuk-width-container");
 };
 
 ContentsListWithBody.prototype.show = function () {

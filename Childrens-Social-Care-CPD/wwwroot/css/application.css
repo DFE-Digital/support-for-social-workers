@@ -20259,6 +20259,11 @@ readers do not read off random characters that represent icons */
   height: 0.968em;
 }
 
+div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-to-top {
+  margin-top: 17px;
+  margin-bottom: 17px !important;
+}
+
 .govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element {
   position: absolute;
   bottom: 0;
