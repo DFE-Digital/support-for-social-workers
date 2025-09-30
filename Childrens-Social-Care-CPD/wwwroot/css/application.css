@@ -20264,6 +20264,11 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
   margin-bottom: 17px !important;
 }
 
+@media (max-width: 40.0625em) {
+  .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window.govuk-width-container {
+    margin-left: 16px;
+  }
+}
 .govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element {
   position: absolute;
   bottom: 0;
