@@ -17,7 +17,7 @@ jobs:
       SITEMAP_FILE_PATH: ${{ github.workspace }}/${{ vars.APP_SITEMAP_FILE_PATH }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: actions/setup-node@v4
         with:
