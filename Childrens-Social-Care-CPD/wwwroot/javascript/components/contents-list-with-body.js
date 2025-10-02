@@ -21,7 +21,6 @@ function ContentsListWithBody(element) {
 
 ContentsListWithBody.prototype.init = function () {
   if (!this.stickyElement) return;
-//  console.log('it works')
   window.onresize = this.onResize.bind(this);
   window.onscroll = this.onScroll.bind(this);
   setInterval(this.checkResize.bind(this), this.interval);
@@ -52,7 +51,6 @@ ContentsListWithBody.prototype.onResize = function () {
 
 ContentsListWithBody.prototype.onScroll = function () {
   this.hasScrolled = true;
-//  console.log(this.getWindowDimensions(), this.getWindowPositions());
 };
 
 ContentsListWithBody.prototype.checkResize = function () {
@@ -61,12 +59,12 @@ ContentsListWithBody.prototype.checkResize = function () {
     this.hasScrolled = true;
 
     var windowDimensions = this.getWindowDimensions();
-    var elementHeight =
-      this.wrapper.offsetHeight ||
-      parseFloat(this.wrapper.style.height.replace("px", ""));
-    this.startPosition = this.wrapper.offsetTop;
-    this.stopPosition =
-      this.wrapper.offsetTop + elementHeight - windowDimensions.height;
+    var elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
+    let staticLinkPosition =this.stickyElement.offsetTop;
+    let staticLinkHeight = this.stickyElement.offsetHeight || parseFloat(this.stickyElement.style.height.replace("px", ""));
+    let staticLinkAboveBottom = elementHeight - staticLinkPosition + staticLinkHeight;
+    this.startPosition = windowDimensions.height * 2;
+    this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - staticLinkAboveBottom - 105;
   }
 };
 
@@ -123,10 +121,7 @@ ContentsListWithBody.prototype.hide = function () {
 
 document.addEventListener('DOMContentLoaded', function () {
     var element = document.body.querySelector("[data-module='contents-list-with-body']");
-    //console.log('here0');
-    //console.log(element);
     if (element) {
-        //console.log('here');
         new ContentsListWithBody(element).init();
     }
 });
