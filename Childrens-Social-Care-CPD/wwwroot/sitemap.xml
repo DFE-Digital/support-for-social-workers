@@ -351,6 +351,11 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://www.support-for-social-workers.education.gov.uk/employer-standards/standard-5/supervision-tool-for-assessing-reflexivity</loc>
+    <lastmod>2025-09-24T13:04:43.730Z</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/employer-standards/standard-1/developing-strategies</loc>
     <lastmod>2025-07-22T09:12:25.383Z</lastmod>
     <priority>0.8</priority>
@@ -551,6 +556,11 @@
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://www.support-for-social-workers.education.gov.uk/manage-workload</loc>
+    <lastmod>2025-09-30T09:37:00.943Z</lastmod>
+    <priority>1.0</priority>
+  </url>
+  <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/accessibility</loc>
     <lastmod>2025-07-02T15:16:54.011Z</lastmod>
     <priority>1.0</priority>
@@ -562,7 +572,7 @@
   </url>
   <url>
     <loc>https://www.support-for-social-workers.education.gov.uk/sitemap</loc>
-    <lastmod>2025-07-02T15:24:19.341Z</lastmod>
+    <lastmod>2025-09-30T09:37:00.986Z</lastmod>
     <priority>1.0</priority>
   </url>
 </urlset>
