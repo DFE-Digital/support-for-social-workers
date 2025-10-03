@@ -9,114 +9,123 @@
 */
 
 function ContentsListWithBody(element) {
-  this.wrapper = element;
-  this.stickyElement = this.wrapper.querySelector("[data-sticky-element]");
-  this.hasResized = true;
-  this.hasScrolled = true;
-  this.interval = 50;
-  this.windowVerticalPosition = 1;
-  this.startPosition = 0;
-  this.stopPosition = 0;
+    this.wrapper = element;
+    this.disabled = true;
+    this.stickyElement = this.wrapper.querySelector("[data-sticky-element]");
+    this.hasResized = true;
+    this.hasScrolled = true;
+    this.interval = 50;
+    this.windowVerticalPosition = 1;
+    this.startPosition = 0;
+    this.stopPosition = 0;
 }
 
 ContentsListWithBody.prototype.init = function () {
-  if (!this.stickyElement) return;
-  window.onresize = this.onResize.bind(this);
-  window.onscroll = this.onScroll.bind(this);
-  setInterval(this.checkResize.bind(this), this.interval);
-  setInterval(this.checkScroll.bind(this), this.interval);
-  this.checkResize();
-  this.checkScroll();
-  this.stickyElement.classList.add(
-    "gem-c-contents-list-with-body__sticky-element--enabled"
-  );
+    if (!this.stickyElement) return;
+    window.onresize = this.onResize.bind(this);
+    window.onscroll = this.onScroll.bind(this);
+    setInterval(this.checkResize.bind(this), this.interval);
+    setInterval(this.checkScroll.bind(this), this.interval);
+    this.checkResize();
+    this.checkScroll();
+    this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--enabled");
 };
 
 ContentsListWithBody.prototype.getWindowDimensions = function () {
-  return {
-    height: window.innerHeight,
-    width: window.innerWidth,
-  };
+    return {
+        height: window.innerHeight,
+        width: window.innerWidth,
+    };
 };
 
 ContentsListWithBody.prototype.getWindowPositions = function () {
-  return {
-    scrollTop: window.scrollY,
-  };
+    return {
+        scrollTop: window.scrollY,
+    };
+};
+
+ContentsListWithBody.prototype.getDocumentHeight = function () {
+    let body = document.body,
+        html = document.documentElement;
+    
+    return Math.max(body.scrollHeight, body.offsetHeight, 
+                    html.clientHeight, html.scrollHeight, html.offsetHeight);
 };
 
 ContentsListWithBody.prototype.onResize = function () {
-  this.hasResized = true;
+    this.hasResized = true;
 };
 
 ContentsListWithBody.prototype.onScroll = function () {
-  this.hasScrolled = true;
+    this.hasScrolled = true;
 };
 
 ContentsListWithBody.prototype.checkResize = function () {
-  if (this.hasResized) {
-    this.hasResized = false;
-    this.hasScrolled = true;
+    if (this.hasResized) {
+        this.hasResized = false;
+        this.hasScrolled = true;
 
-    var windowDimensions = this.getWindowDimensions();
-    var elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
-    let staticLinkPosition =this.stickyElement.offsetTop;
-    let staticLinkHeight = this.stickyElement.offsetHeight || parseFloat(this.stickyElement.style.height.replace("px", ""));
-    let staticLinkAboveBottom = elementHeight - staticLinkPosition + staticLinkHeight;
-    this.startPosition = windowDimensions.height * 2;
-    this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - staticLinkAboveBottom - 105;
-  }
+        let windowDimensions = this.getWindowDimensions();
+        let documentHeight = this.getDocumentHeight();
+        let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
+        let staticLinkPosition =this.stickyElement.offsetTop;
+        let staticLinkHeight = this.stickyElement.offsetHeight || parseFloat(this.stickyElement.style.height.replace("px", ""));
+        let staticLinkAboveBottom = elementHeight - staticLinkPosition + staticLinkHeight;
+        this.startPosition = windowDimensions.height * 2;
+        this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - staticLinkAboveBottom - 105;
+        this.disabled = documentHeight < (windowDimensions.height * 4);
+    }
 };
 
 ContentsListWithBody.prototype.checkScroll = function () {
-  if (this.hasScrolled) {
-    this.hasScrolled = false;
+    if (this.hasScrolled) {
+        this.hasScrolled = false;
 
-    this.windowVerticalPosition = this.getWindowPositions().scrollTop;
+        this.windowVerticalPosition = this.getWindowPositions().scrollTop;
 
-    this.updateVisibility();
-    this.updatePosition();
-  }
+        this.updateVisibility();
+        this.updatePosition();
+    }
 };
 
 ContentsListWithBody.prototype.updateVisibility = function () {
-  var isPastStart = this.startPosition < this.windowVerticalPosition;
-  if (isPastStart) {
-    this.show();
-  } else {
-    this.hide();
-  }
+    if (this.disabled) return this.show();
+
+    var isPastStart = this.startPosition < this.windowVerticalPosition;
+    if (isPastStart) {
+        this.show();
+    } else {
+        this.hide();
+}
 };
 
 ContentsListWithBody.prototype.updatePosition = function () {
-  var isPastEnd = this.stopPosition < this.windowVerticalPosition;
-  if (isPastEnd) {
-    this.stickToParent();
-  } else {
-    this.stickToWindow();
-  }
+    if (this.disabled) return this.stickToParent();
+
+    var isPastEnd = this.stopPosition < this.windowVerticalPosition;
+    if (isPastEnd) {
+        this.stickToParent();
+    } else {
+        this.stickToWindow();
+    }
 };
 
 ContentsListWithBody.prototype.stickToWindow = function () {
-  this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-  this.stickyElement.classList.add("govuk-width-container");
+    this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+    this.stickyElement.classList.add("govuk-width-container");
 };
 
 ContentsListWithBody.prototype.stickToParent = function () {
-  this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-  this.stickyElement.classList.remove("govuk-width-container");
+    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+    this.stickyElement.classList.remove("govuk-width-container");
 };
 
 ContentsListWithBody.prototype.show = function () {
-  this.stickyElement.classList.remove(
-    "gem-c-contents-list-with-body__sticky-element--hidden"
-  );
+    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
 };
 
 ContentsListWithBody.prototype.hide = function () {
-  this.stickyElement.classList.add(
-    "gem-c-contents-list-with-body__sticky-element--hidden"
-  );
+    this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
 };
 
 document.addEventListener('DOMContentLoaded', function () {
