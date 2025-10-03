@@ -11599,6 +11599,12 @@ p#content-banner-subtitle.govuk-body-l {
   font-size: 19px;
 }
 
+@media (max-width: 768px) { /*for mobile view*/
+  .app-back-to-top {
+    font-size: 16px;
+    margin-top: 30px;
+  }
+}
 .app-back-to-top__icon {
   display: inline-block;
   width: 0.8em;
