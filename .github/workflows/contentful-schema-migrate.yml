@@ -5,7 +5,7 @@ on:
     inputs:
       target_environment:
         required: true
-        default: 'dev'
+        default: "dev"
         type: choice
         options:
           - dev
@@ -29,6 +29,11 @@ jobs:
       required-migrations: ${{ steps.required-migrations.outputs.required-migrations }}
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -67,7 +72,7 @@ jobs:
         id: required-migrations
         working-directory: ./Contentful-Schema/utils
         run: node get-required-migrations.js --currentVersion ${{ steps.current-migration-version.outputs.migration-version }}
- 
+
   clone:
     if: ${{ join(needs.setup.outputs.required-migrations, '') != '[]' }}
     needs: [setup]
@@ -78,6 +83,11 @@ jobs:
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
+        with:
+          egress-policy: audit
+
       - name: Install Contentful CLI
         run: npm install -g contentful-cli
 
@@ -89,10 +99,10 @@ jobs:
 
       - name: Clone target environment ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }} to staging environment ${{ needs.setup.outputs.staging-environment }}
         run: contentful space environment create --name ${{ needs.setup.outputs.staging-environment }} --environment-id ${{ needs.setup.outputs.staging-environment }} --source ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }}
-  
+
   migrate:
     if: ${{ join(needs.setup.outputs.required-migrations, '') != '[]' }}
-    needs: [setup,clone]
+    needs: [setup, clone]
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -102,8 +112,13 @@ jobs:
     env:
       MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
-    
+
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -134,7 +149,7 @@ jobs:
 
   repoint-alias:
     if: ${{ join(needs.setup.outputs.required-migrations, '') != '[]' }}
-    needs: [setup,migrate]
+    needs: [setup, migrate]
     runs-on: ubuntu-latest
     env:
       STAGING_ENVIRONMENT: ${{ needs.setup.outputs.staging-environment }}
@@ -143,6 +158,11 @@ jobs:
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4

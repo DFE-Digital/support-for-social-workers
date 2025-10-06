@@ -3,24 +3,29 @@
 
 name: .NET Test
 
-on: 
+on:
   pull_request:
-    branches: [ "main", "staging" ]
+    branches: ["main", "staging"]
 
 jobs:
   test:
-    name: '.NET Test'
+    name: ".NET Test"
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v4
-      with:
-        dotnet-version: 8.0.x
-    - name: Restore dependencies
-      run: dotnet restore
-    - name: Build
-      run: dotnet build --no-restore --warnAsError
-    - name: Test
-      run: dotnet test --no-build --verbosity normal
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
+        with:
+          egress-policy: audit
+
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 8.0.x
+      - name: Restore dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --no-restore --warnAsError
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
