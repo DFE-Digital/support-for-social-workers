@@ -18,6 +18,7 @@ function ContentsListWithBody(element) {
     this.windowVerticalPosition = 1;
     this.startPosition = 0;
     this.stopPosition = 0;
+    this.stickyElementBottomOffset = 0;
 }
 
 ContentsListWithBody.prototype.init = function () {
@@ -26,10 +27,18 @@ ContentsListWithBody.prototype.init = function () {
     window.onscroll = this.onScroll.bind(this);
     setInterval(this.checkResize.bind(this), this.interval);
     setInterval(this.checkScroll.bind(this), this.interval);
+    this.setInitialValues();
     this.checkResize();
     this.checkScroll();
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--enabled");
 };
+
+ContentsListWithBody.prototype.setInitialValues = function () {
+    let staticLinkPosition =this.stickyElement.offsetTop;
+    let staticLinkHeight = this.stickyElement.offsetHeight || parseFloat(this.stickyElement.style.height.replace("px", ""));
+    let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
+    this.stickyElementBottomOffset = elementHeight - staticLinkPosition + (staticLinkHeight * 2);
+}
 
 ContentsListWithBody.prototype.getWindowDimensions = function () {
     return {
@@ -68,11 +77,8 @@ ContentsListWithBody.prototype.checkResize = function () {
         let windowDimensions = this.getWindowDimensions();
         let documentHeight = this.getDocumentHeight();
         let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
-        let staticLinkPosition =this.stickyElement.offsetTop;
-        let staticLinkHeight = this.stickyElement.offsetHeight || parseFloat(this.stickyElement.style.height.replace("px", ""));
-        let staticLinkAboveBottom = elementHeight - staticLinkPosition + staticLinkHeight;
         this.startPosition = windowDimensions.height * 2;
-        this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - staticLinkAboveBottom - 105;
+        this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - this.stickyElementBottomOffset;
         this.disabled = documentHeight < (windowDimensions.height * 4);
     }
 };
