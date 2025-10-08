@@ -29,10 +29,7 @@ jobs:
       required-migrations: ${{ steps.required-migrations.outputs.required-migrations }}
 
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
-        with:
-          egress-policy: audit
+      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
 
       - uses: actions/checkout@v4
 
@@ -83,10 +80,7 @@ jobs:
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
 
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
-        with:
-          egress-policy: audit
+      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
 
       - name: Install Contentful CLI
         run: npm install -g contentful-cli
@@ -114,10 +108,7 @@ jobs:
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
 
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
-        with:
-          egress-policy: audit
+      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
 
       - uses: actions/checkout@v4
 
@@ -158,10 +149,7 @@ jobs:
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
 
     steps:
-      - name: Harden Runner
-        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
-        with:
-          egress-policy: audit
+      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
 
       - uses: actions/checkout@v4
 
