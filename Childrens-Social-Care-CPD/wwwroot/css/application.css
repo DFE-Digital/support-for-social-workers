@@ -20334,7 +20334,7 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
   padding: 0;
   padding-left: 0;
   position: fixed;
-  width: 100%;
+  min-width: 100%;
   z-index: 10;
 }
 
