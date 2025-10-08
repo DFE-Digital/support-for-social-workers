@@ -17,6 +17,11 @@ jobs:
       SITEMAP_FILE_PATH: ${{ github.workspace }}/${{ vars.APP_SITEMAP_FILE_PATH }}
 
     steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@f4a75cfd619ee5ce8d5b864b0d183aff3c69b55a #v2.13.1
+        with:
+          egress-policy: audit
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -58,4 +63,3 @@ jobs:
           body: |
             Please review the latest changes to the sitemap.
           draft: false
-
