@@ -1,21 +1,23 @@
 name: Prepare Contentful Environment for Migrations
 
 on:
-    workflow_dispatch:
-      inputs:
-        target_environment:
-          required: true
-          type: string
+  workflow_dispatch:
+    inputs:
+      target_environment:
+        required: true
+        type: string
 
 env:
-    MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
-    SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
-    ENVIRONMENT: ${{ inputs.target_environment }}
-        
+  MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
+  SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
+  ENVIRONMENT: ${{ inputs.target_environment }}
+
 jobs:
   prepare-environment:
     runs-on: ubuntu-latest
     steps:
+      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
+
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4
@@ -36,4 +38,3 @@ jobs:
       - name: Run script to create inital migration version entry
         working-directory: ./Contentful-Schema/utils
         run: node create-initial-migration-version.js
-    
