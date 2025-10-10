@@ -20295,7 +20295,7 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
 }
 
 .gem-c-contents-list-with-body__link-container {
-  padding: 0;
+  padding-left: 15px;
 }
 
 @media (min-width: 40.0625em) {
