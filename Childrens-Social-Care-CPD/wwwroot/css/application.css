@@ -20295,7 +20295,6 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
 }
 
 .gem-c-contents-list-with-body__link-container {
-  margin: 0 auto;
   padding: 0;
 }
 
@@ -20329,8 +20328,7 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
 .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window {
   background-color: #f3f2f1;
   bottom: -1px;
-  left: 0;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
   padding-left: 0;
   position: fixed;
@@ -20338,11 +20336,6 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
   z-index: 10;
 }
 
-@media (min-width: 40.0625em) {
-  .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window {
-    padding-left: 32px;
-  }
-}
 .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window .gem-c-back-to-top-link {
   margin-bottom: 0;
   padding: 15px;

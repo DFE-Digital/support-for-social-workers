@@ -11,14 +11,15 @@
 function ContentsListWithBody(element) {
     this.wrapper = element;
     this.disabled = true;
-    this.stickyElement = this.wrapper.querySelector("[data-sticky-element]");
+    this.stickyElement = this.wrapper.querySelector("[data-back-to-top-sticky]");
+    this.staticElement = this.wrapper.querySelector("[data-back-to-top-static]");
     this.hasResized = true;
     this.hasScrolled = true;
     this.interval = 50;
     this.windowVerticalPosition = 1;
     this.startPosition = 0;
     this.stopPosition = 0;
-    this.stickyElementBottomOffset = 0;
+    this.staticElementBottomOffset = 0;
 }
 
 ContentsListWithBody.prototype.init = function () {
@@ -34,10 +35,10 @@ ContentsListWithBody.prototype.init = function () {
 };
 
 ContentsListWithBody.prototype.setInitialValues = function () {
-    let staticLinkPosition =this.stickyElement.offsetTop;
-    let staticLinkHeight = this.stickyElement.offsetHeight || parseFloat(this.stickyElement.style.height.replace("px", ""));
+    let staticLinkPosition =this.staticElement.offsetTop;
+    let staticLinkHeight = this.staticElement.offsetHeight || parseFloat(this.staticElement.style.height.replace("px", ""));
     let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
-    this.stickyElementBottomOffset = elementHeight - staticLinkPosition + (staticLinkHeight * 2);
+    this.staticElementBottomOffset = elementHeight - staticLinkPosition + staticLinkHeight;
 }
 
 ContentsListWithBody.prototype.getWindowDimensions = function () {
@@ -78,7 +79,7 @@ ContentsListWithBody.prototype.checkResize = function () {
         let documentHeight = this.getDocumentHeight();
         let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
         this.startPosition = windowDimensions.height * 2;
-        this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - this.stickyElementBottomOffset;
+        this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - this.staticElementBottomOffset;
         this.disabled = documentHeight < (windowDimensions.height * 4);
     }
 };
@@ -90,48 +91,35 @@ ContentsListWithBody.prototype.checkScroll = function () {
         this.windowVerticalPosition = this.getWindowPositions().scrollTop;
 
         this.updateVisibility();
-        this.updatePosition();
     }
 };
 
 ContentsListWithBody.prototype.updateVisibility = function () {
-    if (this.disabled) return this.show();
+    if (this.disabled) return this.showStaticElement();
 
     var isPastStart = this.startPosition < this.windowVerticalPosition;
     if (isPastStart) {
-        this.show();
+        var isPastEnd = this.stopPosition < this.windowVerticalPosition;
+        if (isPastEnd) {
+            this.showStaticElement();
+        } else {
+            this.showStickyElement();
+        }
     } else {
-        this.hide();
+        this.showStaticElement();
 }
 };
 
-ContentsListWithBody.prototype.updatePosition = function () {
-    if (this.disabled) return this.stickToParent();
-
-    var isPastEnd = this.stopPosition < this.windowVerticalPosition;
-    if (isPastEnd) {
-        this.stickToParent();
-    } else {
-        this.stickToWindow();
-    }
-};
-
-ContentsListWithBody.prototype.stickToWindow = function () {
-    this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-    this.stickyElement.classList.add("govuk-width-container");
-};
-
-ContentsListWithBody.prototype.stickToParent = function () {
-    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-    this.stickyElement.classList.remove("govuk-width-container");
-};
-
-ContentsListWithBody.prototype.show = function () {
-    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
-};
-
-ContentsListWithBody.prototype.hide = function () {
+ContentsListWithBody.prototype.showStaticElement = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
+    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+    this.staticElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
+};
+
+ContentsListWithBody.prototype.showStickyElement = function () {
+    this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
+    this.staticElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
 };
 
 document.addEventListener('DOMContentLoaded', function () {

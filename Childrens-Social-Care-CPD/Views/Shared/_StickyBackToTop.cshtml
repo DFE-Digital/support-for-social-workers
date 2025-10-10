@@ -1,11 +1,19 @@
-<!--<div data-sticky-element class="gem-c-contents-list-with-body__link-wrapper gem-c-contents-list-with-body__sticky-element--stuck-to-window gem-c-contents-list-with-body__sticky-element--enabled">-->
-<div data-sticky-element class="gem-c-contents-list-with-body__link-wrapper">
-    <div class="gem-c-contents-list-with-body__link-container">
-        <a class="govuk-link gem-c-back-to-top-link govuk-!-display-none-print" href="#swcd-page-top">
-            <svg class="gem-c-back-to-top-link__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17" aria-hidden="true" focusable="false">
-                <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
-            </svg>
-            Back to top
-        </a>
+@using Childrens_Social_Care_CPD.Contentful;
+@using Childrens_Social_Care_CPD.Contentful.Models;
+@using Childrens_Social_Care_CPD.Contentful.Renderers;
+
+<div data-back-to-top-sticky class="gem-c-contents-list-with-body__link-wrapper">
+    <div class="dfe-width-container">
+        <div class="govuk-grid-row">
+            <div class="gem-c-contents-list-with-body__link-container govuk-grid-column-three-quarters">
+                <div class="app-back-to-top govuk-!-margin-bottom-7" data-module="app-back-to-top">
+                    <a class="govuk-link govuk-link--no-visited-state" href="#swcd-page-top">
+                        <svg class="app-back-to-top__icon" xmlns="http://www.w3.org/2000/svg" width="13" height="17" viewBox="0 0 13 17">
+                            <path fill="currentColor" d="M6.5 0L0 6.5 1.4 8l4-4v12.7h2V4l4.3 4L13 6.4z"></path>
+                        </svg>Back to top
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
