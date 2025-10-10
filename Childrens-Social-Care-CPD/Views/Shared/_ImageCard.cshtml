@@ -17,6 +17,8 @@
     }
 }
 
+@if (ViewBag.ContextModel.UseContainers ?? false)
+    {
 <section class="govuk-section image-card govuk-!-margin-bottom-6" data-testid="image-card">
     <div class="@bannerCss">
         @if (bannerCss.Length > 0)
@@ -27,8 +29,27 @@
                 </div>
             </div>
         }
-        <div class="dfe-o-banner__image-container">
+        <div class="dfe-o-banner__image-container-with-no-sidenav">
             <img src="@Model.Image.File.Url" alt="@Model.Image.Description">
         </div>
     </div>
 </section>
+}
+else
+    {
+<section class="govuk-section image-card govuk-!-margin-bottom-6" data-testid="image-card">
+    <div class="@bannerCss">
+        @if (bannerCss.Length > 0)
+        {
+            <div class="dfe-o-banner__content-container dfe-light-blue-tint">
+                <div class="dfe-o-banner__inner-content-container">
+                    <partial name="_RichText" model="Model.Text" />
+                </div>
+            </div>
+        }
+        <div class="dfe-o-banner__image-container-with-sidenav">
+            <img src="@Model.Image.File.Url" alt="@Model.Image.Description">
+        </div>
+    </div>
+</section>
+}

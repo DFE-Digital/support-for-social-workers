@@ -10263,8 +10263,17 @@ DFE banner
   background: #ebf2f6;
 }
 
-/* Banner Image Container */
-.dfe-o-banner__image-container {
+/* Banner Image Container with side nav */
+.dfe-o-banner__image-container-with-sidenav {
+  width: 68%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+/* Banner Image Container without side nav */
+.dfe-o-banner__image-container-with-no-sidenav {
   width: 50%;
   display: flex;
   align-items: center;
@@ -10272,8 +10281,18 @@ DFE banner
   overflow: hidden;
 }
 
+/* Banner Image Container mobile view */
+@media (max-width: 40.0625em) {
+  .dfe-o-banner__image-container-with-sidenav, .dfe-o-banner__image-container-with-no-sidenav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+}
 /* Image Styles */
-.dfe-o-banner__image-container img {
+.dfe-o-banner__image-container-with-no-sidenav img, .dfe-o-banner__image-container-with-sidenav img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -10305,7 +10324,7 @@ DFE banner
     width: 100%;
     flex-direction: column-reverse;
   }
-  .dfe-o-banner__content-container, .dfe-o-banner__image-container {
+  .dfe-o-banner__content-container {
     width: 100%;
   }
   .dfe-o-banner .dfe-a-image {
@@ -11514,14 +11533,14 @@ p#content-banner-subtitle.govuk-body-l {
 .infobox {
   background: #ebf2f6;
   border-top: #347ca9 solid 10px;
-  margin: 25px 0 25px 15px;
+  margin: 25px 15px 25px 30px;
   padding-left: 20px;
   padding-right: 20px;
   position: relative;
 }
 
-div.infobox-width-container {
-  margin-left: 0;
+.infobox-no-side-nav .infobox {
+  margin: 25px 0px 25px 15px;
 }
 
 .infobox-green-brain {
@@ -11580,6 +11599,12 @@ div.infobox-width-container {
   font-size: 19px;
 }
 
+@media (max-width: 768px) { /*for mobile view*/
+  .app-back-to-top {
+    font-size: 16px;
+    margin-top: 30px;
+  }
+}
 .app-back-to-top__icon {
   display: inline-block;
   width: 0.8em;

@@ -14,7 +14,7 @@ test.describe('Info box', () => {
         await expect(infoBoxContainer).toHaveClass('infobox');
         await expect(infoBoxContainer).toHaveCSS('padding-left', '20px');
         await expect(infoBoxContainer).toHaveCSS('padding-right', '20px');
-        await expect(infoBoxContainer).toHaveCSS('margin', '25px 0px 25px 15px');
+        await expect(infoBoxContainer).toHaveCSS('margin', '25px 15px 25px 30px');
 
         let image = await infoBoxContainer.locator('svg');
 
