@@ -12012,6 +12012,17 @@ a.section-nav-link {
     line-height: 27px;
   }
 }
+.app-back-to-top a.govuk-link {
+  display: block;
+  width: 100%;
+  text-align: left; /* or left, if you prefer */
+  text-decoration: none; /* remove underline on the block */
+}
+
+.app-back-to-top a.govuk-link:hover {
+  text-decoration: underline; /* restore underline on hover */
+}
+
 /*!
  * Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
