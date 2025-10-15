@@ -12015,12 +12015,24 @@ a.section-nav-link {
 .app-back-to-top a.govuk-link {
   display: block;
   width: 100%;
-  text-align: left; /* or left, if you prefer */
-  text-decoration: none; /* remove underline on the block */
+  padding: 15px 0;
+  box-sizing: border-box;
+  text-align: left;
+  text-decoration: underline;
 }
 
 .app-back-to-top a.govuk-link:hover {
-  text-decoration: underline; /* restore underline on hover */
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+.gem-c-contents-list-with-body__link-container {
+  position: relative;
+}
+
+.gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
+  margin-left: -15px; /* overlap the 15px left padding */
+  padding-left: 15px; /* preserve visual alignment of text */
 }
 
 /*!
@@ -20271,8 +20283,7 @@ readers do not read off random characters that represent icons */
 }
 
 div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-to-top {
-  margin-top: 17px;
-  margin-bottom: 17px !important;
+  margin: 0px !important;
 }
 
 @media (max-width: 40.0625em) {
@@ -20337,7 +20348,7 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
 }
 
 .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window {
-  background-color: #f3f2f1;
+  background-color: #ebf2f6;
   bottom: -1px;
   margin: 0 auto;
   padding: 0;

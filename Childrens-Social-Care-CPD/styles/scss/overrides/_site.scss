@@ -762,11 +762,22 @@ a.section-nav-link {
 .app-back-to-top a.govuk-link {
     display: block;
     width: 100%;
-    text-align: left; /* or left, if you prefer */
-    text-decoration: none; /* remove underline on the block */
+    padding: 15px 0;
+    box-sizing: border-box;
+    text-align: left;
+    text-decoration: underline;
 }
 
 .app-back-to-top a.govuk-link:hover {
-    // background-color: #f3f2f1; /* subtle hover effect */
-    text-decoration: underline; /* restore underline on hover */
+    text-decoration: underline; 
+    text-decoration-thickness: 3px;
+}
+
+.gem-c-contents-list-with-body__link-container {
+    position: relative;
+}
+
+.gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
+    margin-left: -15px;
+    padding-left: 15px;
 }
