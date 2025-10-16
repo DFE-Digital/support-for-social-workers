@@ -12031,8 +12031,8 @@ a.section-nav-link {
 }
 
 .gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
-  margin-left: -15px; /* overlap the 15px left padding */
-  padding-left: 15px; /* preserve visual alignment of text */
+  margin-left: -15px;
+  padding-left: 15px;
 }
 
 /*!
