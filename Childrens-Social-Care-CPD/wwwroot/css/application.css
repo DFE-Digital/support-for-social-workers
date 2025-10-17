@@ -12012,6 +12012,34 @@ a.section-nav-link {
     line-height: 27px;
   }
 }
+.app-back-to-top a.govuk-link {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  box-sizing: border-box;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.app-back-to-top a.govuk-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+.gem-c-contents-list-with-body__link-container {
+  position: relative;
+}
+
+.gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
+  margin-left: -15px;
+  padding-left: 15px;
+}
+
+.gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+  margin-left: -15px;
+  padding-left: 15px;
+}
+
 /*!
  * Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
@@ -20260,8 +20288,7 @@ readers do not read off random characters that represent icons */
 }
 
 div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-to-top {
-  margin-top: 17px;
-  margin-bottom: 17px !important;
+  margin: 0px !important;
 }
 
 @media (max-width: 40.0625em) {
