@@ -786,3 +786,9 @@ a.section-nav-link {
     margin-left: -15px;
     padding-left: 15px;
 }
+
+@media (max-width: 768px) { /*for mobile view*/
+    .gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+        margin-left: 0px
+    }
+}
