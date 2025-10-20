@@ -31,13 +31,15 @@
     <partial name="_Header" />
 
 
-    <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-!-padding-top-0" id="main-content" role="main">
+    <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-!-padding-top-0" id="main-content" role="main" data-module="contents-list-with-body">
         <partial name="_BetaBanner" />
         <partial name="_BackLink" model="@ViewBag.ContextModel?.BackLink" />
         @await RenderSectionAsync("PageBanner", required: false)
         @await RenderSectionAsync("PromoBanner", required: false)
         @RenderBody()
     </main>
+
+    @await RenderSectionAsync("StickyBackToTop", required: false)
 
     <partial name="_Footer" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -51,6 +53,7 @@
         import { initAll } from '/javascript/govuk-frontend.min.js'
         initAll()
     </script>
+    <script src="/javascript/components/contents-list-with-body.js" type="module"></script>
     @await RenderSectionAsync("Scripts", required: false)
     @Html.RenderScripts(ScriptPosition.BodyEnd)
 </body>
