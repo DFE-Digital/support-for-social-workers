@@ -53,22 +53,9 @@
             <ul class="dfe-header__navigation-list">
                 @{
                     RenderMenuItem("home", "Home", "home", category == "Home");
-                    RenderMenuItem("career", "Career stages", "career-stages", category == "Career information");
-                    RenderMenuItem("developmentProgrammes", "Development programmes", "development-programmes", category == "Development programmes");
-                    RenderMenuItem("exploreRoles", "Explore roles", "explore-roles", category == "Explore roles");
-
-                    if (featuresConfig.IsEnabled(Features.EmployerStandards))
-                    {
-                        RenderMenuItem("employerStandards", "Employer standards", "employer-standards", category == "Employer standards");
-                    }
-                    if (featuresConfig.IsEnabled(Features.AgencyResources))
-                    {
-                        RenderMenuItem("agencyResources", "Agency resources", "agency-resources/overview", category == "Agency resources");
-                    }
-                    if (featuresConfig.IsEnabled(Features.PathwaysModules))
-                    {
-                        RenderMenuItem("pathwaysModules", "Pathways leadership modules", "pathways-social-work-leadership-modules/about-pathways", category == "Pathways training");
-                    }
+                    RenderMenuItem("career", "Careers guidance", "career-stages", category == "Career information");
+                    RenderMenuItem("developmentProgrammes", "Professional development", "development-programmes", category == "Development programmes");
+                    RenderMenuItem("exploreRoles", "Resources for managers and leaders", "resources-for-managers-and-leaders", category == "Explore roles");
                 }
             </ul>
         </div>
