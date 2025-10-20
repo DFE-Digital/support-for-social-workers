@@ -38,7 +38,7 @@ ContentsListWithBody.prototype.setInitialValues = function () {
     let staticLinkPosition =this.staticElement.offsetTop;
     let staticLinkHeight = this.staticElement.offsetHeight || parseFloat(this.staticElement.style.height.replace("px", ""));
     let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
-    this.staticElementBottomOffset = elementHeight - staticLinkPosition + staticLinkHeight;
+    this.staticElementBottomOffset = elementHeight - staticLinkPosition + (2 * staticLinkHeight);
 }
 
 ContentsListWithBody.prototype.getWindowDimensions = function () {
@@ -87,9 +87,7 @@ ContentsListWithBody.prototype.checkResize = function () {
 ContentsListWithBody.prototype.checkScroll = function () {
     if (this.hasScrolled) {
         this.hasScrolled = false;
-
         this.windowVerticalPosition = this.getWindowPositions().scrollTop;
-
         this.updateVisibility();
     }
 };
