@@ -3,11 +3,11 @@ name: Backup Contentful
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *' # This will run every day at midnight UTC
+    - cron: "0 0 * * *" # This will run every day at midnight UTC
 
 jobs:
   backup:
-    name: 'Backup Contentful'
+    name: "Backup Contentful"
     runs-on: ubuntu-latest
     env:
       ENVID: master
@@ -15,27 +15,28 @@ jobs:
       MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_BACKUP_API_TOKEN }}
 
     steps:
-    - name: Run backup container
-      run: docker run --rm -e token=$MANAGEMENT_TOKEN -e space=$SPACE -e envid=$ENVID -v $PWD:/opt/backup ghcr.io/dfe-digital/contentful-space-export:master
+      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
 
-    - name: Checkout destination repository
-      uses: actions/checkout@v4
-      with:
-        repository: DFE-Digital/childrens-social-care-cpd-contentful-backup
-        token: ${{ secrets.CONTENTFUL_BACKUP_REPO_PAT }}
-        path: backup
+      - name: Run backup container
+        run: docker run --rm -e token=$MANAGEMENT_TOKEN -e space=$SPACE -e envid=$ENVID -v $PWD:/opt/backup ghcr.io/dfe-digital/contentful-space-export:master
 
-    - name: Copy output and commit
-      run: |
-        cp `find *.json` backup/prod-contentful-backup-output.json
-        cd backup
-        if git diff --exit-code --quiet; then
-          echo "No changes detected, skipping push"
-        else
-          git config user.name "DfE Robot"
-          git config user.email  ${{ secrets.CONTENTFUL_BACKUP_EMAIL }}
-          git add prod-contentful-backup-output.json
-          git commit -m "Upload new backup"
-          git push
-        fi
+      - name: Checkout destination repository
+        uses: actions/checkout@v4
+        with:
+          repository: DFE-Digital/childrens-social-care-cpd-contentful-backup
+          token: ${{ secrets.CONTENTFUL_BACKUP_REPO_PAT }}
+          path: backup
 
+      - name: Copy output and commit
+        run: |
+          cp `find *.json` backup/prod-contentful-backup-output.json
+          cd backup
+          if git diff --exit-code --quiet; then
+            echo "No changes detected, skipping push"
+          else
+            git config user.name "DfE Robot"
+            git config user.email  ${{ secrets.CONTENTFUL_BACKUP_EMAIL }}
+            git add prod-contentful-backup-output.json
+            git commit -m "Upload new backup"
+            git push
+          fi
