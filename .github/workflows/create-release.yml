@@ -15,8 +15,6 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
-
       - name: Checkout
         uses: actions/checkout@v4
         with:
