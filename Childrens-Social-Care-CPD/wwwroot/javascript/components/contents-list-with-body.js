@@ -78,7 +78,7 @@ ContentsListWithBody.prototype.checkResize = function () {
         let windowDimensions = this.getWindowDimensions();
         let documentHeight = this.getDocumentHeight();
         let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
-        this.startPosition = windowDimensions.height * 2;
+        this.startPosition = windowDimensions.height;
         this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - this.staticElementBottomOffset;
         this.disabled = documentHeight < (windowDimensions.height * 4);
     }
