@@ -12012,6 +12012,39 @@ a.section-nav-link {
     line-height: 27px;
   }
 }
+.app-back-to-top a.govuk-link {
+  display: block;
+  width: 100%;
+  padding: 15px 0;
+  box-sizing: border-box;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.app-back-to-top a.govuk-link:hover {
+  text-decoration: underline;
+  text-decoration-thickness: 3px;
+}
+
+.gem-c-contents-list-with-body__link-container {
+  position: relative;
+}
+
+.gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
+  margin-left: -15px;
+  padding-left: 15px;
+}
+
+.gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+  margin-left: -15px;
+  padding-left: 15px;
+}
+
+@media (max-width: 768px) { /*for mobile view*/
+  .gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+    margin-left: 0px;
+  }
+}
 /*!
  * Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com
  * License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License)
@@ -20243,6 +20276,108 @@ readers do not read off random characters that represent icons */
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border-width: 0;
+}
+
+.gem-c-back-to-top-link {
+  display: inline-block;
+  margin-bottom: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.gem-c-back-to-top-link__icon {
+  float: left;
+  margin-right: 0.3em;
+  width: 0.8em;
+  height: 0.968em;
+}
+
+div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-to-top {
+  margin: 0px !important;
+}
+
+@media (max-width: 40.0625em) {
+  .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window.govuk-width-container {
+    padding-left: 15px;
+  }
+}
+.govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element {
+  position: absolute;
+  bottom: 0;
+}
+
+.govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element--stuck-to-window {
+  bottom: 0;
+  position: fixed;
+}
+
+.govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element--enabled {
+  transition: opacity, 0.3s, ease;
+  opacity: 1;
+}
+
+@media (max-width: 40.0525em) {
+  .govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element--enabled {
+    position: static;
+  }
+}
+.govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element--hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gem-c-contents-list-with-body__link-container {
+  padding-left: 15px;
+}
+
+@media (min-width: 40.0625em) {
+  .gem-c-contents-list-with-body__link-container {
+    max-width: 1024px;
+  }
+}
+.gem-c-contents-list-with-body__link-container .gem-c-back-to-top-link {
+  margin-left: 0;
+  margin-right: 0;
+}
+
+.gem-c-contents-list-with-body__list-container {
+  margin-bottom: 15px;
+}
+
+@media (min-width: 40.0625em) {
+  .gem-c-contents-list-with-body__list-container {
+    margin-bottom: 50px;
+  }
+}
+.gem-c-contents-list-with-body__link-wrapper {
+  padding-bottom: 10px;
+}
+
+.gem-c-contents-list-with-body__link-wrapper .gem-c-back-to-top-link {
+  padding-bottom: 10px;
+}
+
+.gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window {
+  background-color: #EBF2F6;
+  bottom: -1px;
+  margin: 0 auto;
+  padding: 0;
+  padding-left: 0;
+  position: fixed;
+  min-width: 100%;
+  z-index: 10;
+}
+
+.gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window .gem-c-back-to-top-link {
+  margin-bottom: 0;
+  padding: 15px;
+  width: 66%;
+}
+
+@media (min-width: 40.0625em) {
+  .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window .gem-c-back-to-top-link {
+    padding: 20px;
+  }
 }
 
 /*# sourceMappingURL=application.css.map */

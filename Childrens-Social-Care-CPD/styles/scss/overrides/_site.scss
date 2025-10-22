@@ -759,3 +759,36 @@ a.section-nav-link {
     }
 }
 
+.app-back-to-top a.govuk-link {
+    display: block;
+    width: 100%;
+    padding: 15px 0;
+    box-sizing: border-box;
+    text-align: left;
+    text-decoration: underline;
+}
+
+.app-back-to-top a.govuk-link:hover {
+    text-decoration: underline; 
+    text-decoration-thickness: 3px;
+}
+
+.gem-c-contents-list-with-body__link-container {
+    position: relative;
+}
+
+.gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
+    margin-left: -15px;
+    padding-left: 15px;
+}
+
+.gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+    margin-left: -15px;
+    padding-left: 15px;
+}
+
+@media (max-width: 768px) { /*for mobile view*/
+    .gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+        margin-left: 0px
+    }
+}
