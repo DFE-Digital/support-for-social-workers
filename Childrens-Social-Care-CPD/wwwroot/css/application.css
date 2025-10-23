@@ -11719,7 +11719,7 @@ p#content-banner-subtitle.govuk-body-l {
 }
 
 .govuk-header__link:focus .govuk-header__logotype {
-  content: url(/public/images/department-for-education_black.png);
+  content: url(/assets/images/dfe-logo-alt.png);
   height: 30px;
 }
 
