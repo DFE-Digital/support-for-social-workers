@@ -24,6 +24,7 @@ function ContentsListWithBody(element) {
 
 ContentsListWithBody.prototype.init = function () {
     if (!this.stickyElement) return;
+    if (!this.staticElement) return;
     window.onresize = this.onResize.bind(this);
     window.onscroll = this.onScroll.bind(this);
     setInterval(this.checkResize.bind(this), this.interval);
