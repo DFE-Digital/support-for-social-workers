@@ -94,31 +94,29 @@ ContentsListWithBody.prototype.checkScroll = function () {
 };
 
 ContentsListWithBody.prototype.updateVisibility = function () {
-    if (this.disabled) return this.showStaticElement();
+    if (this.disabled) return this.hide();
 
     var isPastStart = this.startPosition < this.windowVerticalPosition;
     if (isPastStart) {
         var isPastEnd = this.stopPosition < this.windowVerticalPosition;
         if (isPastEnd) {
-            this.showStaticElement();
+            this.hide();
         } else {
-            this.showStickyElement();
+            this.show();
         }
     } else {
-        this.showStaticElement();
+        this.hide();
 }
 };
 
-ContentsListWithBody.prototype.showStaticElement = function () {
+ContentsListWithBody.prototype.hide = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-    this.staticElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
 };
 
-ContentsListWithBody.prototype.showStickyElement = function () {
+ContentsListWithBody.prototype.show = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
-    this.staticElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
 };
 
 document.addEventListener('DOMContentLoaded', function () {
