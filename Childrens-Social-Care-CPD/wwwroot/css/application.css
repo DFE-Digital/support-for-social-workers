@@ -20902,5 +20902,8 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
     padding: 20px;
   }
 }
+[data-back-to-top-static] .app-back-to-top a.govuk-link {
+  display: inline;
+}
 
 /*# sourceMappingURL=application.css.map */

@@ -110,8 +110,15 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
     width: 66%
 }
 
+// Static back to top focus state
+
+
 @media(min-width: 40.0625em) {
     .gem-c-contents-list-with-body__link-wrapper.gem-c-contents-list-with-body__sticky-element--stuck-to-window .gem-c-back-to-top-link {
         padding:20px
     }
+}
+
+[data-back-to-top-static] .app-back-to-top a.govuk-link {
+  display: inline;
 }
