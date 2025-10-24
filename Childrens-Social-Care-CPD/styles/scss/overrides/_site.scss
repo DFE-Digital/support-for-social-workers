@@ -773,6 +773,11 @@ a.section-nav-link {
     text-decoration-thickness: 3px;
 }
 
+.app-back-to-top a.govuk-link:focus {
+    text-decoration: none; 
+    text-decoration-thickness: 3px;
+}
+
 .gem-c-contents-list-with-body__link-container {
     position: relative;
 }
