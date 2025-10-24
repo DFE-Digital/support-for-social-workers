@@ -5,6 +5,7 @@ using Childrens_Social_Care_CPD.Contentful.Navigation;
 using Childrens_Social_Care_CPD.Models;
 using Contentful.Core.Search;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Childrens_Social_Care_CPD.Controllers;
 
@@ -90,12 +91,12 @@ public class ContentController(ICpdContentfulClient cpdClient, IApplicationConfi
     [Route("/{*pagename:regex(^[[0-9a-z]]+[[0-9a-z\\/\\-]]*$)}")]
     public async Task<IActionResult> Index(string pageName = "home", bool preferenceSet = false, bool fs = false, CancellationToken cancellationToken = default)
     {
-
-        if (false)
+        bool? test = preferenceSet;
+        if (test ?? false)
         {
             return BadRequest();
         }
-        
+
         if (!ModelState.IsValid)
         {
             return BadRequest();
