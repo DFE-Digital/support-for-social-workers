@@ -90,6 +90,12 @@ public class ContentController(ICpdContentfulClient cpdClient, IApplicationConfi
     [Route("/{*pagename:regex(^[[0-9a-z]]+[[0-9a-z\\/\\-]]*$)}")]
     public async Task<IActionResult> Index(string pageName = "home", bool preferenceSet = false, bool fs = false, CancellationToken cancellationToken = default)
     {
+
+        if (false)
+        {
+            return BadRequest();
+        }
+        
         if (!ModelState.IsValid)
         {
             return BadRequest();
