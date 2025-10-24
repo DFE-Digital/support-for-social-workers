@@ -40,7 +40,7 @@ ContentsListWithBody.prototype.setInitialValues = function () {
     let staticLinkHeight = this.staticElement.offsetHeight || parseFloat(this.staticElement.style.height.replace("px", ""));
     let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
     this.staticElementBottomOffset = elementHeight - staticLinkPosition + (2 * staticLinkHeight);
-}
+};
 
 ContentsListWithBody.prototype.getWindowDimensions = function () {
     return {

@@ -5,12 +5,15 @@ on:
     inputs:
       target_environment:
         required: true
-        default: 'dev'
+        default: "dev"
         type: choice
         options:
           - dev
           - test
           - prod
+
+permissions:
+  contents: read
 
 jobs:
   setup:
@@ -67,7 +70,7 @@ jobs:
         id: required-migrations
         working-directory: ./Contentful-Schema/utils
         run: node get-required-migrations.js --currentVersion ${{ steps.current-migration-version.outputs.migration-version }}
- 
+
   clone:
     if: ${{ join(needs.setup.outputs.required-migrations, '') != '[]' }}
     needs: [setup]
@@ -89,10 +92,10 @@ jobs:
 
       - name: Clone target environment ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }} to staging environment ${{ needs.setup.outputs.staging-environment }}
         run: contentful space environment create --name ${{ needs.setup.outputs.staging-environment }} --environment-id ${{ needs.setup.outputs.staging-environment }} --source ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }}
-  
+
   migrate:
     if: ${{ join(needs.setup.outputs.required-migrations, '') != '[]' }}
-    needs: [setup,clone]
+    needs: [setup, clone]
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 1
@@ -102,7 +105,7 @@ jobs:
     env:
       MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
-    
+
     steps:
       - uses: actions/checkout@v4
 
@@ -134,7 +137,7 @@ jobs:
 
   repoint-alias:
     if: ${{ join(needs.setup.outputs.required-migrations, '') != '[]' }}
-    needs: [setup,migrate]
+    needs: [setup, migrate]
     runs-on: ubuntu-latest
     env:
       STAGING_ENVIRONMENT: ${{ needs.setup.outputs.staging-environment }}
