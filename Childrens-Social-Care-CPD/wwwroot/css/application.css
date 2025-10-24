@@ -20301,6 +20301,17 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
     padding-left: 15px;
   }
 }
+.gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+  padding-top: 17px;
+  padding-bottom: 18px;
+}
+
+@media (max-width: 40.0625em) {
+  .gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
+    padding-top: 19px;
+    padding-bottom: 20px;
+  }
+}
 .govuk-frontend-supported .gem-c-contents-list-with-body__sticky-element {
   position: absolute;
   bottom: 0;
