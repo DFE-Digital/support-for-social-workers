@@ -28,11 +28,11 @@
     <partial name="_CookiesAndAnalyticsConsent" />
     <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
     <div id="swcd-page-top"></div>
+    <partial name="_BetaBanner" />
     <partial name="_Header" />
 
 
     <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-!-padding-top-0" id="main-content" role="main" data-module="contents-list-with-body">
-        <partial name="_BetaBanner" />
         <partial name="_BackLink" model="@ViewBag.ContextModel?.BackLink" />
         @await RenderSectionAsync("PageBanner", required: false)
         @await RenderSectionAsync("PromoBanner", required: false)
