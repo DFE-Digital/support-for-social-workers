@@ -759,6 +759,10 @@ a.section-nav-link {
     }
 }
 
+/*
+* Back to top component
+*/
+
 .app-back-to-top a.govuk-link {
     display: block;
     width: 100%;
@@ -766,6 +770,11 @@ a.section-nav-link {
     box-sizing: border-box;
     text-align: left;
     text-decoration: underline;
+}
+
+// Static back to top clickable area
+[data-back-to-top-static] .app-back-to-top a.govuk-link {
+  display: inline;
 }
 
 .app-back-to-top a.govuk-link:hover {
