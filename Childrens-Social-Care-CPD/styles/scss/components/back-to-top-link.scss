@@ -35,6 +35,11 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
     }
 }
 
+.gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
+    padding-top: 17px;
+    padding-bottom: 18px;
+}
+
 @media(max-width: 40.0625em) {
     .gem-c-contents-list-with-body__link-container .app-back-to-top a.govuk-link {
         padding-top: 19px;
