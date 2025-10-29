@@ -10666,11 +10666,11 @@ a.dfe-header__link--service:focus {
 }
 
 .app-section-beta__blue {
-  background-color: #347ca9;
+  background-color: #ebf2f6;
 }
 
 .body-header-font {
-  color: white;
+  color: black;
 }
 
 @media (max-width: 63.99em) {
@@ -11720,6 +11720,20 @@ p#content-banner-subtitle.govuk-body-l {
 .govuk-header__link:focus .govuk-header__logotype {
   content: url(/assets/images/dfe-logo-alt.png);
   height: 30px;
+}
+
+.govuk-template--rebranded span.govuk-service-navigation__service-name {
+  padding-bottom: 5px;
+  display: block;
+}
+
+@media (max-width: 40.0625em) {
+  .govuk-template--rebranded span.govuk-service-navigation__service-name {
+    margin-top: 16px;
+  }
+}
+.govuk-template--rebranded li.govuk-service-navigation__item {
+  padding-top: 5px;
 }
 
 .mobile-filters-button {
