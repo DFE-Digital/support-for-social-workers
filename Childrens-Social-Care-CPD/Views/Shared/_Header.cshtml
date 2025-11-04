@@ -14,13 +14,13 @@
 
         if (selected) {
             <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
-                <a class="govuk-service-navigation__link" href="#" aria-current="true">
+                <a class="govuk-service-navigation__link" href="@path" aria-current="true">
                     <strong class="govuk-service-navigation__active-fallback">@text</strong>
                 </a>
             </li>
         } else {
             <li class="govuk-service-navigation__item">
-                <a class="govuk-service-navigation__link" href="#">
+                <a class="govuk-service-navigation__link" href="@path">
                     @text
                 </a>
             </li>
