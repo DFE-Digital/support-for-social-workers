@@ -10,8 +10,6 @@
 @functions {
     public void RenderMenuItem(string id, string text, string path, bool selected)
     {
-        var cssModifier = selected ? "dfe-header__navigation-item--current" : string.Empty;
-
         if (selected) {
             <li class="govuk-service-navigation__item govuk-service-navigation__item--active">
                 <a class="govuk-service-navigation__link" href="@path" aria-current="true">
