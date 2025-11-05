@@ -2,7 +2,7 @@ module.exports = async function (migration, { makeRequest }) {
 
     const contentTypeId = 'content',
       categoryFieldId = 'category',
-      waysToQualifyAsASocialWorkerString = 'Specialist areas of practice';
+      specialistAreasOfPracticeString = 'Specialist areas of practice';
   
     const response = await makeRequest({
       method: 'GET',
