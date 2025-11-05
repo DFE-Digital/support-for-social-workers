@@ -759,6 +759,10 @@ a.section-nav-link {
     }
 }
 
+/*
+* Back to top component
+*/
+
 .app-back-to-top a.govuk-link {
     display: block;
     width: 100%;
@@ -768,8 +772,18 @@ a.section-nav-link {
     text-decoration: underline;
 }
 
+// Static back to top clickable area
+[data-back-to-top-static] .app-back-to-top a.govuk-link {
+  display: inline;
+}
+
 .app-back-to-top a.govuk-link:hover {
     text-decoration: underline; 
+    text-decoration-thickness: 3px;
+}
+
+.app-back-to-top a.govuk-link:focus {
+    text-decoration: none; 
     text-decoration-thickness: 3px;
 }
 
@@ -791,4 +805,8 @@ a.section-nav-link {
     .gem-c-contents-list-with-body__link-container-with-side-nav .app-back-to-top a.govuk-link {
         margin-left: 0px
     }
+}
+
+.app-error-header {
+    padding-top: 20px;
 }

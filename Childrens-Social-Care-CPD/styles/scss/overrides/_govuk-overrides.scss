@@ -1,3 +1,25 @@
 ﻿.govuk-width-container {
     max-width: 1200px;
 }
+.govuk-header__link .govuk-header__logotype{
+  height: 30px;
+}
+
+.govuk-header__link:focus .govuk-header__logotype{
+  content: url(/assets/images/department-for-education_black.png);
+  height: 30px;
+}
+
+.govuk-template--rebranded span.govuk-service-navigation__service-name {
+  padding-bottom: 5px;
+  display: block;
+}
+
+@media (max-width: 40.0625em) {
+  .govuk-template--rebranded span.govuk-service-navigation__service-name {
+    margin-top: 16px;
+  }
+}
+.govuk-template--rebranded li.govuk-service-navigation__item {
+  padding-top: 5px;
+}
