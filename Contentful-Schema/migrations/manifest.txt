@@ -23,4 +23,3 @@
 0023-create-workload-page-category.cjs
 0024-add-promo-banner-fields-to-content-component.cjs
 0025-create-ways-to-qualify-as-a-social-worker-page-category.cjs
-0026-specialist-areas-of-practice-page-category.cjs
