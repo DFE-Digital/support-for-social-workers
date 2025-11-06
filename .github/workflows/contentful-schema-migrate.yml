@@ -21,11 +21,11 @@ jobs:
     environment: ${{inputs.target_environment}}
 
     env:
-      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
-      DELIVERY_KEY: ${{ secrets.TF_VAR_CPD_DELIVERY_KEY }}
+      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_API_TOKEN }}
+      DELIVERY_KEY: ${{ secrets.CONTENTFUL_DELIVERY_KEY }}
       ENVIRONMENT: ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }}
       SPACE_CAPACITY: ${{ vars.CONTENTFUL_SPACE_CAPACITY }}
-      SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
+      SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
 
     outputs:
       staging-environment: ${{ steps.staging-env.outputs.staging-environment }}
@@ -77,8 +77,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
-      SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
+      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_API_TOKEN }}
+      SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
 
     steps:
       - name: Install Contentful CLI
@@ -103,8 +103,8 @@ jobs:
         value: ${{fromJSON(needs.setup.outputs.required-migrations)}}
 
     env:
-      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
-      SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
+      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_API_TOKEN }}
+      SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
 
     steps:
       - uses: actions/checkout@v4
@@ -141,9 +141,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       STAGING_ENVIRONMENT: ${{ needs.setup.outputs.staging-environment }}
-      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
+      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_API_TOKEN }}
       ENVIRONMENT: ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }}
-      SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
+      SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
 
     steps:
       - uses: actions/checkout@v4
