@@ -21,8 +21,8 @@ jobs:
     environment: ${{inputs.target_environment}}
 
     env:
-      MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
-      DELIVERY_KEY: ${{ secrets.TF_VAR_CPD_DELIVERY_KEY }}
+      MANAGEMENT_TOKEN: ${{ secrets.PAT_TOKEN }}
+      DELIVERY_KEY: ${{ secrets.CONTENTFUL_DELIVERY_KEY }}
       ENVIRONMENT: ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }}
       SPACE_CAPACITY: ${{ vars.CONTENTFUL_SPACE_CAPACITY }}
       SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
