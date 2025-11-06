@@ -48,10 +48,10 @@
                 </button>
                 <ul class="govuk-service-navigation__list" id="navigation">
                 @{
-                    RenderMenuItem("home", "Home", "home", category == "Home");
-                    RenderMenuItem("career", "Careers guidance", "career-stages", category == "Career information");
-                    RenderMenuItem("developmentProgrammes", "Professional development", "development-programmes", category == "Development programmes");
-                    RenderMenuItem("exploreRoles", "Resources for managers and leaders", "resources-for-managers-and-leaders", category == "Explore roles");
+                    RenderMenuItem("home", "Home", "/home", category == "Home");
+                    RenderMenuItem("career", "Careers guidance", "/career-stages", category == "Career information");
+                    RenderMenuItem("developmentProgrammes", "Professional development", "/development-programmes", category == "Development programmes");
+                    RenderMenuItem("resources", "Resources for managers and leaders", "/resources-for-managers-and-leaders", category == "Resources");
                 }
                 </ul>
             </nav>
