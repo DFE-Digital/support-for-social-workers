@@ -103,6 +103,17 @@ h1,
     width: 85%;
 }
 
+.govuk-template--rebranded .govuk-header__logo
+{
+    padding-bottom: 8px;
+}
+
+@media (max-width: 40.0625em) {
+    .govuk-template--rebranded .govuk-header__logo {
+        padding-bottom: 4px;
+    }
+}
+
 .app-header .govuk-header__content {
     width: 0;
 }
