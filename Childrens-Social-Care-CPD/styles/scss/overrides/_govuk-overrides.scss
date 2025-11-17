@@ -10,7 +10,6 @@
   height: 30px;
 }
 
-
 .govuk-service-navigation {
   padding-top: 10px;
 }
@@ -30,9 +29,13 @@
 }
 
 @media (min-width: 40.0625em) {
-    .govuk-template--rebranded span.govuk-service-navigation__service-name {
-        padding: 0px;
-    }
+  .govuk-template--rebranded span.govuk-service-navigation__service-name {
+      padding: 0px;
+  }
+
+  .govuk-service-navigation {
+    padding-top: 15px;
+  }
 }
 
 .govuk-phase-banner {
