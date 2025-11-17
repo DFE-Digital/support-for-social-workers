@@ -11529,6 +11529,7 @@ p#content-banner-subtitle.govuk-body-l {
 .beta-banner .govuk-tag {
   color: #fff;
   background-color: #1D70B8;
+  border-bottom: 0;
 }
 
 .beta-banner-home {
@@ -11751,6 +11752,10 @@ p#content-banner-subtitle.govuk-body-l {
     padding: 0px;
   }
 }
+.govuk-phase-banner {
+  border-bottom: 0;
+}
+
 .mobile-filters-button {
   position: relative;
 }
