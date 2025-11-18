@@ -11750,7 +11750,14 @@ p#content-banner-subtitle.govuk-body-l {
   .govuk-template--rebranded span.govuk-service-navigation__service-name {
     padding: 0px;
   }
+  .govuk-service-navigation {
+    padding-top: 15px;
+  }
 }
+.govuk-phase-banner {
+  border-bottom: 0;
+}
+
 .mobile-filters-button {
   position: relative;
 }
