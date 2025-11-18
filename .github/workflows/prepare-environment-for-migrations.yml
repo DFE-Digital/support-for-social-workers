@@ -7,6 +7,9 @@ on:
         required: true
         type: string
 
+permissions:
+  contents: read
+
 env:
   MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
   SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
@@ -16,8 +19,6 @@ jobs:
   prepare-environment:
     runs-on: ubuntu-latest
     steps:
-      - uses: GitHubSecurityLab/actions-permissions/monitor@37c927c24552caa0ef6040ab0876db729cc12754 #v1.0.2-beta7
-
       - uses: actions/checkout@v4
 
       - uses: actions/setup-node@v4

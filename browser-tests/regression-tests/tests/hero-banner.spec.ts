@@ -34,7 +34,7 @@ test.describe('Hero Banner', () => {
             await expect(container).toHaveCSS('margin-bottom', '50px');
             await expect(container).toHaveCSS('padding-top', '40px');
             await expect(container).toHaveCSS('padding-bottom', '35px');
-            await expect(container).toHaveCSS('background-color', 'rgb(52, 124, 169)');
+            await expect(container).toHaveCSS('background-color', 'rgb(235, 242, 246)');
         });
     });
 
@@ -78,7 +78,7 @@ test.describe('Hero Banner on Mobile Viewport', () => {
             await expect(container).toHaveCSS('margin-bottom', '30px');
             await expect(container).toHaveCSS('padding-top', '40px');
             await expect(container).toHaveCSS('padding-bottom', '35px');
-            await expect(container).toHaveCSS('background-color', 'rgb(52, 124, 169)');
+            await expect(container).toHaveCSS('background-color', 'rgb(235, 242, 246)');
         });
     });
 

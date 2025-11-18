@@ -8,9 +8,8 @@ test.describe('Page Footer', () => {
 
     const links = [
         ['Privacy policy', 'https://www.gov.uk/government/publications/privacy-information-business-contacts-and-stakeholders/privacy-information-business-contacts-and-stakeholders#using-your-data-to-carry-out-research'],
-        ['Accessibility', '/accessibility'],
+        ['Accessibility', 'https://accessibility-statements.education.gov.uk/s/50'],
         ['Terms and conditions', '/termsconditions'],
-        ['Sitemap', '/sitemap'],
         ['Feedback', 'https://dferesearch.fra1.qualtrics.com/jfe/form/SV_bmcLDedq5wipeTA'],
         ['Crown copyright', 'https://www.nationalarchives.gov.uk/information-management/re-using-public-sector-information/uk-government-licensing-framework/crown-copyright/'],
         ['Open Government Licence v3.0', 'https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/'],

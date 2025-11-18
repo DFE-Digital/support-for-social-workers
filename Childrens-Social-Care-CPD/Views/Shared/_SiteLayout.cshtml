@@ -1,7 +1,7 @@
 ﻿@inject ICookieHelper _cookieHelper;
 
 <!DOCTYPE html>
-<html lang="en" class="govuk-template">
+<html lang="en" class="govuk-template--rebranded">
 <head>
     <title>@ViewBag.ContextModel.Title</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
@@ -28,16 +28,18 @@
     <partial name="_CookiesAndAnalyticsConsent" />
     <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
     <div id="swcd-page-top"></div>
+    <partial name="_BetaBanner" />
     <partial name="_Header" />
 
 
-    <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-!-padding-top-0" id="main-content" role="main">
-        <partial name="_BetaBanner" />
+    <main class="govuk-main-wrapper govuk-main-wrapper--auto-spacing govuk-!-padding-top-0" id="main-content" role="main" data-module="contents-list-with-body">
         <partial name="_BackLink" model="@ViewBag.ContextModel?.BackLink" />
         @await RenderSectionAsync("PageBanner", required: false)
         @await RenderSectionAsync("PromoBanner", required: false)
         @RenderBody()
     </main>
+
+    @await RenderSectionAsync("StickyBackToTop", required: false)
 
     <partial name="_Footer" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -51,6 +53,7 @@
         import { initAll } from '/javascript/govuk-frontend.min.js'
         initAll()
     </script>
+    <script src="/javascript/components/back-to-top-202511071457.js" type="module"></script>
     @await RenderSectionAsync("Scripts", required: false)
     @Html.RenderScripts(ScriptPosition.BodyEnd)
 </body>
