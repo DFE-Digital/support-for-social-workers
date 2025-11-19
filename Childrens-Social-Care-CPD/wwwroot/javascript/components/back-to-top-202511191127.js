@@ -20,6 +20,7 @@ function ContentsListWithBody(element) {
     this.startPosition = 0;
     this.stopPosition = 0;
     this.staticElementBottomOffset = 0;
+    this.hidden = true;
 }
 
 ContentsListWithBody.prototype.init = function () {
@@ -33,10 +34,30 @@ ContentsListWithBody.prototype.init = function () {
     setInterval(this.checkResize.bind(this), this.interval);
     setInterval(this.checkScroll.bind(this), this.interval);
     this.setInitialValues();
+    this.setWindowFocusListener();
     this.checkResize();
     this.checkScroll();
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--enabled");
 };
+
+ContentsListWithBody.prototype.setWindowFocusListener = function () {
+    document.addEventListener('focus', this.addFocusHandler.bind(this), true);
+}
+
+ContentsListWithBody.prototype.addFocusHandler = function () {
+    setTimeout(this.linkFocusHandler.bind(this), this.interval);
+}
+
+ContentsListWithBody.prototype.linkFocusHandler = function () {
+        if (this.hidden) return;
+        const focusedElement = document.activeElement || document.body;
+        const rect = focusedElement.getBoundingClientRect();
+        const windowDimensions = this.getWindowDimensions();
+        const diff = windowDimensions.height - rect.bottom;
+        if (diff <= 60) {
+            window.scrollBy(0, 60 - diff);
+        }
+}
 
 ContentsListWithBody.prototype.setInitialValues = function () {
     let staticLinkPosition =this.staticElement.offsetTop;
@@ -115,11 +136,13 @@ ContentsListWithBody.prototype.updateVisibility = function () {
 ContentsListWithBody.prototype.hide = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+    this.hidden = true;
 };
 
 ContentsListWithBody.prototype.show = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
+    this.hidden = false;
 };
 
 document.addEventListener('DOMContentLoaded', function () {
