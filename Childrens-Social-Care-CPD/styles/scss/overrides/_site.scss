@@ -607,6 +607,10 @@ section.completed {
 
 .govuk-table {
     margin-bottom: 0;
+    display: block;
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch; // smooth scrolling on iOS
 }
 
 .module-section--item {
