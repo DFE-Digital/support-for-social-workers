@@ -9,7 +9,7 @@
         if (!String.IsNullOrEmpty(Model.Header?.Trim()))
         {
             string size;
-            switch (Model.HeaderLevel)
+            switch (Model.HeaderLevelFix)
             {
                 case 1:
                     size = "l";
@@ -25,7 +25,7 @@
                 break;
             }
 
-            var tagBuilder = new TagBuilder($"h{Model.HeaderLevel}");
+            var tagBuilder = new TagBuilder($"h{Model.HeaderLevelFix}");
             tagBuilder.InnerHtml.Append(Model.Header);
             tagBuilder.AddCssClass("govuk-heading-" + size);
 
