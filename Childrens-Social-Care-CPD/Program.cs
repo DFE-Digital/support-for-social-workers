@@ -60,6 +60,21 @@ Console.WriteLine($"After MapControllerRoute {sw.ElapsedMilliseconds}ms");
 app.MapHealthChecks("application/status");
 Console.WriteLine($"After MapHealthChecks {sw.ElapsedMilliseconds}ms");
 
+// add a ContentSecurityPolicy
+app.Use(async (context, next) => {
+    var nonce = Convert.ToBase64String(Guid.NewGuid().ToByteArray());
+    context.Items["CSPNonce"] = nonce;
+
+    context.Response.Headers.Append("Content-Security-Policy",
+        "script-src 'self' 'nonce-{" + nonce + "}' 'unsafe-inline' 'unsafe-eval' https://*.googletagmanager.com; " +
+        "style-src 'self' 'unsafe-inline' https://rsms.me; " +
+        "img-src 'self' data: https://images.ctfassets.net https://*.google-analytics.com https://*.googletagmanager.com; " +
+        "font-src 'self' data: https://rsms.me; " +
+        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com");
+    await next();
+});
+Console.WriteLine($"After ContentSecurityPolicy {sw.ElapsedMilliseconds}ms");
+
 app.Run();
 Console.WriteLine($"After Application Run {sw.ElapsedMilliseconds}ms");
 
