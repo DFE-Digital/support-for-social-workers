@@ -66,7 +66,7 @@ app.Use(async (context, next) => {
     context.Items["CSPNonce"] = nonce;
 
     context.Response.Headers.Append("Content-Security-Policy",
-        "script-src 'self' 'nonce-{" + nonce + "}' https://*.googletagmanager.com; " +
+        "script-src 'self' 'nonce-" + nonce + "' https://*.googletagmanager.com; " +
         "style-src 'self' https://rsms.me; " +
         "img-src 'self' data: https://images.ctfassets.net https://*.google-analytics.com https://*.googletagmanager.com; " +
         "font-src 'self' data: https://rsms.me; " +
