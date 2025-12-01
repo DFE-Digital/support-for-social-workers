@@ -70,7 +70,8 @@ app.Use(async (context, next) => {
         "style-src 'self' https://rsms.me; " +
         "img-src 'self' data: https://images.ctfassets.net https://*.google-analytics.com https://*.googletagmanager.com; " +
         "font-src 'self' data: https://rsms.me; " +
-        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com");
+        "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; " +
+        "frame-ancestors 'self'");
     await next();
 });
 Console.WriteLine($"After ContentSecurityPolicy {sw.ElapsedMilliseconds}ms");
