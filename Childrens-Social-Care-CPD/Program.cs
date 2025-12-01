@@ -71,7 +71,7 @@ app.Use(async (context, next) => {
         "img-src 'self' data: https://images.ctfassets.net https://*.google-analytics.com https://*.googletagmanager.com; " +
         "font-src 'self' data: https://rsms.me; " +
         "connect-src 'self' https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; " +
-        "frame-ancestors 'self'");
+        "frame-ancestors 'self'; form-action 'self'");
     await next();
 });
 Console.WriteLine($"After ContentSecurityPolicy {sw.ElapsedMilliseconds}ms");
