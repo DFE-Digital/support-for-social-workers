@@ -144,9 +144,9 @@ public static class WebApplicationBuilderExtensions
         {
             services.AddDataProtection()
                 .PersistKeysToAzureBlobStorage(applicationConfiguration.AzureDataProtectionConnectionString,
-                                                "data-protection", "data-protection");
-                //.ProtectKeysWithAzureKeyVault(new Uri(applicationConfiguration.AzureDataProtectionMasterKeyIdentifier),
-                //                                new DefaultAzureCredential());
+                                                "data-protection", "data-protection")
+                .ProtectKeysWithAzureKeyVault(new Uri(applicationConfiguration.AzureDataProtectionMasterKeyIdentifier),
+                                                new DefaultAzureCredential());
 
         }
     }
