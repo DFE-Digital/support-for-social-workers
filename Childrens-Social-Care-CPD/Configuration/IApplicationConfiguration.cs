@@ -10,6 +10,12 @@ public interface IApplicationConfiguration
     [RequiredForEnvironment(ApplicationEnvironment.All, Hidden = false, Obfuscate = false)]
     string AppVersion { get; }
 
+    [RequiredForEnvironment(ApplicationEnvironment.Production, Hidden = false)]
+    string AzureDataProtectionConnectionString { get; }
+
+    [RequiredForEnvironment(ApplicationEnvironment.Production, Hidden = false)]
+    string AzureDataProtectionMasterKeyIdentifier { get; }
+
     [RequiredForEnvironment(ApplicationEnvironment.All, Hidden = false, Obfuscate = false)]
     string AzureEnvironment { get; }
 
