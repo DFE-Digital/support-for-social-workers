@@ -9,6 +9,16 @@ internal class HeadingRendererBase(IRenderer<Text> textRenderer, IRenderer<Hyper
 {
     protected TagBuilder HeadingToHtml(string tag, IHeading heading)
     {
+        // add protection against displaying empty header tags
+        if (heading.Content.Count == 1)
+        {
+            IContent theItem = heading.Content[0];
+            if (theItem is Text && String.IsNullOrEmpty(((Text)theItem).Value))
+            {
+                return null;
+            }
+        }
+        
         var h = new TagBuilder(tag);
         foreach (var content in heading.Content)
         {
