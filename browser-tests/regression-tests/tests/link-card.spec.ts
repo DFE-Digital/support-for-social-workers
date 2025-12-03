@@ -10,7 +10,7 @@ test.describe('Link Card', () => {
         let linkCardContainer = page.getByTestId('link-card').locator('nth=0');
 
         await expect(linkCardContainer).toBeVisible();
-        await expect(linkCardContainer).toHaveClass('dfe-card');
+        await expect(linkCardContainer).toHaveClass('dfe-card card-stretch');
         await expect(linkCardContainer).toHaveCSS('border', '1px solid rgb(177, 180, 182)');
         await expect(linkCardContainer).toHaveCSS('display', 'flex');
         await expect(linkCardContainer).toHaveCSS('flex', '1 1 0%');

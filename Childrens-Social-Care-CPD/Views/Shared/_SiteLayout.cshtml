@@ -43,13 +43,13 @@
 
     <partial name="_Footer" />
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script>
+    <script nonce="@Context.Items["CSPNonce"]">
         document.body.className += ' js-enabled' + ('noModule' in HTMLScriptElement.prototype ? ' govuk-frontend-supported' : '');
     </script>
     <!-- component HTML -->
     <script src="/javascript/govuk-frontend.min.js" type="module"></script>
     <script src="/javascript/dfefrontend-2.0.0.min.js"></script>
-    <script type="module">
+    <script type="module" nonce="@Context.Items["CSPNonce"]">
         import { initAll } from '/javascript/govuk-frontend.min.js'
         initAll()
     </script>

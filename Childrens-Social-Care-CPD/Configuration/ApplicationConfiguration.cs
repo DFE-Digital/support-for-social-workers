@@ -4,6 +4,8 @@ public class ApplicationConfiguration(IConfiguration configuration) : IApplicati
 {
     public string AppInsightsConnectionString => configuration["CPD_INSTRUMENTATION_CONNECTIONSTRING"];
     public string AppVersion => configuration["VCS-TAG"];
+    public string AzureDataProtectionConnectionString => configuration["CPD_AZURE_STORAGE_ACCOUNT_CONNECTION_STRING"];
+    public string AzureDataProtectionMasterKeyIdentifier => configuration["CPD_DATA_PROTECTION_KEY"];
     public string AzureEnvironment => configuration["CPD_AZURE_ENVIRONMENT"];
     public string ClarityProjectId => configuration["CPD_CLARITY"];
     public string ContentfulDeliveryApiKey => configuration["CPD_DELIVERY_KEY"];

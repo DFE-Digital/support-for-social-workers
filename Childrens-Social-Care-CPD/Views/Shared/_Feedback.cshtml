@@ -19,7 +19,7 @@
                 </a>
             </summary>
 
-            <form action="feedback" method="post" data-module-id="feedbackForm">
+            <form action="" method="post" data-module-id="feedbackForm">
                 <input data-module-id="page" type="hidden" name="page" value="@contextModel.Id" />
                 <div data-module-id="controlsContainer">
                     <div class="govuk-details__text">
@@ -30,7 +30,7 @@
                         <div class="govuk-form-group" data-module-id="isUsefulQuestionGroup">
                             <fieldset class="govuk-fieldset">
                                 <legend class="govuk-fieldset__legend">Did you find this page useful?</legend>
-                                <p class="govuk-error-message" style="display:none" data-module-id="isUsefulErrorMessage">
+                                <p class="govuk-error-message sfsw-hidden" data-module-id="isUsefulErrorMessage">
                                     <span class="govuk-visually-hidden">Error:</span> Please select yes or no
                                 </p>
                                 <div class="govuk-radios" data-module="govuk-radios">
@@ -57,12 +57,12 @@
                                 Submit Feedback
                             </button>
 
-                            <a data-module-id="cancelLink" class="govuk-link" style="display: none" href="">Cancel</a>
+                            <a data-module-id="cancelLink" class="govuk-link sfsw-hidden" href="">Cancel</a>
                         </div>
                     </div>
                 </div>
 
-                <div data-module-id="thankYouMessage" class="govuk-details__text" style="display: none;">
+                <div data-module-id="thankYouMessage" class="govuk-details__text sfsw-hidden">
                     Thank you for your feedback on this resource!
                 </div>
 

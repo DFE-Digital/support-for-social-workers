@@ -67,7 +67,13 @@ else if (preferenceSet)
                 </div>
             </div>
             <div class="govuk-button-group">
-                <button onclick="$('#divCookieBannerId').hide()" datattestid="btn-hideCookie" class="govuk-button" data-module="govuk-button">Hide cookie message</button>
+                <button id="btn-hideCookie" datattestid="btn-hideCookie" class="govuk-button" data-module="govuk-button">Hide cookie message</button>
+                <script nonce="@Context.Items["CSPNonce"]">
+                    function hideCookieDiv() {
+                        document.getElementById('divCookieBannerId').style.display = 'none';
+                    }
+                    document.getElementById('btn-hideCookie').onclick = hideCookieDiv;
+                </script>
             </div>
         </div>
     </div>

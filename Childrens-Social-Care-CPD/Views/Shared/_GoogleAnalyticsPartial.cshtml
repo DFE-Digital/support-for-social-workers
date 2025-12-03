@@ -10,8 +10,8 @@
     pageName = string.IsNullOrEmpty(pageName) ? "HomePage" : pageName;
 
     if (!String.IsNullOrEmpty(googleAnalyticsKey)) {
-        <script async src='@googleAnalyticsUrl'></script>
-        <script>
+        <script nonce="@Context.Items["CSPNonce"]" async src='@googleAnalyticsUrl'></script>
+        <script nonce="@Context.Items["CSPNonce"]">
             window.dataLayer = window.dataLayer || [];
             function gtag() { dataLayer.push(arguments); }
             gtag('js', new Date());

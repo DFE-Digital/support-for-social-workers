@@ -12,6 +12,7 @@ public class CookieController(ICpdContentfulClient cpdClient, ICookieHelper cook
     private const string _pageName = "cookies";
 
     [HttpPost]
+    [ValidateAntiForgeryToken]
     [Route("/cookies/setpreferences")]
     public IActionResult SetPreferences(string consentValue, string sourcePage = null, bool fromCookies = false)
     {
