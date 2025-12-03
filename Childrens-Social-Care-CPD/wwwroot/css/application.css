@@ -11782,30 +11782,6 @@ p#content-banner-subtitle.govuk-body-l {
   border-bottom: 0;
 }
 
-.dfe-card h3,
-.dfe-card .dfe-heading-m,
-.dfe-card .govuk-heading-m,
-.dfe-card h2 {
-  font-size: 1.25em;
-}
-
-@media (min-width: 40.0625em) {
-  .dfe-card h3,
-  .dfe-card .dfe-heading-m,
-  .dfe-card .govuk-heading-m,
-  .dfe-card h2 {
-    font-size: 1.5em;
-  }
-}
-.dfe-card p {
-  font-size: 1em;
-}
-
-@media (min-width: 40.0625em) {
-  .dfe-card p {
-    font-size: 1.188em;
-  }
-}
 .mobile-filters-button {
   position: relative;
 }
