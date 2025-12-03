@@ -11551,6 +11551,9 @@ p#content-banner-subtitle.govuk-body-l {
   padding-top: 40px !important;
 }
 
+/* 
+* Accessible font size in image cards
+*/
 .dfe-card h3,
 .dfe-card .dfe-heading-m,
 .dfe-card .govuk-heading-m,
