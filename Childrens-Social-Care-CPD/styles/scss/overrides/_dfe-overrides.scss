@@ -964,7 +964,7 @@ content: "";
   .dfe-heading-m,
   .govuk-heading-m,
   h2 {
-    font-size: 1.25em
+    font-size: 1.25rem
   }
 }
 
@@ -974,17 +974,17 @@ content: "";
     .dfe-heading-m,
     .govuk-heading-m,
     h2 {
-      font-size: 1.5em
+      font-size: 1.5rem
     }
   }
 }
 
 .dfe-card p {
-  font-size: 1em;
+  font-size: 1rem;
 }
 
 @media (min-width: 40.0625em) {
 .dfe-card p {
-    font-size: 1.188em;
+    font-size: 1.188rem;
   }
 }
