@@ -955,3 +955,36 @@ content: "";
 .page-banner-without-breadcrumbs {
     padding-top: 40px !important;
 }
+
+/* 
+* Accessible font size in image cards
+*/
+.dfe-card {
+  h3,
+  .dfe-heading-m,
+  .govuk-heading-m,
+  h2 {
+    font-size: 1.25rem
+  }
+}
+
+@media (min-width: 40.0625em) {
+  .dfe-card {
+    h3,
+    .dfe-heading-m,
+    .govuk-heading-m,
+    h2 {
+      font-size: 1.5rem
+    }
+  }
+}
+
+.dfe-card p {
+  font-size: 1rem;
+}
+
+@media (min-width: 40.0625em) {
+.dfe-card p {
+    font-size: 1.188rem;
+  }
+}

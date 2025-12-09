@@ -23,8 +23,22 @@
                     </div>
                 }
                 <div class="@textCss">
-                    <h1 id="content-banner-title" class="govuk-heading-xl">@Model.ContentTitle</h1>
-                    <p id="content-banner-subtitle" class="govuk-body-l">@Model.ContentSubtitle</p>
+                    @if (String.IsNullOrEmpty(Model.ContentTitle))
+                    {
+                        <div class="content-banner-title-spacer"></div>
+                    }
+                    else
+                    {
+                        <h1 id="content-banner-title" class="govuk-heading-xl">@Model.ContentTitle</h1>
+                    }
+                    @if (String.IsNullOrEmpty(Model.ContentSubtitle))
+                    {
+                        <div class="content-banner-subtitle-spacer"></div>
+                    }
+                    else
+                    {
+                        <p id="content-banner-subtitle" class="govuk-body-l">@Model.ContentSubtitle</p>
+                    }
                 </div>
                 @if (Model.PageType == PageType.PathwaysTrainingContent)
                 {

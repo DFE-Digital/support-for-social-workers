@@ -11551,6 +11551,33 @@ p#content-banner-subtitle.govuk-body-l {
   padding-top: 40px !important;
 }
 
+/* 
+* Accessible font size in image cards
+*/
+.dfe-card h3,
+.dfe-card .dfe-heading-m,
+.dfe-card .govuk-heading-m,
+.dfe-card h2 {
+  font-size: 1.25rem;
+}
+
+@media (min-width: 40.0625em) {
+  .dfe-card h3,
+  .dfe-card .dfe-heading-m,
+  .dfe-card .govuk-heading-m,
+  .dfe-card h2 {
+    font-size: 1.5rem;
+  }
+}
+.dfe-card p {
+  font-size: 1rem;
+}
+
+@media (min-width: 40.0625em) {
+  .dfe-card p {
+    font-size: 1.188rem;
+  }
+}
 /*
     This component is currently not part of the dfe-frontend-alpha npm package.
 
@@ -12614,6 +12641,22 @@ a.section-nav-link {
 }
 .app-error-header {
   padding-top: 20px;
+}
+
+div.card-stretch {
+  align-self: stretch;
+}
+
+.sfsw-hidden {
+  display: none;
+}
+
+div.content-banner-title-spacer {
+  height: 4em;
+}
+
+div.content-banner-subtitle-spacer {
+  height: 1em;
 }
 
 /*!

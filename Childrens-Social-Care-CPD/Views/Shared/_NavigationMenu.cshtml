@@ -9,7 +9,7 @@
         if (!String.IsNullOrEmpty(Model.Header?.Trim()))
         {
             string size;
-            switch (Model.HeaderLevel)
+            switch (Model.HeaderLevelFix)
             {
                 case 1:
                     size = "l";
@@ -25,9 +25,11 @@
                 break;
             }
 
-            var tagBuilder = new TagBuilder($"h{Model.HeaderLevel}");
+            var tagBuilder = new TagBuilder($"h{Model.HeaderLevelFix}");
             tagBuilder.InnerHtml.Append(Model.Header);
             tagBuilder.AddCssClass("govuk-heading-" + size);
+            tagBuilder.Attributes.Add("id", "nav-heading");
+
 
             @tagBuilder
         }
@@ -35,7 +37,7 @@
 }
 
 @{ RenderHeader(); }
-<nav class="dfe-vertical-nav">
+<nav class="dfe-vertical-nav" aria-describedby="nav-heading">
     <ul class="dfe-vertical-nav__section">
         @foreach (var menuItem in Model.Items)
         {
