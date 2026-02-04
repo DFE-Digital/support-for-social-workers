@@ -1,4 +1,5 @@
-﻿using Childrens_Social_Care_CPD.Configuration;
+﻿using Azure.Identity;
+using Childrens_Social_Care_CPD.Configuration;
 using Childrens_Social_Care_CPD.Configuration.Features;
 using Childrens_Social_Care_CPD.Contentful;
 using Childrens_Social_Care_CPD.Contentful.Contexts;
@@ -6,6 +7,7 @@ using Childrens_Social_Care_CPD.Contentful.Renderers;
 using Contentful.AspNetCore;
 using Contentful.Core.Configuration;
 using Microsoft.ApplicationInsights.AspNetCore.Extensions;
+using Microsoft.AspNetCore.DataProtection;
 using Microsoft.Extensions.Logging.ApplicationInsights;
 using Microsoft.Extensions.Logging.AzureAppServices;
 using System.Diagnostics;
@@ -82,6 +84,9 @@ public static class WebApplicationBuilderExtensions
 
         AddHealthChecks(builder.Services);
         Console.WriteLine($"After AddHealthChecks: {sw.ElapsedMilliseconds}ms");
+
+        AddDataProtection(builder.Services, applicationConfiguration, sw);
+        Console.WriteLine($"After AddDataProtection: {sw.ElapsedMilliseconds}ms");
     }
 
     private static void AddLogging(WebApplicationBuilder builder, ApplicationConfiguration applicationConfiguration)
@@ -131,5 +136,18 @@ public static class WebApplicationBuilderExtensions
 #pragma warning disable CA1861 // Avoid constant arrays as arguments
         services.AddHealthChecks().AddCheck<ConfigurationHealthCheck>("Configuration Health Check", tags: new[] { "configuration" });
 #pragma warning restore CA1861 // Avoid constant arrays as arguments
+    }
+
+    private static void AddDataProtection(IServiceCollection services, ApplicationConfiguration applicationConfiguration, Stopwatch sw)
+    {
+        if (!string.IsNullOrEmpty(applicationConfiguration.AzureDataProtectionConnectionString))
+        {
+            services.AddDataProtection()
+                .PersistKeysToAzureBlobStorage(applicationConfiguration.AzureDataProtectionConnectionString,
+                                                "data-protection", "data-protection")
+                .ProtectKeysWithAzureKeyVault(new Uri(applicationConfiguration.AzureDataProtectionMasterKeyIdentifier),
+                                                new DefaultAzureCredential());
+
+        }
     }
 }

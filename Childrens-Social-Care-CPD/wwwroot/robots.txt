@@ -1,0 +1,4 @@
+User-agent: *
+Crawl-delay: 10
+Disallow:
+Sitemap: https://support-for-social-workers.education.gov.uk/sitemap.xml

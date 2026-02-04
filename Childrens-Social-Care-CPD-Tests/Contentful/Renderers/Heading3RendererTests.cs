@@ -50,7 +50,7 @@ public class Heading3RendererTests
         var actual = stringWriter.ToString();
 
         // assert
-        actual.Should().Be("<h3>AAA</h3>");
+        actual.Should().Be("<h3 class=\"HtmlEncode[[govuk-heading-m]]\">AAA</h3>");
     }
 
     [Test]

@@ -9,6 +9,16 @@ internal class HeadingRendererBase(IRenderer<Text> textRenderer, IRenderer<Hyper
 {
     protected TagBuilder HeadingToHtml(string tag, IHeading heading)
     {
+        // add protection against displaying empty header tags
+        if (heading.Content.Count == 1)
+        {
+            IContent theItem = heading.Content[0];
+            if (theItem is Text && String.IsNullOrEmpty(((Text)theItem).Value))
+            {
+                return null;
+            }
+        }
+        
         var h = new TagBuilder(tag);
         foreach (var content in heading.Content)
         {
@@ -29,7 +39,16 @@ internal class HeadingRendererBase(IRenderer<Text> textRenderer, IRenderer<Hyper
                         }
                         break;
                     }
-                case Text text: h.InnerHtml.AppendHtml(textRenderer.Render(text)); break;
+                case Text text:
+                    h.InnerHtml.AppendHtml(textRenderer.Render(text));
+                    switch (tag)
+                    {
+                        case "h1": h.AddCssClass("govuk-heading-xl"); break;
+                        case "h2": h.AddCssClass("govuk-heading-l"); break;
+                        case "h3": h.AddCssClass("govuk-heading-m"); break;
+                        case "h4": h.AddCssClass("govuk-heading-s"); break;
+                    }
+                break;
                 case Hyperlink hyperlink: h.InnerHtml.AppendHtml(hyperlinkRenderer.Render(hyperlink)); break;
             }
         }
