@@ -20,19 +20,44 @@ function ContentsListWithBody(element) {
     this.startPosition = 0;
     this.stopPosition = 0;
     this.staticElementBottomOffset = 0;
+    this.hidden = true;
 }
 
 ContentsListWithBody.prototype.init = function () {
     if (!this.stickyElement) return;
+    if (!this.staticElement) {
+        this.destroy();
+        return;
+    }
     window.onresize = this.onResize.bind(this);
     window.onscroll = this.onScroll.bind(this);
     setInterval(this.checkResize.bind(this), this.interval);
     setInterval(this.checkScroll.bind(this), this.interval);
     this.setInitialValues();
+    this.setWindowFocusListener();
     this.checkResize();
     this.checkScroll();
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--enabled");
 };
+
+ContentsListWithBody.prototype.setWindowFocusListener = function () {
+    document.addEventListener('focus', this.addFocusHandler.bind(this), true);
+}
+
+ContentsListWithBody.prototype.addFocusHandler = function () {
+    setTimeout(this.linkFocusHandler.bind(this), this.interval);
+}
+
+ContentsListWithBody.prototype.linkFocusHandler = function () {
+        if (this.hidden) return;
+        const focusedElement = document.activeElement || document.body;
+        const rect = focusedElement.getBoundingClientRect();
+        const windowDimensions = this.getWindowDimensions();
+        const diff = windowDimensions.height - rect.bottom;
+        if (diff <= 60) {
+            window.scrollBy(0, 60 - diff);
+        }
+}
 
 ContentsListWithBody.prototype.setInitialValues = function () {
     let staticLinkPosition =this.staticElement.offsetTop;
@@ -78,7 +103,7 @@ ContentsListWithBody.prototype.checkResize = function () {
         let windowDimensions = this.getWindowDimensions();
         let documentHeight = this.getDocumentHeight();
         let elementHeight = this.wrapper.offsetHeight || parseFloat(this.wrapper.style.height.replace("px", ""));
-        this.startPosition = windowDimensions.height * 2;
+        this.startPosition = windowDimensions.height;
         this.stopPosition = this.wrapper.offsetTop + elementHeight - windowDimensions.height - this.staticElementBottomOffset;
         this.disabled = documentHeight < (windowDimensions.height * 4);
     }
@@ -93,31 +118,35 @@ ContentsListWithBody.prototype.checkScroll = function () {
 };
 
 ContentsListWithBody.prototype.updateVisibility = function () {
-    if (this.disabled) return this.showStaticElement();
+    if (this.disabled) return this.hide();
 
     var isPastStart = this.startPosition < this.windowVerticalPosition;
     if (isPastStart) {
         var isPastEnd = this.stopPosition < this.windowVerticalPosition;
         if (isPastEnd) {
-            this.showStaticElement();
+            this.hide();
         } else {
-            this.showStickyElement();
+            this.show();
         }
     } else {
-        this.showStaticElement();
+        this.hide();
 }
 };
 
-ContentsListWithBody.prototype.showStaticElement = function () {
+ContentsListWithBody.prototype.hide = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-    this.staticElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
+    this.hidden = true;
 };
 
-ContentsListWithBody.prototype.showStickyElement = function () {
+ContentsListWithBody.prototype.show = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
-    this.staticElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
+    this.hidden = false;
+};
+
+ContentsListWithBody.prototype.destroy = function () {
+    this.stickyElement.remove();
 };
 
 document.addEventListener('DOMContentLoaded', function () {
