@@ -26,7 +26,7 @@ function ContentsListWithBody(element) {
 ContentsListWithBody.prototype.init = function () {
     if (!this.stickyElement) return;
     if (!this.staticElement) {
-        this.hide();
+        this.destroy();
         return;
     }
     window.onresize = this.onResize.bind(this);
@@ -143,6 +143,10 @@ ContentsListWithBody.prototype.show = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
     this.hidden = false;
+};
+
+ContentsListWithBody.prototype.destroy = function () {
+    this.stickyElement.remove();
 };
 
 document.addEventListener('DOMContentLoaded', function () {

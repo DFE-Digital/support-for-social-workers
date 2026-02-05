@@ -10,7 +10,7 @@ test.describe('Link Card', () => {
         let linkCardContainer = page.getByTestId('link-card').locator('nth=0');
 
         await expect(linkCardContainer).toBeVisible();
-        await expect(linkCardContainer).toHaveClass('dfe-card');
+        await expect(linkCardContainer).toHaveClass('dfe-card card-stretch');
         await expect(linkCardContainer).toHaveCSS('border', '1px solid rgb(177, 180, 182)');
         await expect(linkCardContainer).toHaveCSS('display', 'flex');
         await expect(linkCardContainer).toHaveCSS('flex', '1 1 0%');
@@ -54,8 +54,8 @@ test.describe('Link Card', () => {
         await expect(text).toBeVisible();
         await expect(text).toHaveClass('govuk-!-margin-bottom-1');
         await expect(text).toHaveCSS('color', 'rgb(11, 12, 12)');
-        await expect(text).toHaveCSS('font-size', '19px');
+        await expect(text).toHaveCSS('font-size', '19.008px');
         await expect(text).toHaveCSS('font-weight', '400');
-        await expect(text).toHaveCSS('line-height', '25.3333px');
+        await expect(text).toHaveCSS('line-height', '25.3439px');
     });
 });

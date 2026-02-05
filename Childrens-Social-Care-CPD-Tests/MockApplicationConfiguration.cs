@@ -6,6 +6,8 @@ public class MockApplicationConfiguration : IApplicationConfiguration
 {
     public string _appInsightsConnectionString = null;
     public string _appVersion = null;
+    public string _azureDataProtectionConnectionString = null;
+    public string _azureDataProtectionMasterKeyIdentifier = null;
     public string _azureEnvironment = null;
     public string _clarityProjectId = null;
     public string _contentfulDeliveryApiKey = null;
@@ -30,6 +32,8 @@ public class MockApplicationConfiguration : IApplicationConfiguration
 
     public string AppInsightsConnectionString => _appInsightsConnectionString;
     public string AppVersion => _appVersion;
+    public string AzureDataProtectionConnectionString => _azureDataProtectionConnectionString;
+    public string AzureDataProtectionMasterKeyIdentifier => _azureDataProtectionMasterKeyIdentifier;
     public string AzureEnvironment => _azureEnvironment;
     public string ClarityProjectId => _clarityProjectId;
     public string ContentfulDeliveryApiKey => _contentfulDeliveryApiKey;
