@@ -41,7 +41,11 @@ Console.WriteLine($"After UseExceptionHandler {sw.ElapsedMilliseconds}ms");
 app.UseStatusCodePagesWithReExecute("/error/{0}");
 Console.WriteLine($"After UseStatusCodePagesWithReExecute{sw.ElapsedMilliseconds}ms");
 
-app.UseHsts();
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+    app.UseHttpsRedirection();
+}
 
 app.UseForwardedHeaders(new ForwardedHeadersOptions()
 {
