@@ -17,5 +17,8 @@
     "contentful-management": "^11.24.5",
     "minimist": "^1.2.8"
   },
+  "overrides": {
+    "undici": "^6.24.0"
+  },
   "type": "module"
 }
