@@ -2,6 +2,7 @@ using Childrens_Social_Care_CPD;
 using Childrens_Social_Care_CPD.Configuration.Features;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+using Microsoft.AspNetCore.HttpOverrides;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -39,6 +40,18 @@ Console.WriteLine($"After UseExceptionHandler {sw.ElapsedMilliseconds}ms");
 
 app.UseStatusCodePagesWithReExecute("/error/{0}");
 Console.WriteLine($"After UseStatusCodePagesWithReExecute{sw.ElapsedMilliseconds}ms");
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseHsts();
+    app.UseHttpsRedirection();
+}
+
+app.UseForwardedHeaders(new ForwardedHeadersOptions()
+{
+    ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+});
+Console.WriteLine($"After UseForwardedHeaders {sw.ElapsedMilliseconds}ms");
 
 app.UseStaticFiles();
 Console.WriteLine($"After UseStaticFiles {sw.ElapsedMilliseconds}ms");
