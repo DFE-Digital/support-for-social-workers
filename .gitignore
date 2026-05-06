@@ -413,3 +413,9 @@ terraform.rc
 
 # Mac Finder attributes files
 .DS_Store
+
+# Rider config files
+**/.idea/*
+
+mise.toml
+.env
