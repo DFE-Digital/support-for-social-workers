@@ -3,8 +3,14 @@
 @inject IFeaturesConfig featureConfig
 @inject ICookieHelper cookieHelper
 
-@if (!featureConfig.IsEnabled(Features.FeedbackControl)) return;
-@if (cookieHelper.GetRequestAnalyticsCookieState(Context) != AnalyticsConsentState.Accepted) return;
+@if (!featureConfig.IsEnabled(Features.FeedbackControl))
+{
+    return;
+}
+@if (cookieHelper.GetRequestAnalyticsCookieState(Context) != AnalyticsConsentState.Accepted)
+{
+    return;
+} 
 
 @{
     var contextModel = (ContextModel)ViewBag.ContextModel;
