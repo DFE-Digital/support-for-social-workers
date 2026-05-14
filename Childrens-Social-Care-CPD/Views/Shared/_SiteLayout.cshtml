@@ -27,7 +27,7 @@
     @Html.RenderScripts(ScriptPosition.BodyStart)
     <partial name="_CookiesAndAnalyticsConsent" />
     <a href="#main-content" class="govuk-skip-link" data-module="govuk-skip-link">Skip to main content</a>
-    <div id="swcd-page-top"></div>
+    <div id="swcd-page-top" tabindex="-1" aria-label="Top of page"></div>
     <partial name="_BetaBanner" />
     <partial name="_Header" />
 
@@ -53,7 +53,7 @@
         import { initAll } from '/javascript/govuk-frontend.min.js'
         initAll()
     </script>
-    <script src="/javascript/components/back-to-top-202512031507.js" type="module"></script>
+    <script src="/javascript/components/back-to-top.js?v=2" type="module"></script>
     @await RenderSectionAsync("Scripts", required: false)
     @Html.RenderScripts(ScriptPosition.BodyEnd)
 </body>

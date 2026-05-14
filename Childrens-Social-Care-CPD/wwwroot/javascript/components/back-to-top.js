@@ -35,9 +35,24 @@ ContentsListWithBody.prototype.init = function () {
     setInterval(this.checkScroll.bind(this), this.interval);
     this.setInitialValues();
     this.setWindowFocusListener();
+    this.setBackToTopListener();
     this.checkResize();
     this.checkScroll();
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--enabled");
+};
+
+ContentsListWithBody.prototype.setBackToTopListener = function () {
+    var backToTopLink = this.wrapper.querySelector('a[href="#swcd-page-top"]');
+    if (!backToTopLink) return;
+    
+    backToTopLink.addEventListener("click", function () {
+        setTimeout(function () {
+            var target = document.getElementById("swcd-page-top");
+            if (target) {
+                target.focus({ preventScroll: true });
+            }
+        }, this.interval);
+    });
 };
 
 ContentsListWithBody.prototype.setWindowFocusListener = function () {
@@ -49,14 +64,18 @@ ContentsListWithBody.prototype.addFocusHandler = function () {
 }
 
 ContentsListWithBody.prototype.linkFocusHandler = function () {
-        if (this.hidden) return;
-        const focusedElement = document.activeElement || document.body;
-        const rect = focusedElement.getBoundingClientRect();
-        const windowDimensions = this.getWindowDimensions();
-        const diff = windowDimensions.height - rect.bottom;
-        if (diff <= 60) {
-            window.scrollBy(0, 60 - diff);
-        }
+    if (this.hidden) return;
+    const focusedElement = document.activeElement || document.body;
+
+    // Don't interfere if focus has been sent to the top anchor
+    if (focusedElement.id === "swcd-page-top") return;
+
+    const rect = focusedElement.getBoundingClientRect();
+    const windowDimensions = this.getWindowDimensions();
+    const diff = windowDimensions.height - rect.bottom;
+    if (diff <= 60) {
+        window.scrollBy(0, 60 - diff);
+    }
 }
 
 ContentsListWithBody.prototype.setInitialValues = function () {
