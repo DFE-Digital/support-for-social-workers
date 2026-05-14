@@ -44,14 +44,14 @@ ContentsListWithBody.prototype.init = function () {
 ContentsListWithBody.prototype.setBackToTopListener = function () {
     var backToTopLink = this.wrapper.querySelector('a[href="#swcd-page-top"]');
     if (!backToTopLink) return;
-    var interval = this.interval;
+    
     backToTopLink.addEventListener("click", function () {
         setTimeout(function () {
             var target = document.getElementById("swcd-page-top");
             if (target) {
                 target.focus({ preventScroll: true });
             }
-        }, interval);
+        }, this.interval);
     });
 };
 
