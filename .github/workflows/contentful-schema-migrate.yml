@@ -32,7 +32,7 @@ jobs:
       required-migrations: ${{ steps.required-migrations.outputs.required-migrations }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-node@v4
         with:
@@ -107,7 +107,7 @@ jobs:
       SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-node@v4
         with:
@@ -146,7 +146,7 @@ jobs:
       SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
 
       - uses: actions/setup-node@v4
         with:
