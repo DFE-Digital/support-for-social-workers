@@ -18,7 +18,7 @@ jobs:
       CPD_CONTENTFUL_ENVIRONMENT: dev
 
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v4
 
       - name: Build the Docker App Image
         run: cd Childrens-Social-Care-CPD; docker build . --file Dockerfile --tag childrens-social-care-cpd:latest
