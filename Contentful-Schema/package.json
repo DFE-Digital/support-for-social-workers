@@ -18,7 +18,8 @@
     "minimist": "^1.2.8"
   },
   "overrides": {
-    "undici": "^6.24.0"
+    "undici": "^6.24.0",
+    "tmp": "^0.2.4"
   },
   "type": "module"
 }
