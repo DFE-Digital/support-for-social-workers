@@ -5,7 +5,8 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize, reopened]
+    branches:
+      - 'staging'
 
 concurrency:
   group: '${{ github.workflow }}-${{ github.ref }}'
@@ -17,6 +18,7 @@ concurrency:
 
 env:
   DOTNET_VERSION: '8.x'
+  JAVA_VERSION: '21'
 
 jobs:
   sonarqube:
@@ -36,6 +38,12 @@ jobs:
         with:
           dotnet-version: ${{ env.DOTNET_VERSION }}
           dotnet-quality: 'ga'
+
+      - name: Setup Java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v5
+        with:
+          distribution: "microsoft"
+          java-version: ${{ env.JAVA_VERSION }}
 
       - name: Install SonarQube scanner
         run: dotnet tool install --global dotnet-sonarscanner
