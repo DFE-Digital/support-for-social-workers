@@ -11,6 +11,10 @@ concurrency:
   group: '${{ github.workflow }}-${{ github.ref }}'
   cancel-in-progress: true
 
+  permissions:
+    pull-requests: write
+    contents: read
+
 env:
   DOTNET_VERSION: '8.x'
 
