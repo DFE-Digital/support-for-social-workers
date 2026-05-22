@@ -57,7 +57,7 @@ jobs:
           dotnet-sonarscanner begin \
             /k:"DFE-Digital_support-for-social-workers" \
             /o:"dfe-digital" \
-            /d:sonar.host.url="https://sonarqube.io" \
+            /d:sonar.host.url="https://sonarcloud.io" \
             /d:sonar.token="${{ secrets.SONAR_TOKEN }}" \
             /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
 
