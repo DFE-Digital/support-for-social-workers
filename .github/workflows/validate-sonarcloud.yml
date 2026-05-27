@@ -1,0 +1,76 @@
+name: Validate - SonarQube
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - 'staging'
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.ref }}'
+  cancel-in-progress: true
+
+permissions:
+  pull-requests: write
+  contents: read
+
+env:
+  DOTNET_VERSION: '8.x'
+  JAVA_VERSION: '21'
+  SECRET: ${{ secrets.SONAR_TOKEN }}
+
+jobs:
+  sonarqube:
+    if: ${{ github.actor != 'dependabot[bot]' }}
+    name: SonarQube Analysis
+    runs-on: ubuntu-24.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: ${{ github.ref }}
+
+      - name: Set up .NET ${{ env.DOTNET_VERSION }}
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+          dotnet-quality: 'ga'
+
+      - name: Setup Java ${{ env.JAVA_VERSION }}
+        uses: actions/setup-java@v5
+        with:
+          distribution: "microsoft"
+          java-version: ${{ env.JAVA_VERSION }}
+
+      - name: Install SonarQube scanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Install coverage tool
+        run: dotnet tool install --global dotnet-coverage
+
+      - name: Begin SonarQube analysis
+        shell: bash
+        run: |
+          dotnet-sonarscanner begin \
+            /k:"DFE-Digital_support-for-social-workers" \
+            /o:"dfe-digital" \
+            /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.token="${{ env.SECRET }}" \
+            /d:sonar.cs.vscoveragexml.reportsPaths=coverage.xml
+
+      - name: Build
+        run: dotnet build Childrens-Social-Care-CPD.sln --no-incremental
+
+      - name: Test
+        run: dotnet-coverage collect "dotnet test Childrens-Social-Care-CPD.sln" -f xml -o coverage.xml
+
+      - name: Stop Sonar Scanner
+        if: ${{ always() }}
+        shell: bash
+        run: |
+          dotnet-sonarscanner end \
+            /d:sonar.token="${{ env.SECRET }}"
