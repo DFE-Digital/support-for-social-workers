@@ -16,21 +16,27 @@ runs:
     - name: Enable Public Network Access to ACR
       if: ${{ inputs.enable-network-access == 'true' }}
       shell: bash
+      env:
+        RESOURCE_GROUP: ${{ inputs.resource-group-name }}
+        ACR_NAME: ${{ inputs.acr-name }}
       run: |
         az acr update \
-          --resource-group ${{ inputs.resource-group-name }} \
-          --name ${{ inputs.acr-name }} \
+          --resource-group "$RESOURCE_GROUP" \
+          --name "$ACR_NAME" \
           --public-network-enabled true \
           --default-action Allow > /dev/null
 
     - name: Disable Public Network Access
       if: ${{ inputs.enable-network-access == 'false' }}
       shell: bash
+      env:
+        RESOURCE_GROUP: ${{ inputs.resource-group-name }}
+        ACR_NAME: ${{ inputs.acr-name }}
       run: |
         if [ $? -ne 0 ]; then
           echo "Disabling public network access due to workflow failure or cancellation."
         fi
         az acr update \
-          --resource-group ${{ inputs.resource-group-name }} \
-          --name ${{ inputs.acr-name }} \
+          --resource-group "$RESOURCE_GROUP" \
+          --name "$ACR_NAME" \
           --public-network-enabled false > /dev/null
