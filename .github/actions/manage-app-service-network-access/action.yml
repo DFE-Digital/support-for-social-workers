@@ -19,39 +19,52 @@ runs:
     - name: Enable Public Network Access
       if: ${{ inputs.enable-network-access == 'true' }}
       shell: bash
+      env:
+        RESOURCE_GROUP: ${{ inputs.resource-group-name }}
+        APP_SERVICE_NAME: ${{ inputs.app-service-name }}
       run: |
         az webapp update \
-          --resource-group ${{ inputs.resource-group-name }} \
-          --name ${{ inputs.app-service-name }} \
+          --resource-group "$RESOURCE_GROUP" \
+          --name "$APP_SERVICE_NAME" \
           --set publicNetworkAccess=Enabled > /dev/null
 
     - name: Add Access Restriction Rule
       if: ${{ inputs.enable-network-access == 'true' }}
       shell: bash
+      env:
+        RESOURCE_GROUP: ${{ inputs.resource-group-name }}
+        APP_SERVICE_NAME: ${{ inputs.app-service-name }}
+        GITHUB_RUNNER_IP: ${{ inputs.github-runner-ip }}
       run: |
         az webapp config access-restriction add \
-          --resource-group ${{ inputs.resource-group-name }} \
-          --name ${{ inputs.app-service-name }} \
+          --resource-group "$RESOURCE_GROUP" \
+          --name "$APP_SERVICE_NAME" \
           --rule-name github-runner-ip \
           --action Allow \
-          --ip-address ${{ inputs.github-runner-ip }} \
+          --ip-address "$GITHUB_RUNNER_IP" \
           --priority 100 > /dev/null
 
     - name: Remove Access Restriction Rule
       if: ${{ inputs.enable-network-access == 'false' }}
       shell: bash
+      env:
+        RESOURCE_GROUP: ${{ inputs.resource-group-name }}
+        APP_SERVICE_NAME: ${{ inputs.app-service-name }}
       run: |
         az webapp config access-restriction remove \
-          --resource-group ${{ inputs.resource-group-name }} \
-          --name ${{ inputs.app-service-name }} \
+          --resource-group "$RESOURCE_GROUP" \
+          --name "$APP_SERVICE_NAME" \
           --rule-name github-runner-ip \
           --action Allow > /dev/null
 
     - name: Disable Public Network Access
       if: ${{ inputs.enable-network-access == 'false' }}
       shell: bash
+      env:
+        RESOURCE_GROUP: ${{ inputs.resource-group-name }}
+        APP_SERVICE_NAME: ${{ inputs.app-service-name }}
       run: |
         az webapp update \
-          --resource-group ${{ inputs.resource-group-name }} \
-          --name ${{ inputs.app-service-name }} \
+          --resource-group "$RESOURCE_GROUP" \
+          --name "$APP_SERVICE_NAME" \
           --set publicNetworkAccess=Disabled > /dev/null

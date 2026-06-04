@@ -34,7 +34,11 @@ jobs:
 
       - name: Run script to create migrationVersion content type
         working-directory: ./Contentful-Schema/utils
-        run: contentful space migration --space-id "${{ secrets.TF_VAR_CPD_SPACE_ID }}" --environment-id ${{ inputs.target_environment }} --management-token "${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}" create-migration-version-content-type.cjs --yes
+        env:
+          TARGET_ENV: ${{ inputs.target_environment }}
+          TF_VAR_CPD_SPACE_ID: ${{ secrets.TF_VAR_CPD_SPACE_ID }}
+          CONTENTFUL_MANAGEMENT_TOKEN: ${{ secrets.CONTENTFUL_MANAGEMENT_TOKEN }}
+        run: contentful space migration --space-id "$TF_VAR_CPD_SPACE_ID" --environment-id "$TARGET_ENV" --management-token "$CONTENTFUL_MANAGEMENT_TOKEN" create-migration-version-content-type.cjs --yes
 
       - name: Run script to create inital migration version entry
         working-directory: ./Contentful-Schema/utils
