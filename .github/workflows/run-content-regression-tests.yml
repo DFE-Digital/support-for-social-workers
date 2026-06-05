@@ -32,13 +32,13 @@ jobs:
           node-version: 18
 
       - name: Install dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        run: npx --ignore-scripts playwright install --with-deps chromium
 
       - name: Run Playwright tests
-        run: npx playwright test
+        run: npx --ignore-scripts playwright test
 
       - uses: actions/upload-artifact@v4
         if: always()
