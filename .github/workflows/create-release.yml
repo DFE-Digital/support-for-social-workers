@@ -27,9 +27,9 @@ jobs:
           cache: "npm"
 
       - name: Install semantic-release
-        run: npm install --global semantic-release@23 @semantic-release/git @semantic-release/github
+        run: npm install --global semantic-release@23 @semantic-release/git @semantic-release/github --ignore-scripts
 
       - name: Run semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.PAT }}
-        run: npx semantic-release --debug
+        run: npx --ignore-scripts semantic-release --debug
