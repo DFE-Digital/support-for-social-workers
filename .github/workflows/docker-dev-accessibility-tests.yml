@@ -38,7 +38,7 @@ jobs:
           node-version: "latest"
 
       - name: Install latest NPM version
-        run: npm install -g npm@latest
+        run: npm install -g npm@latest --ignore-scripts
 
       - name: Verify NPM version
         run: npm version

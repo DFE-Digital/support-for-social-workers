@@ -22,7 +22,7 @@ jobs:
 
       - name: Install npm packages used by util scripts
         working-directory: ./Utilities
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Scan for broken links
         working-directory: ./Utilities

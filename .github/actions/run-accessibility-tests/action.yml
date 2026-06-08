@@ -15,7 +15,7 @@ runs:
       env:
         CONTAINER_ID: ${{ inputs.container-id }}
       run: |
-        npx pa11y-ci \
+        npx --ignore-scripts pa11y-ci \
         --config .pa11yci-ubuntu.js \
         --sitemap "http://localhost:5001/sitemap.xml" \
         --sitemap-find "https://www.support-for-social-workers.education.gov.uk" \
