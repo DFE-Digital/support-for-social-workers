@@ -63,10 +63,9 @@ public class ConfigurationInformation
             return false;
         }
 
-        if (value is string)
+        if (value is string s)
         {
-            var v = value as string;
-            return !(string.IsNullOrEmpty(v) || string.IsNullOrWhiteSpace(v));
+            return !(string.IsNullOrEmpty(s) || string.IsNullOrWhiteSpace(s));
         }
 
         return true;
