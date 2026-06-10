@@ -239,7 +239,7 @@ public class PathwaysNavigationHelper : INavigationHelper
 
     }
 
-    private string GetFirstSectionFirstPageId (Content page)
+    private static string GetFirstSectionFirstPageId (Content page)
     {
         return page
             .PathwaysModule?
