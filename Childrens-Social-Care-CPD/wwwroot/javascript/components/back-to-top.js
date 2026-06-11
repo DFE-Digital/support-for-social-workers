@@ -42,12 +42,12 @@ ContentsListWithBody.prototype.init = function () {
 };
 
 ContentsListWithBody.prototype.setBackToTopListener = function () {
-    var backToTopLink = this.wrapper.querySelector('a[href="#swcd-page-top"]');
+    let backToTopLink = this.wrapper.querySelector('a[href="#swcd-page-top"]');
     if (!backToTopLink) return;
     
     backToTopLink.addEventListener("click", function () {
         setTimeout(function () {
-            var target = document.getElementById("swcd-page-top");
+            let target = document.getElementById("swcd-page-top");
             if (target) {
                 target.focus({ preventScroll: true });
             }
