@@ -1,11 +1,8 @@
 ﻿using Childrens_Social_Care_CPD.Contentful.Models;
 using Childrens_Social_Care_CPD.Contentful.Renderers;
 using Contentful.Core.Models;
-using FluentAssertions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.WebEncoders.Testing;
-using NSubstitute;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 
