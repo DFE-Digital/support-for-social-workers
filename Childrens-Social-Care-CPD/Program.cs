@@ -89,7 +89,8 @@ app.Use(async (context, next) => {
 });
 Console.WriteLine($"After ContentSecurityPolicy {sw.ElapsedMilliseconds}ms");
 
-app.Run();
+await app.RunAsync();
+
 Console.WriteLine($"After Application Run {sw.ElapsedMilliseconds}ms");
 
 [ExcludeFromCodeCoverage]
