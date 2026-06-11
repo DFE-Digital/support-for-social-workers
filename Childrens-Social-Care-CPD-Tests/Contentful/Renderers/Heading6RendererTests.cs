@@ -52,6 +52,25 @@ public class Heading6RendererTests
         // assert
         actual.Should().Be("<h6>AAA</h6>");
     }
+    
+    [Test]
+    public void Heading6_Renders_Null_When_Content_Is_Empty_Text()
+    {
+        // arrange
+        var heading6 = new Heading6
+        {
+            Content = new List<IContent>
+            {
+                new Text { Value = string.Empty }
+            }
+        };
+
+        // act
+        var result = _sut.Render(heading6);
+
+        // assert
+        result.Should().BeNull();
+    }
 
     [Test]
     public void Heading6_Renders_Hyperlink()

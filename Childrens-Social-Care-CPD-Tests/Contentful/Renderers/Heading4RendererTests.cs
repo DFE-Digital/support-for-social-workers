@@ -52,6 +52,25 @@ public class Heading4RendererTests
         // assert
         actual.Should().Be("<h4 class=\"HtmlEncode[[govuk-heading-s]]\">AAA</h4>");
     }
+    
+    [Test]
+    public void Heading4_Renders_Null_When_Content_Is_Empty_Text()
+    {
+        // arrange
+        var heading4 = new Heading4
+        {
+            Content = new List<IContent>
+            {
+                new Text { Value = string.Empty }
+            }
+        };
+
+        // act
+        var result = _sut.Render(heading4);
+
+        // assert
+        result.Should().BeNull();
+    }
 
     [Test]
     public void Heading4_Renders_Hyperlink()
