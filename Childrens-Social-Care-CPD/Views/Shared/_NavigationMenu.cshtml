@@ -6,33 +6,25 @@
 {
     void RenderHeader()
     {
-        if (!String.IsNullOrEmpty(Model.Header?.Trim()))
+        if (String.IsNullOrEmpty(Model.Header?.Trim()))
         {
-            string size;
-            switch (Model.HeaderLevelFix)
-            {
-                case 1:
-                    size = "l";
-                break;
-
-                case 2:
-                default:
-                    size = "m";
-                break;
-
-                case 3:
-                    size = "s";
-                break;
-            }
-
-            var tagBuilder = new TagBuilder($"h{Model.HeaderLevelFix}");
-            tagBuilder.InnerHtml.Append(Model.Header);
-            tagBuilder.AddCssClass("govuk-heading-" + size);
-            tagBuilder.Attributes.Add("id", "nav-heading");
-
-
-            @tagBuilder
+            return;
         }
+
+        string size = Model.HeaderLevelFix switch
+        {
+            1 => "l",
+            3 => "s",
+            _ => "m"
+        };
+
+        var tagBuilder = new TagBuilder($"h{Model.HeaderLevelFix}");
+        tagBuilder.InnerHtml.Append(Model.Header);
+        tagBuilder.AddCssClass("govuk-heading-" + size);
+        tagBuilder.Attributes.Add("id", "nav-heading");
+
+
+        @tagBuilder
     }
 }
 
