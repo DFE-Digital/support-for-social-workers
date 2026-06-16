@@ -40,7 +40,7 @@ jobs:
 
       - name: Install npm packages used by util scripts
         working-directory: ./Contentful-Schema
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Get target environment current migration version
         id: current-migration-version
@@ -60,7 +60,7 @@ jobs:
 
       - name: Extract migration files from archive
         working-directory: ./Contentful-Schema/migrations
-        run: rm *.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
+        run: rm ./*.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
 
       - name: Verify migration files against manifest
         working-directory: ./Contentful-Schema/utils
@@ -82,7 +82,7 @@ jobs:
 
     steps:
       - name: Install Contentful CLI
-        run: npm install -g contentful-cli
+        run: npm install -g contentful-cli --ignore-scripts
 
       - name: Login to Contentful with management token
         run: contentful login --management-token "${{ env.MANAGEMENT_TOKEN }}"
@@ -115,14 +115,14 @@ jobs:
 
       - name: Install npm packages used by migration script
         working-directory: ./Contentful-Schema
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Install Contentful CLI
-        run: npm install -g contentful-cli
+        run: npm install -g contentful-cli --ignore-scripts
 
       - name: Extract migration files from archive
         working-directory: ./Contentful-Schema/migrations
-        run: rm *.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
+        run: rm ./*.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
 
       - name: Run migration script ${{ matrix.value }}
         working-directory: ./Contentful-Schema/migrations
@@ -154,7 +154,7 @@ jobs:
 
       - name: Install npm packages used by migration script
         working-directory: ./Contentful-Schema
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Run script to point alias ${{ inputs.target_environment == 'prod' && 'master' || inputs.target_environment }} at new environment ${{ env.STAGING_ENVIRONMENT }}
         working-directory: ./Contentful-Schema/utils

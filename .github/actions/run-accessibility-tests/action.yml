@@ -12,10 +12,12 @@ runs:
   steps:
     - name: Run Pa11y
       shell: bash
+      env:
+        CONTAINER_ID: ${{ inputs.container-id }}
       run: |
-        npx pa11y-ci \
+        npx --ignore-scripts pa11y-ci \
         --config .pa11yci-ubuntu.js \
         --sitemap "http://localhost:5001/sitemap.xml" \
         --sitemap-find "https://www.support-for-social-workers.education.gov.uk" \
-        --sitemap-replace "http://localhost:5001" || (docker logs ${{ inputs.container-id }} && exit 1)
+        --sitemap-replace "http://localhost:5001" || (docker logs "$CONTAINER_ID" && exit 1)
       working-directory: ./browser-tests/accessibility-tests/

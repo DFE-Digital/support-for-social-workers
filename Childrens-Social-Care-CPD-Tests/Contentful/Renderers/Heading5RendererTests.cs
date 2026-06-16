@@ -1,11 +1,8 @@
 ﻿using Childrens_Social_Care_CPD.Contentful.Models;
 using Childrens_Social_Care_CPD.Contentful.Renderers;
 using Contentful.Core.Models;
-using FluentAssertions;
 using Microsoft.AspNetCore.Html;
 using Microsoft.Extensions.WebEncoders.Testing;
-using NSubstitute;
-using NUnit.Framework;
 using System.Collections.Generic;
 using System.IO;
 
@@ -51,6 +48,25 @@ public class Heading5RendererTests
 
         // assert
         actual.Should().Be("<h5>AAA</h5>");
+    }
+    
+    [Test]
+    public void Heading5_Renders_Null_When_Content_Is_Empty_Text()
+    {
+        // arrange
+        var heading5 = new Heading5
+        {
+            Content = new List<IContent>
+            {
+                new Text { Value = string.Empty }
+            }
+        };
+
+        // act
+        var result = _sut.Render(heading5);
+
+        // assert
+        result.Should().BeNull();
     }
 
     [Test]
