@@ -9,52 +9,42 @@ internal class HeadingRendererBase(IRenderer<Text> textRenderer, IRenderer<Hyper
 {
     protected TagBuilder HeadingToHtml(string tag, IHeading heading)
     {
-        // add protection against displaying empty header tags
-        if (heading.Content.Count == 1)
-        {
-            IContent theItem = heading.Content[0];
-            if (theItem is Text && String.IsNullOrEmpty(((Text)theItem).Value))
-            {
-                return null;
-            }
-        }
-        
+        // Guard against empty heading tags
+        if (heading.Content is [Text { Value: var val }] && string.IsNullOrEmpty(val))
+            return null;
+
         var h = new TagBuilder(tag);
+
         foreach (var content in heading.Content)
         {
             switch (content)
             {
-                case EntryStructure entryStructure:
-                    {
-                        switch (entryStructure.Data)
-                        {
-                            case EntryStructureData entryStructureData:
-                                {
-                                    switch (entryStructureData.Target)
-                                    {
-                                        case ContentLink contentLink: h.InnerHtml.AppendHtml(contentLinkRenderer.Render(contentLink)); break;
-                                    }
-                                    break;
-                                }
-                        }
-                        break;
-                    }
+                case EntryStructure { Data: EntryStructureData { Target: ContentLink link } }:
+                    h.InnerHtml.AppendHtml(contentLinkRenderer.Render(link));
+                    break;
                 case Text text:
                     h.InnerHtml.AppendHtml(textRenderer.Render(text));
-                    switch (tag)
-                    {
-                        case "h1": h.AddCssClass("govuk-heading-xl"); break;
-                        case "h2": h.AddCssClass("govuk-heading-l"); break;
-                        case "h3": h.AddCssClass("govuk-heading-m"); break;
-                        case "h4": h.AddCssClass("govuk-heading-s"); break;
-                    }
-                break;
-                case Hyperlink hyperlink: h.InnerHtml.AppendHtml(hyperlinkRenderer.Render(hyperlink)); break;
+                    var cssClass = GetHeadingCssClass(tag);
+                    if (!string.IsNullOrEmpty(cssClass))
+                        h.AddCssClass(cssClass);
+                    break;
+                case Hyperlink hyperlink:
+                    h.InnerHtml.AppendHtml(hyperlinkRenderer.Render(hyperlink));
+                    break;
             }
         }
 
         return h;
     }
+
+    private static string GetHeadingCssClass(string tag) => tag switch
+    {
+        "h1" => "govuk-heading-xl",
+        "h2" => "govuk-heading-l",
+        "h3" => "govuk-heading-m",
+        "h4" => "govuk-heading-s",
+        _    => string.Empty
+    };
 }
 
 internal class Heading1Renderer(IRenderer<Text> textRenderer, IRenderer<Hyperlink> hyperlinkRenderer, IRenderer<ContentLink> contentLinkRenderer) : HeadingRendererBase(textRenderer, hyperlinkRenderer, contentLinkRenderer), IRenderer<Heading1>

@@ -42,12 +42,12 @@ ContentsListWithBody.prototype.init = function () {
 };
 
 ContentsListWithBody.prototype.setBackToTopListener = function () {
-    var backToTopLink = this.wrapper.querySelector('a[href="#swcd-page-top"]');
+    let backToTopLink = this.wrapper.querySelector('a[href="#swcd-page-top"]');
     if (!backToTopLink) return;
     
     backToTopLink.addEventListener("click", function () {
         setTimeout(function () {
-            var target = document.getElementById("swcd-page-top");
+            let target = document.getElementById("swcd-page-top");
             if (target) {
                 target.focus({ preventScroll: true });
             }
@@ -139,9 +139,9 @@ ContentsListWithBody.prototype.checkScroll = function () {
 ContentsListWithBody.prototype.updateVisibility = function () {
     if (this.disabled) return this.hide();
 
-    var isPastStart = this.startPosition < this.windowVerticalPosition;
+    let isPastStart = this.startPosition < this.windowVerticalPosition;
     if (isPastStart) {
-        var isPastEnd = this.stopPosition < this.windowVerticalPosition;
+        let isPastEnd = this.stopPosition < this.windowVerticalPosition;
         if (isPastEnd) {
             this.hide();
         } else {
@@ -169,7 +169,7 @@ ContentsListWithBody.prototype.destroy = function () {
 };
 
 document.addEventListener('DOMContentLoaded', function () {
-    var element = document.body.querySelector("[data-module='contents-list-with-body']");
+    let element = document.body.querySelector("[data-module='contents-list-with-body']");
     if (element) {
         new ContentsListWithBody(element).init();
     }
