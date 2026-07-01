@@ -55,10 +55,12 @@ public static partial class CustomHtmlHelpers
         var urlHelperFactory = htmlHelper.ViewContext.HttpContext.RequestServices.GetRequiredService<IUrlHelperFactory>();
         var urlHelper = urlHelperFactory.GetUrlHelper(htmlHelper.ViewContext);
         var builder = new StringBuilder();
-        foreach (var script in scripts.Where(s => s.Value.Position == position))
+        foreach (var script in scripts
+                     .Where(s => s.Value.Position == position)
+                     .Select(s => s.Value))
         {
-            var url = urlHelper.Content(script.Value.Source);
-            builder.AppendLine($"<script src=\"{url}\"{(script.Value.Defer ? " defer" : null)}{(script.Value.Asynchronous ? " async" : null)}></script>");
+            var url = urlHelper.Content(script.Source);
+            builder.AppendLine($"<script src=\"{url}\"{(script.Defer ? " defer" : null)}{(script.Asynchronous ? " async" : null)}></script>");
         }
 
         return new HtmlString(builder.ToString());

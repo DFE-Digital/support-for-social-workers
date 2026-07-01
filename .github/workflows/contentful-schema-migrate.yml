@@ -60,7 +60,7 @@ jobs:
 
       - name: Extract migration files from archive
         working-directory: ./Contentful-Schema/migrations
-        run: rm *.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
+        run: rm ./*.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
 
       - name: Verify migration files against manifest
         working-directory: ./Contentful-Schema/utils
@@ -122,7 +122,7 @@ jobs:
 
       - name: Extract migration files from archive
         working-directory: ./Contentful-Schema/migrations
-        run: rm *.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
+        run: rm ./*.cjs && rm manifest.txt && tar -zxf migrations.tar.gz && rm migrations.tar.gz
 
       - name: Run migration script ${{ matrix.value }}
         working-directory: ./Contentful-Schema/migrations
