@@ -69,7 +69,7 @@ public class ContentControllerTests
         var actual = await _contentController.Index("home");
 
         // assert
-        actual.Should().BeOfType<BadRequestResult>();
+        actual.Should().BeOfType<NotFoundResult>();
     }
 
     [Test]
