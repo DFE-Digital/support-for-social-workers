@@ -145,10 +145,8 @@ ContentsListWithBody.prototype.updateVisibility = function () {
        
         if (isPastEnd) {
             // At document bottom: hide sticky, show static
-            this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
-            this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-            if (this.staticElement) this.staticElement.style.display = ""; // default of visible
-            this.hidden = true;
+            this.hide();
+            if (this.staticElement) this.staticElement.style.display = ""; // default of visible            
         } else {
             this.show(); // In the middle of the page: show sticky, hide static           
         }
