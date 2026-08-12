@@ -143,15 +143,13 @@ ContentsListWithBody.prototype.updateVisibility = function () {
     if (isPastStart) {
         let isPastEnd = this.stopPosition < this.windowVerticalPosition;
        
-        if (isPastEnd) {
-            // At document bottom: hide sticky, show static
+        if (isPastEnd) {            
             this.hide();
-            if (this.staticElement) this.staticElement.style.display = ""; // default of visible            
+            if (this.staticElement) this.staticElement.style.display = "";    
         } else {
-            this.show(); // In the middle of the page: show sticky, hide static           
+            this.show();    
         }
-    }
-    else {
+    } else {
         this.hide();        
     }
 };
