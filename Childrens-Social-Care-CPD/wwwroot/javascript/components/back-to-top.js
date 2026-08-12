@@ -142,26 +142,30 @@ ContentsListWithBody.prototype.updateVisibility = function () {
     let isPastStart = this.startPosition < this.windowVerticalPosition;
     if (isPastStart) {
         let isPastEnd = this.stopPosition < this.windowVerticalPosition;
-        if (isPastEnd) {
+       
+        if (isPastEnd) {            
             this.hide();
+            if (this.staticElement) this.staticElement.style.display = "";    
         } else {
-            this.show();
+            this.show();    
         }
     } else {
-        this.hide();
-}
+        this.hide();        
+    }
 };
 
 ContentsListWithBody.prototype.hide = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.hidden = true;
+    if (this.staticElement) this.staticElement.style.display = "none";
 };
 
 ContentsListWithBody.prototype.show = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
     this.hidden = false;
+    if (this.staticElement) this.staticElement.style.display = "none";
 };
 
 ContentsListWithBody.prototype.destroy = function () {
