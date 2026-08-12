@@ -150,14 +150,11 @@ ContentsListWithBody.prototype.updateVisibility = function () {
             if (this.staticElement) this.staticElement.style.display = ""; // default of visible
             this.hidden = true;
         } else {
-            // In the middle of the page: show sticky, hide static
-            this.show();
-            if (this.staticElement) this.staticElement.style.display = "none";
+            this.show(); // In the middle of the page: show sticky, hide static           
         }
     }
     else {
-        this.hide();
-        if (this.staticElement) this.staticElement.style.display = "none";
+        this.hide();        
     }
 };
 
@@ -165,12 +162,14 @@ ContentsListWithBody.prototype.hide = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.hidden = true;
+    if (this.staticElement) this.staticElement.style.display = "none";
 };
 
 ContentsListWithBody.prototype.show = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
     this.hidden = false;
+    if (this.staticElement) this.staticElement.style.display = "none";
 };
 
 ContentsListWithBody.prototype.destroy = function () {
