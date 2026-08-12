@@ -142,14 +142,23 @@ ContentsListWithBody.prototype.updateVisibility = function () {
     let isPastStart = this.startPosition < this.windowVerticalPosition;
     if (isPastStart) {
         let isPastEnd = this.stopPosition < this.windowVerticalPosition;
+       
         if (isPastEnd) {
-            this.hide();
+            // At document bottom: hide sticky, show static
+            this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
+            this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
+            if (this.staticElement) this.staticElement.style.display = ""; // default of visible
+            this.hidden = true;
         } else {
+            // In the middle of the page: show sticky, hide static
             this.show();
+            if (this.staticElement) this.staticElement.style.display = "none";
         }
-    } else {
+    }
+    else {
         this.hide();
-}
+        if (this.staticElement) this.staticElement.style.display = "none";
+    }
 };
 
 ContentsListWithBody.prototype.hide = function () {
