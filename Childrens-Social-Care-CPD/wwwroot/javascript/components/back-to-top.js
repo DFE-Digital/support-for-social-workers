@@ -145,27 +145,37 @@ ContentsListWithBody.prototype.updateVisibility = function () {
        
         if (isPastEnd) {            
             this.hide();
-            if (this.staticElement) this.staticElement.style.display = "";    
+            if (this.staticElement) {
+                this.staticElement.classList.remove("gem-c-contents-list-with-body__static-element--hidden");
+                this.staticElement.classList.add("gem-c-contents-list-with-body__static-element--shown");
+            }    
         } else {
-            this.show();    
+            this.show();            
         }
     } else {
-        this.hide();        
+        this.hide();
+        if (this.staticElement) {
+            this.staticElement.classList.add("gem-c-contents-list-with-body__static-element--hidden");
+            this.staticElement.classList.remove("gem-c-contents-list-with-body__static-element--shown");
+        }        
     }
-};
+};          
 
 ContentsListWithBody.prototype.hide = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-    this.hidden = true;
-    if (this.staticElement) this.staticElement.style.display = "none";
+    this.hidden = true;   
 };
 
 ContentsListWithBody.prototype.show = function () {
     this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
     this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
-    this.hidden = false;
-    if (this.staticElement) this.staticElement.style.display = "none";
+    this.hidden = false;   
+
+    if (this.staticElement) {
+        this.staticElement.classList.add("gem-c-contents-list-with-body__static-element--hidden");
+        this.staticElement.classList.remove("gem-c-contents-list-with-body__static-element--shown");
+    }
 };
 
 ContentsListWithBody.prototype.destroy = function () {

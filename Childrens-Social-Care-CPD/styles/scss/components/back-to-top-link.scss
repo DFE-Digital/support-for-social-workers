@@ -74,6 +74,18 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
     pointer-events: none
 }
 
+.gem-c-contents-list-with-body__static-element--hidden {
+    position: absolute;
+    left: -9999px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.gem-c-contents-list-with-body__static-element--shown {
+    position: static;
+    opacity: 1;
+}
+
 .gem-c-contents-list-with-body__link-container {
     padding-left: 15px;
 }
