@@ -171,13 +171,11 @@ ContentsListWithBody.prototype.toggleSticky = function (isShown) {
     this.hidden = !isShown;
 };
 
-ContentsListWithBody.prototype.toggleStatic = function (isShown) {
-    if (this.staticElement) {
-        const PREFIX = "gem-c-contents-list-with-body__static-element";
-        this.staticElement.classList.toggle(`${PREFIX}--shown`, isShown);
-        this.staticElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
-        this.hidden = !isShown
-    }
+ContentsListWithBody.prototype.toggleStatic = function (isShown) { 
+    const PREFIX = "gem-c-contents-list-with-body__static-element";
+    this.staticElement.classList.toggle(`${PREFIX}--shown`, isShown);
+    this.staticElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
+    this.hidden = !isShown  
 };   
 
 ContentsListWithBody.prototype.destroy = function () {
