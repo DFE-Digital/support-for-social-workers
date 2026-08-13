@@ -143,40 +143,42 @@ ContentsListWithBody.prototype.updateVisibility = function () {
     if (isPastStart) {
         let isPastEnd = this.stopPosition < this.windowVerticalPosition;
        
-        if (isPastEnd) {            
+        if (isPastEnd) {
             this.hide();
-            if (this.staticElement) {
-                this.staticElement.classList.remove("gem-c-contents-list-with-body__static-element--hidden");
-                this.staticElement.classList.add("gem-c-contents-list-with-body__static-element--shown");
-            }    
+            this.toggleStatic(true);          
         } else {
             this.show();            
         }
     } else {
-        this.hide();
-        if (this.staticElement) {
-            this.staticElement.classList.add("gem-c-contents-list-with-body__static-element--hidden");
-            this.staticElement.classList.remove("gem-c-contents-list-with-body__static-element--shown");
-        }        
+        this.hide();    
+        this.toggleStatic(false);          
     }
 };          
 
 ContentsListWithBody.prototype.hide = function () {
-    this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--hidden");
-    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-    this.hidden = true;   
+    this.toggleSticky(false);
 };
 
 ContentsListWithBody.prototype.show = function () {
-    this.stickyElement.classList.add("gem-c-contents-list-with-body__sticky-element--stuck-to-window");
-    this.stickyElement.classList.remove("gem-c-contents-list-with-body__sticky-element--hidden");
-    this.hidden = false;   
-
-    if (this.staticElement) {
-        this.staticElement.classList.add("gem-c-contents-list-with-body__static-element--hidden");
-        this.staticElement.classList.remove("gem-c-contents-list-with-body__static-element--shown");
-    }
+    this.toggleSticky(true);       
+    this.toggleStatic(false);  
 };
+
+ContentsListWithBody.prototype.toggleSticky = function (isShown) {
+    const PREFIX = "gem-c-contents-list-with-body__sticky-element";
+    this.stickyElement.classList.toggle(`${PREFIX}--stuck-to-window`, isShown);
+    this.stickyElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
+    this.hidden = !isShown;
+};
+
+ContentsListWithBody.prototype.toggleStatic = function (isShown) {
+    if (this.staticElement) {
+        const PREFIX = "gem-c-contents-list-with-body__static-element";
+        this.staticElement.classList.toggle(`${PREFIX}--shown`, isShown);
+        this.staticElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
+        this.hidden = !isShown
+    }
+};   
 
 ContentsListWithBody.prototype.destroy = function () {
     this.stickyElement.remove();
