@@ -150,8 +150,7 @@ ContentsListWithBody.prototype.updateVisibility = function () {
             this.show();            
         }
     } else {
-        this.hide();    
-        this.toggleStatic(false);          
+        this.hide();         
     }
 };          
 
@@ -176,7 +175,12 @@ ContentsListWithBody.prototype.toggleStatic = function (isShown) {
     this.staticElement.classList.toggle(`${PREFIX}--shown`, isShown);
     this.staticElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
     this.staticElement.hidden = !isShown  
-    this.staticElement.inert = !isShown;    
+    if (isShown) {
+        this.staticElement.removeAttribute("inert");
+    }
+    else {
+        this.staticElement.setAttribute("inert","");
+    }
 };
 
 ContentsListWithBody.prototype.destroy = function () {
