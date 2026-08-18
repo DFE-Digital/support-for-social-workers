@@ -76,7 +76,7 @@ div.gem-c-contents-list-with-body__sticky-element--stuck-to-window div.app-back-
 
 .gem-c-contents-list-with-body__static-element--hidden {
     opacity: 0;
-    transition: opacity 0.3s ease, visibility 0s linear 0.3s;
+    transition: opacity 0.3s ease;
 }
 
 .gem-c-contents-list-with-body__static-element--shown {
