@@ -168,15 +168,16 @@ ContentsListWithBody.prototype.toggleSticky = function (isShown) {
     const PREFIX = "gem-c-contents-list-with-body__sticky-element";
     this.stickyElement.classList.toggle(`${PREFIX}--stuck-to-window`, isShown);
     this.stickyElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
-    this.hidden = !isShown;
+    this.stickyElement.hidden = !isShown;
 };
 
 ContentsListWithBody.prototype.toggleStatic = function (isShown) { 
     const PREFIX = "gem-c-contents-list-with-body__static-element";
     this.staticElement.classList.toggle(`${PREFIX}--shown`, isShown);
     this.staticElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
-    this.hidden = !isShown  
-};   
+    this.staticElement.hidden = !isShown  
+    this.staticElement.inert = !isShown;    
+};
 
 ContentsListWithBody.prototype.destroy = function () {
     this.stickyElement.remove();
