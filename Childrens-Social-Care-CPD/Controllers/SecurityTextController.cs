@@ -7,6 +7,7 @@ namespace Childrens_Social_Care_CPD.Controllers
     {
         [HttpGet("security.txt")]
         [HttpGet(".well-known/security.txt")]
+        [Route("SecurityText")]
         public IActionResult GetSecurityText()
         {         
            
