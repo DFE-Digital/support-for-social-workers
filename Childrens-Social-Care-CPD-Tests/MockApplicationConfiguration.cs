@@ -29,6 +29,7 @@ public class MockApplicationConfiguration : IApplicationConfiguration
     public string _azureStorageAccount = null;
     public string _azureStorageAccountUriFormatString = null;
     public string _pathwaysIndexPage = null;
+    public string _securityTxtUrl = null;
 
     public string AppInsightsConnectionString => _appInsightsConnectionString;
     public string AppVersion => _appVersion;
@@ -56,6 +57,7 @@ public class MockApplicationConfiguration : IApplicationConfiguration
     public string AzureStorageAccount => _azureStorageAccount;
     public string AzureStorageAccountUriFormatString => _azureStorageAccountUriFormatString;
     public string PathwaysIndexPage => _pathwaysIndexPage;
+    public string SecurityTxtUrl => _securityTxtUrl;
 
     public void SetAllValid(string value = "foo")
     {
@@ -82,5 +84,6 @@ public class MockApplicationConfiguration : IApplicationConfiguration
         _azureStorageAccount = value;
         _azureStorageAccountUriFormatString = value;
         _pathwaysIndexPage = value;
+        _securityTxtUrl= value;
     }
 }

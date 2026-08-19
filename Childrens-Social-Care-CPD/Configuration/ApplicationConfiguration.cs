@@ -22,4 +22,5 @@ public class ApplicationConfiguration(IConfiguration configuration) : IApplicati
     public string SearchApiKey => configuration["CPD_SEARCH_CLIENT_API_KEY"];
     public string SearchEndpoint => configuration["CPD_SEARCH_ENDPOINT"];
     public string SearchIndexName => configuration["CPD_SEARCH_INDEX_NAME"];
+    public string SecurityTxtUrl => "https://vdp.security.education.gov.uk/.well-known/security.txt";
 }

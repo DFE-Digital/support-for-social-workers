@@ -55,5 +55,8 @@ public interface IApplicationConfiguration
     string GoogleTagManagerKey { get; }
     [RequiredForEnvironment(ApplicationEnvironment.All, Hidden = false)]
     string PathwaysIndexPage { get; }
+    
+    [RequiredForEnvironment(ApplicationEnvironment.All, Hidden = false)]
+    string SecurityTxtUrl { get; }
 
 }
