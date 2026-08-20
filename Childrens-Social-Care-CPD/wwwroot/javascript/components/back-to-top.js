@@ -150,8 +150,7 @@ ContentsListWithBody.prototype.updateVisibility = function () {
             this.show();            
         }
     } else {
-        this.hide();    
-        this.toggleStatic(false);          
+        this.hide();         
     }
 };          
 
@@ -168,15 +167,21 @@ ContentsListWithBody.prototype.toggleSticky = function (isShown) {
     const PREFIX = "gem-c-contents-list-with-body__sticky-element";
     this.stickyElement.classList.toggle(`${PREFIX}--stuck-to-window`, isShown);
     this.stickyElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
-    this.hidden = !isShown;
+    this.stickyElement.hidden = !isShown;
 };
 
 ContentsListWithBody.prototype.toggleStatic = function (isShown) { 
     const PREFIX = "gem-c-contents-list-with-body__static-element";
     this.staticElement.classList.toggle(`${PREFIX}--shown`, isShown);
     this.staticElement.classList.toggle(`${PREFIX}--hidden`, !isShown);
-    this.hidden = !isShown  
-};   
+    this.staticElement.hidden = !isShown  
+    if (isShown) {
+        this.staticElement.removeAttribute("inert");
+    }
+    else {
+        this.staticElement.setAttribute("inert","");
+    }
+};
 
 ContentsListWithBody.prototype.destroy = function () {
     this.stickyElement.remove();
